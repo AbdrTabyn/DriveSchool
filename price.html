@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Категории прав и цены на обучение в автошколе Drive School.">
+    <meta name="author" content="Abdurrakhim Yestaiuly">
+    <title>Категории и цены — Drive School</title>
+</head>
+<body>
+<header>
+    <h1>Автошкола Drive School</h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="prices.html">Категории и цены</a></li>
+        <li><a href="schedule.html">Расписание занятий</a></li>
+        <li><a href="about.html">Об автошколе</a></li>
+        <li><a href="instructors.html">Инструкторы</a></li>
+        <li><a href="fleet.html">Автопарк</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+        <li><a href="colophon.html">Как сделан сайт</a></li>
+    </ul>
+</nav>
+<main>
+    <h2>Категории и цены</h2>
+    <table>
+        <caption>Стоимость обучения по категориям</caption>
+        <thead>
+        <tr>
+            <th scope="col">Категория</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>B</td>
+            <td>Легковой автомобиль</td>
+            <td>80000 тг</td>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>Мотоцикл</td>
+            <td>50000 тг</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>Грузовой автомобиль</td>
+            <td>100000 тг</td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Этапы обучения</h3>
+    <ol start="1">
+        <li>Теоретический курс (ПДД)</li>
+        <li>Практическое вождение на автодроме</li>
+        <li>Вождение в городе</li>
+        <li>Внутренний экзамен</li>
+    </ol>
+    <h3>Форма записи на пробный урок</h3>
+    <!-- Форма пока никуда не отправляет данные - нет сервера, обработка появится позже в курсе -->
+    <form method="post" action="#">
+        <fieldset>
+            <legend>Запись на пробный урок</legend>
+
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" placeholder="Ваше имя" required><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required><br>
+            <label for="phone">Телефон:</label>
+            <input type="tel" id="phone" name="phone" placeholder="+7 700 000 00 00"><br>
+            <label for="date">Желаемая дата:</label>
+            <input type="date" id="date" name="date"><br>
+            <input type="number" id="hours" name="hours" min="1" max="40"><br>
+            <label for="category">Категория прав:</label>
+            <select id="category" name="category">
+                <option value="B">B</option>
+                <option value="A">A</option>
+                <option value="C">C</option>
+            </select><br>
+            <fieldset>
+                <legend>Тип занятия</legend>
+                <input type="radio" id="theory" name="lesson-type" value="theory">
+                <label for="theory">Теория</label>
+                <input type="radio" id="practice" name="lesson-type" value="practice">
+                <label for="practice">Практика</label>
+            </fieldset>
+            <label for="consent">
+                <input type="checkbox" id="consent" name="consent" required>
+                Согласен(на) на обработку данных
+            </label><br>
+            <label for="comment">Комментарий:</label><br>
+            <textarea id="comment" name="comment" placeholder="Дополнительная информация"></textarea><br>
+
+            <button type="submit">Записаться</button>
+            <button type="reset">Очистить</button>
+        </fieldset>
+    </form>
+</main>
+<footer>
+    <p>&copy; 2026 Drive School</p>
+</footer>
+</body>
+</html>
