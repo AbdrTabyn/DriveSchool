@@ -25,8 +25,9 @@
     </ul>
 </nav>
 <main>
+    <!-- table используется здесь, а не список, потому что характеристики машин удобнее сравнивать построчно -->
     <h2 id="fleet-top">Наш автопарк</h2>
-
+ 
     <table>
         <caption>Учебные автомобили</caption>
         <thead>
@@ -49,26 +50,29 @@
             </tr>
         </tbody>
     </table>
-
+ 
+    <!-- figure с figcaption используется для каждого фото, чтобы подпись была семантически привязана именно к своей картинке -->
     <section id="photos">
+        <h3>Фотографии автопарка</h3>
+ 
         <figure>
             <img src="images/шевроле.jpg" alt="Учебный автомобиль Chevrolet на парковке автошколы"  width="300" height="300">
             <figcaption>Chevrolet</figcaption>
         </figure>
         <figure>
             <img src="images/машина.jpg" alt="Салон учебного автомобиля с двойным управлением" width="300" height="300">
-            <figcaption>Hyundai(Tucson)</figcaption>
+            <figcaption>Hyundai (Tucson)</figcaption>
         </figure>
         <figure>
-            <img src="images/мазда.jpg" alt="Учебный автомобиль Chevrole во время занятия на автодроме" width="300" height="300">
+            <img src="images/мазда.jpg" alt="Учебный автомобиль Mazda во время занятия на автодроме" width="300" height="300">
             <figcaption>Mazda</figcaption>
         </figure>
     </section>
-
+ 
     <p>
         <a href="https://2gis.kz/astana/geo/70000001102236034" target="_blank" rel="noopener">Мы в 2ГИС</a>
     </p>
-
+ 
     <p><a href="#photos">К списку машин</a> &middot; <a href="#fleet-top">Наверх</a></p>
 </main>
 <footer>
