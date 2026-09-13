@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Контакты автошколы Drive School: адрес, телефон, email.">
+    <meta name="author" content="Adilbek Nurasyl">
+    <title>Контакты — Drive School</title>
+</head>
+<body>
+<!-- Имя автора страницы: Adilbek Nurasyl -->
+
+<header>
+    <h1>Автошкола Drive School</h1>
+</header>
+
+<!-- div вокруг блока карты не используется: сама карта пока просто ссылка-текст без скриптов, отдельный контейнер ей не нужен -->
+<nav>
+    <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="prices.html">Категории и цены</a></li>
+        <li><a href="schedule.html">Расписание занятий</a></li>
+        <li><a href="about.html">Об автошколе</a></li>
+        <li><a href="instructors.html">Инструкторы</a></li>
+        <li><a href="fleet.html">Автопарк</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+        <li><a href="colophon.html">Как сделан сайт</a></li>
+    </ul>
+</nav>
+
+<main>
+    <h2>Контакты</h2>
+
+    <article>
+        <p>Адрес: улица Кажымукан, 8<br>
+        Телефон: <a href="tel:+77000000000">+7 700 000 00 00</a><br>
+        Email: <a href="mailto:info@driveschool.kz">info@driveschool.kz</a></p>
+
+        <p>Мы работаем <strong>ежедневно</strong>, кроме воскресенья. <em>Звонки принимаются</em> с 9:00 до 19:00.</p>
+        <p><b>Адрес филиала уточняется</b> — сейчас доступен <i>только один учебный класс</i>.</p>
+    </article>
+
+    <aside>
+        <p><small>Совет: если не дозвонились с первого раза — напишите на email, отвечаем в течение дня<sup>*</sup>.</small></p>
+    </aside>
+
+    <section>
+        <h3>Как нас найти</h3>
+        <dl>
+            <dt>Учебный класс</dt>
+            <dd>Место проведения теоретических занятий.</dd>
+            <dt>Автодром</dt>
+            <dd>Отдельная площадка, адрес выдаётся при записи.</dd>
+        </dl>
+
+        <ol type="1">
+            <li>Выйти на ближайшей остановке
+                <ul>
+                    <li>Автобусы: Семейный Спортивный Центр SANA SPORT</li>
+                    <li>Ориентир: напротив SANA SPORT </li>
+                </ul>
+            </li>
+            <li>Пройти 220 метр до входа</li>
+        </ol>
+    </section>
+
+    <blockquote cite="">
+        <p>«Было не трудно найти, особенно с подсказками которые оставили менеджера»</p>
+    </blockquote>
+    <p>— Жаркынбек, ученик, из личной беседы, 21 июль</p>
+
+    <p>Как сказал один из учеников, <q>найти школу оказалось проще, чем я думал</q>.</p>
+
+    <hr>
+
+    <p>Мы работаем &laquo;с понедельника по субботу&raquo; &mdash; звоните заранее.</p>
+    <p>Приезжайте к нам &nbsp;&mdash;&nbsp; будем рады встрече.</p>
+
+    <section>
+        <h3>Заявка на консультацию</h3>
+        <!-- Форма пока никуда не отправляет данные - нет сервера, обработка появится позже в курсе -->
+        <form method="post" action="#">
+            <fieldset>
+                <legend>Расчёт стоимости обучения</legend>
+
+                <label for="c-name">Имя:</label>
+                <input type="text" id="c-name" name="name" placeholder="Ваше имя" required><br>
+
+                <label for="c-email">Email:</label>
+                <input type="email" id="c-email" name="email" placeholder="you@example.com" required><br>
+
+                <label for="c-phone">Телефон:</label>
+                <input type="tel" id="c-phone" name="phone" placeholder="+7 700 000 00 00"><br>
+
+                <label for="c-date">Удобная дата звонка:</label>
+                <input type="date" id="c-date" name="date"><br>
+
+                <label for="c-hours">Желаемое кол-во часов вождения:</label>
+                <input type="number" id="c-hours" name="hours" min="1" max="40"><br>
+
+                <label for="c-category">Категория прав:</label>
+                <select id="c-category" name="category">
+                    <option value="B">B</option>
+                    <option value="A">A</option>
+                    <option value="C">C</option>
+                </select><br>
+ <fieldset>
+                    <legend>Формат консультации</legend>
+                    <input type="radio" id="c-call" name="contact-type" value="call">
+                    <label for="c-call">Звонок</label>
+                    <input type="radio" id="c-visit" name="contact-type" value="visit">
+                    <label for="c-visit">Личный визит</label>
+                </fieldset>
+
+                <label for="c-agree">
+                    <input type="checkbox" id="c-agree" name="agree" required>
+                    Согласен(на) на обработку данных
+                </label><br>
+
+                <label for="c-comment">Комментарий:</label><br>
+                <textarea id="c-comment" name="comment" placeholder="Дополнительная информация"></textarea><br>
+
+                <button type="submit">Отправить</button>
+                <button type="reset">Очистить</button>
+            </fieldset>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Drive School</p>
+</footer>
+
+</body>
+</html>
