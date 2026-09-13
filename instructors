@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Инструкторы автошколы Drive School и их опыт работы.">
+    <meta name="author" content="Zharkynbek Orynbasar">
+    <title>Инструкторы — Drive School</title>
+</head>
+<body>
+<!-- Имя автора страницы: Zharkynbek Orynbasar -->
+
+<header>
+    <h1>Автошкола Drive School</h1>
+</header>
+
+э
+<nav>
+    <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="prices.html">Категории и цены</a></li>
+        <li><a href="schedule.html">Расписание занятий</a></li>
+        <li><a href="about.html">Об автошколе</a></li>
+        <li><a href="instructors.html">Инструкторы</a></li>
+        <li><a href="fleet.html">Автопарк</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+        <li><a href="colophon.html">Как сделан сайт</a></li>
+    </ul>
+</nav>
+
+<main>
+    <h2 id="instructors-top">Наши инструкторы</h2>
+
+    <section>
+        <article>
+            <figure>
+                <figcaption>Артықбаев Аман — стаж  10 лет</figcaption>
+            </figure>
+            <p><strong>Категории:</strong> <abbr title="Категория B — легковой автомобиль">B</abbr>, <abbr title="Категория A — мотоцикл">A</abbr></p>
+            <p><em>Стаж вождения — 10 лет. За это время помог обрести уверенность за рулём сотням учеников — от новичков до тех, кто давно не садился за руль. Знает город как свои пять пальцев и умеет находить подход к каждому.</em></p>
+            <p><small>Работает в школе с 2016.</small></p>
+        </article>
+
+        <article>
+            <figure>
+                <figcaption>Жақсыбай Бекзат — стаж 7 лет</figcaption>
+            </figure>
+            <p><b>Категории:</b> B, C</p>
+            <p><i>Стаж работы инструктором — 7 лет. Специализируется на обучении с нуля, помогает быстро справиться с волнением и уверенно подготовиться к сдаче экзамена на права.</i></p>
+            <p><small>Работает в школе с 2019.</small></p>
+        </article>
+    </section>
+
+    <h3 id="training-steps">Как строится обучение</h3>
+    <ol type="A">
+        <li>Знакомство с инструктором и автомобилем
+            <ul>
+                <li>Проверка документов</li>
+                <li>Инструктаж по технике безопасности</li>
+            </ul>
+        </li>
+        <li>Отработка базовых манёвров</li>
+        <li>Вождение в сложных условиях</li>
+    </ol>
+
+    <table>
+        <caption>Загруженность инструкторов по дням недели</caption>
+        <thead>
+            <tr>
+                <th scope="col">Инструктор</th>
+                <th scope="col">Свободные дни</th>
+                <th scope="col">Категории</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Артықбаев Аман</td>
+                <td>Пн, Ср, Пт</td>
+                <td>B, A</td>
+            </tr>
+            <tr>
+                <td>Жақсыбай Бекзат</td>
+                <td>Вт, Чт, Сб</td>
+                <td>B, C</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <blockquote cite=""><p>«Уроки проходят хорошо и на позитиве. Инструктора добрые и всегда стараются помочь»</p> 
+    </blockquote>
+    <p>— Abdurrakhim Yestaiuly, ученик, из личной беседы, 9.09.2026</p>
+
+    <p>Один из учеников отметил, что <q>инструктор объяснял спокойно и подробно</q>.</p>
+
+    <hr>
+
+    <p>Записаться к конкретному инструктору можно по <a href="mailto:info@driveschool.kz">почте</a> или <a href="tel:+77000000000">телефону</a>.<br>
+    Инструкторы работают &laquo;по предварительной записи&raquo; &mdash; свободные слоты уточняйте заранее.</p>
+
+    <p><a href="https://2gis.kz/astana/geo/70000001102236034" target="_blank" rel="noopener">Наш адрес</a></p>
