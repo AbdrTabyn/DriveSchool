@@ -1,0 +1,207 @@
+/* Flex */
+
+.instructors-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 24px 0;
+}
+
+.instructors-card{
+    flex: 1 1 280px;
+    background-color:white ;
+    border: 1px solid #d6e0f0;
+    border-radius: 8px;
+    padding: 16px;
+    transition: box-shadow 0.2s ease;
+
+}
+
+.instructors-card:hover {
+    box-shadow: 0 4px 12px rgba(15, 31, 61, 0.15);
+
+}
+
+.instructor-photo img{
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+/*Grid*/
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3,minmax(180px,1fr));
+    gap:16px;
+    list-style: none;
+    margin: 24px 0;
+    padding:0;
+}
+
+.step{
+    background-color: white;
+    border:1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.step-wide{
+    grid-column: span 2;
+}
+
+/*relative*/
+.instructor-photo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+/*absolute*/
+.badge{
+    position: absolute;
+    top: 0;
+    right: 60px;
+    background-color: #2f6fed;
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/*fixed*/
+.feedback{
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #0f1f3d;
+    color: white;
+
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 24px;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+
+}
+
+.feedback:hover{
+    background-color: #2f6fed;
+}
+
+/*float*/
+.floated{
+    float: left;
+    width: 250px;
+    margin: 0 20px 10px 0;
+
+}
+
+.floated img {
+    width: 100%;
+    border-radius: 6px;
+
+}
+
+.floated figcaption {
+    font-size: 0.85rem;
+    color: #0f1f3d;
+    text-align: center;
+    margin-top: 4px;
+}
+
+.float{
+    clear: both;
+    overflow: auto;
+}
+
+.history {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+/*grid center*/
+.block{
+    display: grid;
+    place-items:center;
+    padding: 20px 0;
+
+}
+
+.block pre {
+    background-color: #0f1f3d;
+    padding: 16px 24px;
+    border-radius: 8px;
+}
+
+/* ===== Type selector — выбирает все <blockquote> на странице ===== */
+blockquote {
+    border-left: 4px solid #2f6fed;
+    padding: 8px 16px;
+    font-style: italic;
+    background-color: white;
+}
+
+/* ===== ID selector — уникальный элемент на странице, здесь заголовок
+   "Как строится обучение"; id уместен, потому что на страницу ведёт
+   якорная ссылка (#training-steps) именно на этот конкретный заголовок,
+   а не на класс элементов ===== */
+#training-steps {
+    margin-top: 40px;
+}
+
+/* ===== Descendant selector — выбирает любой <img>, находящийся ГДЕ
+   УГОДНО внутри .instructor-card (не обязательно прямой потомок) ===== */
+.instructor-card img {
+    display: block;
+}
+
+/* ===== Child selector (>) — выбирает только <li>, которые являются
+   ПРЯМЫМИ детьми .steps, не затрагивая вложенные <li> внутри <ul> ===== */
+.steps > li {
+    list-style: none;
+}
+
+/* ===== Adjacent sibling selector (+) — выбирает <p>, идущий сразу
+   после <blockquote> (подпись автора цитаты сразу под самой цитатой) ===== */
+blockquote + p {
+    text-align: right;
+    font-size: 0.9rem;
+    color: #0f1f3d;
+}
+
+/* ===== Grouping selector — применяет один и тот же стиль сразу к
+   нескольким разным заголовкам одной командой ===== */
+h2, h3, h4 {
+    margin-bottom: 12px;
+}
+
+/* ===== Attribute selector — выбирает все ссылки, у которых href
+   начинается именно с "mailto:" (то есть email-ссылки) ===== */
+a[href^="mailto:"] {
+    font-weight: 600;
+}
+
+/* ===== Universal selector — сбрасывает лишние отступы у всех
+   элементов внутри .float-wrapper без исключения ===== */
+.floated * {
+    box-sizing: border-box;
+}
+
+/* ===== :focus уже есть в base.css (nav a:focus) ===== */
+
+/* ===== :nth-child — красит через одну строку в таблице загруженности
+   инструкторов для лучшей читаемости ===== */
+table tbody tr:nth-child(even) {
+    background-color: #f0f4fb;
+}
+
+/* ===== ::before — добавляет декоративную иконку перед каждым
+   заголовком h3 на страницах, чисто оформительский элемент ===== */
+h3::before {
+    content: "▸ ";
+    color: #2f6fed;
+}

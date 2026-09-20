@@ -6,6 +6,16 @@
     <meta name="description" content="Категории прав и цены на обучение в автошколе Drive School.">
     <meta name="author" content="Abdurrakhim Yestaiuly">
     <title>Категории и цены — Drive School</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/abdurrakhim.css">
+    <!-- ЕДИНСТВЕННЫЙ внутренний style-блок на весь проект: показываем, что
+         внутренний style, подключённый после внешних файлов, перебивает их
+         при равной специфичности (тот же .price-highlight) — источник побеждает по порядку -->
+    <style>
+        .price-highlight {
+            background-color: rgba(46, 125, 88, 0.2);
+        }
+    </style>
 </head>
 <body>
 <!-- Abdurrakhim Yestaiuly -->
@@ -13,7 +23,7 @@
     <h1>Автошкола Drive School</h1>
 </header>
 <nav>
- 
+
     <ul>
         <li><a href="index.html">Главная</a></li>
         <li><a href="price.html">Категории и цены</a></li>
@@ -27,9 +37,9 @@
 </nav>
 <main>
     <h2>Категории и цены</h2>
- 
+
     <!-- Используем table, а не список, потому что цены нужно сравнивать по категориям построчно — таблица нагляднее -->
-    <table>
+    <table class="price-table">
         <caption>Стоимость обучения по категориям</caption>
         <thead>
         <tr>
@@ -57,18 +67,18 @@
         </tbody>
     </table>
     <h3>Этапы обучения</h3>
-    <ol start="1">
-        <li>Теоретический курс (ПДД)</li>
-        <li>Практическое вождение на автодроме</li>
-        <li>Вождение в городе</li>
-        <li>Внутренний экзамен</li>
+    <ol class="steps-list" start="1">
+        <li class="step-card">Теоретический курс (ПДД)</li>
+        <li class="step-card">Практическое вождение на автодроме</li>
+        <li class="step-card">Вождение в городе</li>
+        <li class="step-card">Внутренний экзамен</li>
     </ol>
-    <h3>Форма записи на пробный урок</h3>
-    <!-- Разбиваем форму на два fieldset, чтобы отделить основные контактные данные от выбора типа занятия — так форма проще воспринимается -->
-    <form method="post" action="#">
-        <fieldset>
-            <legend>Запись на пробный урок</legend>
- 
+</main>
+<aside class="trial-form">
+        <!-- id уместен: #trial-form встречается один раз на странице, это единственная форма -->
+    <h3 class="form-title">Запись на пробный урок</h3>
+    <form id="trial-form" method="post" action="#">
+        <fieldset class="form-panel">
             <label for="name">Имя:</label>
             <input type="text" id="name" name="name" placeholder="Ваше имя" required><br>
             <label for="email">Email:</label>
@@ -83,12 +93,18 @@
                 <option value="A">A</option>
                 <option value="C">C</option>
             </select><br>
-            <fieldset>
-                <legend>Тип занятия</legend>
-                <input type="radio" id="theory" name="lesson-type" value="theory">
-                <label for="theory">Теория</label>
-                <input type="radio" id="practice" name="lesson-type" value="practice">
-                <label for="practice">Практика</label>
+            <fieldset class="radio-group">
+                <fieldset>
+                    <legend>Тип занятия</legend>
+                    <label for="theory">
+                        <input type="radio" id="theory" name="lesson-type" value="theory">
+                        Теория
+                    </label>
+                    <label for="practice">
+                        <input type="radio" id="practice" name="lesson-type" value="practice">
+                        Практика
+                    </label>
+                </fieldset>
             </fieldset>
             <label for="consent">
                 <input type="checkbox" id="consent" name="consent" required>
@@ -96,12 +112,12 @@
             </label><br>
             <label for="comment">Комментарий:</label><br>
             <textarea id="comment" name="comment" placeholder="Дополнительная информация"></textarea><br>
- 
-            <button type="submit">Записаться</button>
-            <button type="reset">Очистить</button>
+
+            <button type="submit" class="btn btn-primary">Записаться</button>
+            <button type="reset" class="btn btn-secondary" style="background-color: #999999;">Очистить</button>
         </fieldset>
     </form>
-</main>
+</aside>
 <footer>
     <p>Адрес: улица Кажымукан, 8 · <a href="tel:+7 771 424 8225">+7 771 424 8225</a> · <a href="info@avtomektep.kz">info@avtomektep.kz</a></p>
     <p>&copy; 2026 Drive School</p>

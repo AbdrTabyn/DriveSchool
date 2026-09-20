@@ -1,0 +1,283 @@
+/* ==========================================================================
+   PERSONAL STYLESHEET: Adilbek Nurasyl (Палитра «Электрик»)
+   ========================================================================== */
+
+/*
+   MARGIN COLLAPSE EXPLANATION (Объяснение схлопывания margin):
+   Верхний margin у h2 пытался схлопнуться с верхним margin родительского тега main.
+   Мы предотвратили это явление, задав у родителя main внутренний отступ padding-top: 30px.
+*/
+
+/* --------------------------------------------------------------------------
+   SELECTORS DEMONSTRATION
+   -------------------------------------------------------------------------- */
+
+/* 1. Type selector */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+/* 2. Child selector (>) */
+tbody > tr {
+    background-color: #ffffff;
+}
+
+/* 3. Adjacent sibling (+): выбирает p сразу после blockquote */
+blockquote + p {
+    font-style: italic;
+    color: #2f6fed;
+    margin-bottom: 15px;
+}
+
+/* 4. Attribute selector: форматирует текстовые инпуты */
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d6e0f0;
+    border-radius: 4px;
+    margin-top: 4px;
+    background-color: #ffffff;
+    color: #0f1f3d;
+}
+
+/* 5. Pseudo-class :first-child */
+tbody tr:first-child {
+    font-weight: bold;
+}
+
+/* 6. Pseudo-element ::before */
+legend::before {
+    content: "■ ";
+    color: #2f6fed;
+}
+
+/* --------------------------------------------------------------------------
+   CLASSES & IDS
+   Имена описывают смысл (.price-card, .data-table), а не внешний вид.
+   -------------------------------------------------------------------------- */
+
+/* Class 1: .data-table */
+.data-table th, .data-table td {
+    padding: 10px;
+    border: 1px solid #d6e0f0;
+    text-align: left;
+}
+
+/* Class 2: .table-header */
+.table-header {
+    background-color: #0f1f3d;
+    color: #ffffff;
+}
+
+/* Class 3: .photo-gallery (GRID LAYOUT)
+   WHY GRID SUITED BETTER: Сетка Grid идеально подходит для фотогалереи,
+   так как позволяет строго задавать колонки (repeat, minmax) и заставлять
+   элементы занимать определенное место (span).
+*/
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Grid item span demonstration */
+.photo-card-featured {
+    grid-column: span 1;
+}
+
+/* Class 4: .photo-card */
+.photo-card {
+    background: #f0f4fb;
+    border: 1px solid #d6e0f0;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.photo-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* Class 5: .contact-card (FLEXBOX CONTAINER WITH WRAP) */
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-left: 5px solid #2f6fed;
+    border-top: 1px solid #d6e0f0;
+    border-right: 1px solid #d6e0f0;
+    border-bottom: 1px solid #d6e0f0;
+    margin-bottom: 25px;
+}
+
+/* Class 6: .form-group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Class 7: .btn-primary */
+.btn-primary {
+    background-color: #2f6fed;
+    color: #ffffff;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #0f1f3d;
+}
+
+/* Class 8: .notice-box */
+.notice-box {
+    background: #f0f4fb;
+    padding: 12px;
+    border: 1px solid #d6e0f0;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+/* ID 1: #fleet-top
+   WHY ID: Единственная верхняя якорная точка страницы fleet.html для плавного скролла.
+*/
+#fleet-top {
+    scroll-behavior: smooth;
+}
+
+/* ID 2: #main-form-fieldset
+   WHY ID: Единственная главная форма расчета стоимости на странице контактов.
+*/
+#main-form-fieldset {
+    padding: 20px;
+    border: 1px solid #d6e0f0;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   SPECIFICITY EXPERIMENT (Эксперимент со специфичностью)
+   -------------------------------------------------------------------------- */
+
+/* Правило A: Specificity = 0, 0, 1, 0 (Селектор класса) */
+.fleet-caption {
+    color: #0f1f3d;
+}
+
+/* Правило B: Specificity = 0, 0, 1, 1 (Селектор тега + класса) -> ПОБЕЖДАЕТ!
+   Правило B побеждает, так как его специфичность (0,0,1,1) выше, чем (0,0,1,0).
+   Конфликт разрешен естественной специфичностью CSS без применения !important.
+*/
+figcaption.fleet-caption {
+    color: #0f1f3d;
+}
+
+/* --------------------------------------------------------------------------
+   POSITIONING, FLOAT & CENTERING DEMONSTRATIONS
+   -------------------------------------------------------------------------- */
+
+/* 1. POSITION: STATIC (Объяснено в комментарии)
+   Элементы отображаются по умолчанию в стандартном потоке документа.
+*/
+.static-example {
+    position: static;
+}
+
+/* 2. POSITION: RELATIVE (Служит контейнером для абсолютно позиционированного элемента) */
+.relative-container {
+    position: relative;
+    padding: 20px;
+    background: #f0f4fb;
+    border: 1px solid #d6e0f0;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+/* 3. POSITION: ABSOLUTE (Позиционируется в углу relative-container) */
+.badge-absolute {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: #2f6fed;
+    color: #ffffff;
+    padding: 2px 8px;
+    font-size: 11px;
+    border-radius: 3px;
+}
+
+/* 4. POSITION: FIXED (Фиксированная кнопка в углу экрана) */
+.fixed-back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #2f6fed;
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 12px;
+    box-shadow: 0 2px 5px rgba(15, 31, 61, 0.2);
+    z-index: 1000;
+}
+
+.fixed-back-to-top:hover {
+    background-color: #0f1f3d;
+}
+
+/* FLOAT DEMONSTRATION */
+.float-img {
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #d6e0f0;
+}
+
+/*
+   CLEAR EXPLANATION:
+   Если убрать clear: both (или clear: left), следующий нумерованный список <ol>
+   начнет подтягиваться вверх и обтекать картинку справа, ломая структуру страницы.
+*/
+.clearfix-after {
+    clear: both;
+}
+
+/* --------------------------------------------------------------------------
+   THREE CENTERING TECHNIQUES (Три способа центрирования)
+   -------------------------------------------------------------------------- */
+
+/* Центрирование 1: Margin Auto (для блочных элементов) */
+.center-margin {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Центрирование 2: Flexbox (выравнивание контента по центру) */
+.center-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Центрирование 3: Absolute positioning с transform */
+.center-absolute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Единственное разрешенное использование !important согласно заданию */
+.override-demo {
+    color: #0f1f3d !important; /* Разрешено 1 раз с обоснованием в комментарии */
+}
