@@ -6,122 +6,287 @@
     <meta name="description" content="Категории прав и цены на обучение в автошколе Drive School.">
     <meta name="author" content="Abdurrakhim Yestaiuly">
     <title>Категории и цены — Drive School</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Наш CSS подключается после Bootstrap -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/Abdurrakhim.css">
-    <!-- ЕДИНСТВЕННЫЙ внутренний style-блок на весь проект: показываем, что
-         внутренний style, подключённый после внешних файлов, перебивает их
-         при равной специфичности (тот же .price-highlight) — источник побеждает по порядку -->
-    <style>
-        .price-highlight {
-            background-color: rgba(46, 125, 88, 0.2);
-        }
-    </style>
 </head>
 <body>
+
 <!-- Abdurrakhim Yestaiuly -->
-<header>
-    <h1>Автошкола Drive School</h1>
-</header>
-<nav>
 
-    <ul>
-        <li><a href="index.html">Главная</a></li>
-        <li><a href="price.html">Категории и цены</a></li>
-        <li><a href="schedule.html">Расписание занятий</a></li>
-        <li><a href="about.html">Об автошколе</a></li>
-        <li><a href="instructors.html">Инструкторы</a></li>
-        <li><a href="fleet.html">Автопарк</a></li>
-        <li><a href="contacts.html">Контакты</a></li>
-        <li><a href="colophon.html">Как сделан сайт</a></li>
-    </ul>
+<!-- Bootstrap Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Drive School</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+                <li class="nav-item"><a class="nav-link active" href="price.html">Категории и цены</a></li>
+                <li class="nav-item"><a class="nav-link" href="schedule.html">Расписание</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">Об автошколе</a></li>
+                <li class="nav-item"><a class="nav-link" href="instructors.html">Инструкторы</a></li>
+                <li class="nav-item"><a class="nav-link" href="fleet.html">Автопарк</a></li>
+                <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+                <li class="nav-item"><a class="nav-link" href="colophon.html">Как сделан сайт</a></li>
+            </ul>
+        </div>
+    </div>
 </nav>
-<main>
-    <h2>Категории и цены</h2>
 
-    <!-- Используем table, а не список, потому что цены нужно сравнивать по категориям построчно — таблица нагляднее -->
-    <table class="price-table">
-        <caption>Стоимость обучения по категориям</caption>
-        <thead>
-        <tr>
-            <th scope="col">Категория</th>
-            <th scope="col">Описание</th>
-            <th scope="col">Цена</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>B</td>
-            <td>Легковой автомобиль</td>
-            <td>80000 тг</td>
-        </tr>
-        <tr>
-            <td>A</td>
-            <td>Мотоцикл</td>
-            <td>50000 тг</td>
-        </tr>
-        <tr>
-            <td>C</td>
-            <td>Грузовой автомобиль</td>
-            <td>100000 тг</td>
-        </tr>
-        </tbody>
-    </table>
-    <h3>Этапы обучения</h3>
-    <ol class="steps-list" start="1">
-        <li class="step-card">Теоретический курс (ПДД)</li>
-        <li class="step-card">Практическое вождение на автодроме</li>
-        <li class="step-card">Вождение в городе</li>
-        <li class="step-card">Внутренний экзамен</li>
-    </ol>
+<main class="container my-4">
+    <div class="row g-4">
+
+        <!-- Основной контент -->
+        <section class="col-12 col-lg-8">
+
+            <div class="bg-white p-4 rounded-3 border shadow-sm">
+
+                <h1 class="display-6 mb-4">
+                    Категории и цены
+                </h1>
+
+                <!-- Bootstrap Table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover align-middle">
+                        <caption>Стоимость обучения по категориям</caption>
+                        <thead class="table-primary">
+                        <tr>
+                            <th scope="col">Категория</th>
+                            <th scope="col">Тип транспорта</th>
+                            <th scope="col">Стоимость</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">B</th>
+                            <td>Легковые автомобили</td>
+                            <td>80 000 ₸</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">A</th>
+                            <td>Мотоциклы</td>
+                            <td>50 000 ₸</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">C</th>
+                            <td>Грузовые автомобили</td>
+                            <td>100 000 ₸</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="mt-4 mb-3">
+                    Этапы обучения
+                </h2>
+
+                <!-- Bootstrap Cards + responsive grid -->
+                <ol class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 ps-3">
+                    <li class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                Теоретический курс (ПДД)
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                Практическое вождение на автодроме
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                Вождение в городе
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                Внутренний экзамен
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+
+            </div>
+        </section>
+
+        <!-- Форма -->
+        <aside class="col-12 col-lg-4">
+            <div class="bg-white p-4 rounded-3 border shadow-sm">
+                <h2 class="mb-4">
+                    Запись на пробный урок
+                </h2>
+                <form id="trial-form" method="post" action="#">
+
+                    <fieldset>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">
+                                Имя:
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   id="name"
+                                   name="name"
+                                   placeholder="Ваше имя"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                Email:
+                            </label>
+
+                            <input type="email"
+                                   class="form-control"
+                                   id="email"
+                                   name="email"
+                                   placeholder="you@example.com"
+                                   required>
+                        </div>
+
+                        <!-- Nested Bootstrap row -->
+                        <div class="row g-2 mb-3">
+
+                            <div class="col-12 col-sm-6">
+                                <label for="phone" class="form-label">
+                                    Телефон:
+                                </label>
+
+                                <input type="tel"
+                                       class="form-control"
+                                       id="phone"
+                                       name="phone"
+                                       placeholder="+7 700 000 00 00">
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <label for="date" class="form-label">
+                                    Желаемая дата:
+                                </label>
+
+                                <input type="date"
+                                       class="form-control"
+                                       id="date"
+                                       name="date">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="category" class="form-label">
+                                Категория прав:
+                            </label>
+
+                            <select class="form-select"
+                                    id="category"
+                                    name="category">
+
+                                <option value="B">B</option>
+                                <option value="A">A</option>
+                                <option value="C">C</option>
+
+                            </select>
+                        </div>
+
+                        <fieldset class="border rounded-3 p-3 mb-3">
+
+                            <legend class="fs-6">
+                                Тип занятия
+                            </legend>
+
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       id="theory"
+                                       name="lesson-type"
+                                       value="theory">
+
+                                <label class="form-check-label" for="theory">
+                                    Теория
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       id="practice"
+                                       name="lesson-type"
+                                       value="practice">
+
+                                <label class="form-check-label" for="practice">
+                                    Практика
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-check mb-3">
+
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="consent"
+                                   name="consent"
+                                   required>
+
+                            <label class="form-check-label" for="consent">
+                                Согласен(на) на обработку данных
+                            </label>
+
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">
+                                Комментарий:
+                            </label>
+
+                            <textarea class="form-control"
+                                      id="comment"
+                                      name="comment"
+                                      rows="3"
+                                      placeholder="Дополнительная информация"></textarea>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Записаться
+                            </button>
+                            <button type="reset"
+                                    class="btn btn-outline-primary">
+                                Очистить
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </aside>
+    </div>
 </main>
-<aside class="trial-form">
 
-        <!-- id уместен: #trial-form встречается один раз на странице, это единственная форма -->
-    <h3 class="form-title">Запись на пробный урок</h3>
-    <form id="trial-form" method="post" action="#">
-        <fieldset class="form-panel">
-            <label for="name">Имя:</label>
-            <input type="text" id="name" name="name" placeholder="Ваше имя" required><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" required><br>
-            <label for="phone">Телефон:</label>
-            <input type="tel" id="phone" name="phone" placeholder="+7 700 000 00 00"><br>
-            <label for="date">Желаемая дата:</label>
-            <input type="date" id="date" name="date"><br>
-            <label for="category">Категория прав:</label>
-            <select id="category" name="category">
-                <option value="B">B</option>
-                <option value="A">A</option>
-                <option value="C">C</option>
-            </select><br>
-            <fieldset class="radio-group">
-                <fieldset>
-                    <legend>Тип занятия</legend>
-                    <label for="theory">
-                        <input type="radio" id="theory" name="lesson-type" value="theory">
-                        Теория
-                    </label>
-                    <label for="practice">
-                        <input type="radio" id="practice" name="lesson-type" value="practice">
-                        Практика
-                    </label>
-                </fieldset>
-            </fieldset>
-            <label for="consent">
-                <input type="checkbox" id="consent" name="consent" required>
-                Согласен(на) на обработку данных
-            </label><br>
-            <label for="comment">Комментарий:</label><br>
-            <textarea id="comment" name="comment" placeholder="Дополнительная информация"></textarea><br>
-
-            <button type="submit" class="btn btn-primary">Записаться</button>
-            <button type="reset" class="btn btn-secondary" style="background-color: #999999;">Очистить</button>
-        </fieldset>
-    </form>
-</aside>
-<footer>
-    <p>Адрес: улица Кажымукан, 8 · <a href="tel:+7 771 424 8225">+7 771 424 8225</a> · <a href="info@avtomektep.kz">info@avtomektep.kz</a></p>
-    <p>&copy; 2026 Drive School</p>
+<footer class="bg-dark text-white text-center py-3 mt-4">
+    <p class="mb-1">
+        Адрес: <a href="https://2gis.kz/astana/geo/70000001102236034" target="_blank" rel="noopener" class="text-white">улица Кажымукан, 8</a>
+        · <a href="tel:+77714248225" class="text-white">+7 771 424 8225</a>
+        · <a href="mailto:info@avtomektep.kz" class="text-white">info@avtomektep.kz</a>
+    </p>
+    <p class="mb-0 text-white-50">&copy; 2026 Drive School</p>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
