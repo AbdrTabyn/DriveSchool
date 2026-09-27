@@ -1,131 +1,48 @@
 /* =========================================================
-   ПАЛИТРА (максимум 5 цветов)
-   1. #2f6fed — ярко-синий, основной акцент (кнопки, hover, badge)
-   2. #0f1f3d — глубокий тёмно-синий, для шапки и футера
-   3. #ffffff (используется также как именованный цвет white ниже)
-      — белый для карточек
-   4. #f0f4fb — светлый голубоватый фон страницы
-   5. #d6e0f0 — голубовато-серая рамка/разделитель
+   BASE STYLESHEET — Bootstrap 5.3.3
+   Bootstrap handles reset, grid, spacing and components.
+   This file contains shared typography, colours and
+   sticky-footer behaviour.
+
+   PALETTE — maximum 5 colours:
+   #2f6fed — main blue
+   #0f1f3d — dark blue
+   #ffffff — white
+   #f0f4fb — page background
+   #d6e0f0 — borders/dividers
    ========================================================= */
 
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-/* sticky footer */
+/* Bootstrap Reboot already handles reset and box-sizing. */
+
 html {
     height: 100%;
 }
 
 body {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.6;
-    letter-spacing: 0.3px;
     color: #0f1f3d;
     background-color: #f0f4fb;
-    padding: 20px;
-}
-
-header,
-footer {
-    flex-shrink: 0;
 }
 
 main {
     flex: 1;
 }
 
-header {
+footer {
+    flex-shrink: 0;
     background-color: #0f1f3d;
     color: #ffffff;
-    padding: 20px 0;
-    text-align: center;
-    border-bottom: 4px solid #2f6fed;
-    margin-bottom: 20px;
 }
 
-header h1 {
+h2,
+h3 {
     font-family: 'Georgia', Times, serif;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    background-color: white; /* именованный цвет, требуемый заданием — тот же #ffffff из палитры, без добавления нового */
-    padding: 12px 20px;
-    border-radius: 6px;
-    border: 1px solid #d6e0f0;
-    margin-bottom: 30px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #0f1f3d;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 6px 10px;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-nav ul li a:hover,
-nav ul li a:focus {
-    background-color: #2f6fed;
-    color: #ffffff;
-    border-radius: 4px;
-    outline: none;
-}
-
-main {
-    max-width: 1000px;
-    margin: 0 auto 40px auto;
-    background-color: #ffffff;
-    padding: 30px;
-    border: 1px solid #d6e0f0;
-    border-radius: 8px;
-}
-
-h2, h3 {
-    font-family: 'Georgia', Times, serif;
-    color: #0f1f3d;
-    margin-bottom: 15px;
 }
 
 h2 {
-    font-size: 24px;
     border-bottom: 2px solid #d6e0f0;
     padding-bottom: 5px;
-}
-
-h3 {
-    font-size: 20px;
-}
-
-footer {
-    background-color: #0f1f3d;
-    color: #ffffff;
-    text-align: center;
-    padding: 20px;
-    font-size: 14px;
-    border-top: 3px solid #2f6fed;
-}
-
-footer a {
-    color: #2f6fed;
-    text-decoration: underline;
-}
-
-footer a:hover {
-    color: #ffffff;
 }
