@@ -4,30 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Автопарк — Drive School</title>
-       <!-- Bootstrap 5.3.3 -->
+    <!-- Bootstrap 5.3.3 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 
-    <!-- Свои стили ПОСЛЕ Bootstrap — чтобы наши правила перебивали его -->
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/nurasyl.css">
+    <!-- Свои стили ПОСЛЕ Bootstrap -->
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="nurasyl.css">
 </head>
 <body>
 
-<!-- Адаптивная шапка с гамбургер-меню для мобильных -->
+<!-- Адаптивная шапка с гамбургер-меню без JS -->
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4" href="index.html">Drive School</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+
+            <!-- Checkbox controls the menu -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+            <!-- Burger button -->
+            <label for="menu-toggle" class="navbar-toggler" aria-label="Открыть меню">
                 <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
+            </label>
+
+            <!-- Navigation -->
+            <div class="mobile-nav justify-content-end w-100">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link text-white-50" href="index.html">Главная</a></li>
-                    <li class="nav-item"><a class="nav-link text-white-50" href="prices.html">Категории и цены</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="price.html">Категории и цены</a></li>
                     <li class="nav-item"><a class="nav-link text-white-50" href="schedule.html">Расписание</a></li>
                     <li class="nav-item"><a class="nav-link text-white-50" href="about.html">Об автошколе</a></li>
-                    <li class="nav-item"><a class="nav-link text-white-50" href="instructors.html">Инструкторы</a></li>
+                    <li class="nav-item"><a class="nav-link text-white-50" href="instructor.html">Инструкторы</a></li>
                     <li class="nav-item"><a class="nav-link text-white active fw-bold" href="fleet.html">Автопарк</a></li>
                     <li class="nav-item"><a class="nav-link text-white-50" href="contacts.html">Контакты</a></li>
                     <li class="nav-item"><a class="nav-link text-white-50" href="colophon.html">Как сделан сайт</a></li>
@@ -74,7 +81,7 @@
     <div class="row g-4 mt-2 fs-6">
         <div class="col-md-6">
             <div class="card h-100 border-0 bg-light">
-                <img src="images/тойота.jpg" class="card-img-top img-fluid rounded ms-auto" alt="Mazda">
+                <img src="images/тойота.jpg" class="card-img-top img-fluid rounded ms-auto" alt="Toyota">
                 <div class="card-body text-center py-5 text-muted">
                     [Фотография Toyota]
                 </div>
@@ -82,7 +89,7 @@
         </div>
         <div class="col-md-6">
             <div class="card h-100 border-0 bg-light">
-                <img src="images/хонда.jpg" class="card-img-top img-fluid rounded" alt="Hyundai">
+                <img src="images/хонда.jpg" class="card-img-top img-fluid rounded" alt="Honda">
                 <div class="card-body text-center py-5 text-muted">
                     [Фотография Honda]
                 </div>
@@ -94,11 +101,9 @@
 <!-- Футер -->
 <footer class="py-3 text-center">
     <div class="container">
-        <p class="mb-0">Адрес: <a href="#" class="text-white">улица Кажымукан, 8</a> · <a href="tel:+77714248225" class="text-white">+7 771 424 8225</a> · <a href="mailto:info@avtomektep.kz" class="text-white">info@avtomektep.kz</a></p>
+        <p class="mb-0">Адрес: <a href="https://2gis.kz/astana/geo/70000001102236034" target="_blank" rel="noopener" class="text-white">улица Кажымукан, 8</a> · <a href="tel:+77714248225" class="text-white">+7 771 424 8225</a> · <a href="mailto:info@avtomektep.kz" class="text-white">info@avtomektep.kz</a></p>
     </div>
 </footer>
 
-<!-- Подключение Bootstrap JS для работы кнопки меню -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
