@@ -1,19 +1,17 @@
 /* =========================================================
-   BASE STYLESHEET — Bootstrap 5.3.3
-   Bootstrap handles reset, grid, spacing and components.
-   This file contains shared typography, colours and
-   sticky-footer behaviour.
+   BASE STYLESHEET — Drive School (Bootstrap 5.3.3)
+   Универсальный базовый слой для всех страниц проекта.
+   Bootstrap Reboot обрабатывает сброс стилей и box-sizing.
 
-   PALETTE — maximum 5 colours:
-   #2f6fed — main blue
-   #0f1f3d — dark blue
-   #ffffff — white
-   #f0f4fb — page background
-   #d6e0f0 — borders/dividers
+   ПАЛИТРА (максимум 5 цветов):
+   1. #2f6fed — основной акцент (яркий синий)
+   2. #0f1f3d — тёмно-синий (шапка, футер, контрастный текст)
+   3. #ffffff — белый (карточки, контейнеры)
+   4. #f0f4fb — светлый голубоватый фон страницы
+   5. #d6e0f0 — рамки и разделители
    ========================================================= */
 
-/* Bootstrap Reboot already handles reset and box-sizing. */
-
+/* 1. Настройка высоты и липкого футера (Sticky Footer) */
 html {
     height: 100%;
 }
@@ -31,12 +29,7 @@ main {
     flex: 1;
 }
 
-footer {
-    flex-shrink: 0;
-    background-color: #0f1f3d;
-    color: #ffffff;
-}
-
+/* 2. Общие стили заголовков */
 h2,
 h3 {
     font-family: 'Georgia', Times, serif;
@@ -45,4 +38,43 @@ h3 {
 h2 {
     border-bottom: 2px solid #d6e0f0;
     padding-bottom: 5px;
+}
+
+/* 3. Гармонизация палитры с компонентами Bootstrap */
+.bg-dark,
+.bg-brand-dark {
+    background-color: #0f1f3d !important;
+}
+
+footer {
+    flex-shrink: 0;
+    background-color: #0f1f3d;
+    color: #ffffff;
+}
+
+/* Адаптация основного акцентного цвета под Bootstrap primary */
+.btn-primary,
+.bg-primary,
+.badge.bg-primary {
+    background-color: #2f6fed !important;
+    border-color: #2f6fed !important;
+}
+
+.btn-outline-primary {
+    color: #2f6fed !important;
+    border-color: #2f6fed !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active {
+    background-color: #2f6fed !important;
+    color: #ffffff !important;
+}
+
+.text-primary {
+    color: #2f6fed !important;
+}
+
+.border-primary {
+    border-color: #2f6fed !important;
 }

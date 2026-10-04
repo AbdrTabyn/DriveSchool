@@ -9,7 +9,7 @@
 
     <!-- Bootstrap 5.3.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Наш CSS подключается после Bootstrap -->
+
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/Abdurrakhim.css">
 </head>
@@ -20,22 +20,49 @@
 <!-- Bootstrap Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="index.html">Drive School</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-                aria-controls="mainNav" aria-expanded="false" aria-label="Открыть меню">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <a class="navbar-brand fw-bold" href="index.html">
+            Drive School
+        </a>
 
-        <div class="collapse navbar-collapse" id="mainNav">
+        <!-- Checkbox controls the menu -->
+        <input type="checkbox"
+               id="menu-toggle"
+               class="menu-toggle">
+
+        <!-- Burger button -->
+        <label for="menu-toggle"
+               class="navbar-toggler"
+               aria-label="Открыть меню">
+            <span class="navbar-toggler-icon"></span>
+        </label>
+
+        <!-- Navigation -->
+        <div class="mobile-nav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
-                <li class="nav-item"><a class="nav-link active" href="price.html">Категории и цены</a></li>
-                <li class="nav-item"><a class="nav-link" href="schedule.html">Расписание</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.html">Об автошколе</a></li>
-                <li class="nav-item"><a class="nav-link" href="instructors.html">Инструкторы</a></li>
-                <li class="nav-item"><a class="nav-link" href="fleet.html">Автопарк</a></li>
-                <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
-                <li class="nav-item"><a class="nav-link" href="colophon.html">Как сделан сайт</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="price.html">Категории и цены</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="schedule.html">Расписание</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">Об автошколе</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="instructors.html">Инструкторы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="fleet.html">Автопарк</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contacts.html">Контакты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="colophon.html">Как сделан сайт</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -46,9 +73,7 @@
 
         <!-- Основной контент -->
         <section class="col-12 col-lg-8">
-
             <div class="bg-white p-4 rounded-3 border shadow-sm">
-
                 <h1 class="display-6 mb-4">
                     Категории и цены
                 </h1>
@@ -83,11 +108,9 @@
                         </tbody>
                     </table>
                 </div>
-
                 <h2 class="mt-4 mb-3">
                     Этапы обучения
                 </h2>
-
                 <!-- Bootstrap Cards + responsive grid -->
                 <ol class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 ps-3">
                     <li class="col">
@@ -133,13 +156,11 @@
                     Запись на пробный урок
                 </h2>
                 <form id="trial-form" method="post" action="#">
-
                     <fieldset>
                         <div class="mb-3">
                             <label for="name" class="form-label">
                                 Имя:
                             </label>
-
                             <input type="text"
                                    class="form-control"
                                    id="name"
@@ -160,22 +181,18 @@
                                    placeholder="you@example.com"
                                    required>
                         </div>
-
                         <!-- Nested Bootstrap row -->
                         <div class="row g-2 mb-3">
-
                             <div class="col-12 col-sm-6">
                                 <label for="phone" class="form-label">
                                     Телефон:
                                 </label>
-
                                 <input type="tel"
                                        class="form-control"
                                        id="phone"
                                        name="phone"
                                        placeholder="+7 700 000 00 00">
                             </div>
-
                             <div class="col-12 col-sm-6">
                                 <label for="date" class="form-label">
                                     Желаемая дата:
@@ -187,12 +204,10 @@
                                        name="date">
                             </div>
                         </div>
-
                         <div class="mb-3">
                             <label for="category" class="form-label">
                                 Категория прав:
                             </label>
-
                             <select class="form-select"
                                     id="category"
                                     name="category">
@@ -200,43 +215,36 @@
                                 <option value="B">B</option>
                                 <option value="A">A</option>
                                 <option value="C">C</option>
-
                             </select>
                         </div>
-
                         <fieldset class="border rounded-3 p-3 mb-3">
 
                             <legend class="fs-6">
                                 Тип занятия
                             </legend>
-
                             <div class="form-check">
                                 <input class="form-check-input"
                                        type="radio"
                                        id="theory"
                                        name="lesson-type"
-                                       value="theory">
-
+                                       value="theory"
+                                       required>
                                 <label class="form-check-label" for="theory">
                                     Теория
                                 </label>
                             </div>
-
                             <div class="form-check">
                                 <input class="form-check-input"
                                        type="radio"
                                        id="practice"
                                        name="lesson-type"
                                        value="practice">
-
                                 <label class="form-check-label" for="practice">
                                     Практика
                                 </label>
                             </div>
                         </fieldset>
-
                         <div class="form-check mb-3">
-
                             <input class="form-check-input"
                                    type="checkbox"
                                    id="consent"
@@ -278,7 +286,6 @@
         </aside>
     </div>
 </main>
-
 <footer class="bg-dark text-white text-center py-3 mt-4">
     <p class="mb-1">
         Адрес: <a href="https://2gis.kz/astana/geo/70000001102236034" target="_blank" rel="noopener" class="text-white">улица Кажымукан, 8</a>
@@ -287,7 +294,5 @@
     </p>
     <p class="mb-0 text-white-50">&copy; 2026 Drive School</p>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
