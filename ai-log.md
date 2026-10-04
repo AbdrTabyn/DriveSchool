@@ -1,22 +1,30 @@
-# AI Log — Drive School
+# AI Usage Log — Drive School Midterm
 
-Все обращения к ИИ (Claude) в рамках проекта. ИИ использовался для объяснения концепций, проверки кода и — в нескольких пунктах ниже (14–16) — для внесения точечных правок в разметку по точной спецификации, заданной студентом (конкретный старый/новый текст). Формулировки текста страниц, отчёта, анализ стороннего сайта и рукописный эскиз сделаны студентами самостоятельно.
+During the project, AI was used only for explanations, clarification of web development concepts, and checking basic HTML/CSS/Bootstrap questions.
 
-| № | Вопрос к ИИ | Зачем понадобилось |
-|---|---|---|
-| 1 | Объяснить структуру и требования задания по загруженному .docx | Понять формат сдачи и требования |
-| 2 | Что такое форма, div и span, о чём должны быть 150–200 слов (Задание B) | Не понимал разницу между семантическими и «пустыми» тегами |
-| 3 | Проверка about.html (первая черновая версия) на соответствие заданию | Найти недостающие теги и ошибки перед доработкой |
-| 4 | Что такое W3C-валидатор и как им пользоваться | Не знал, как технически проверить код |
-| 5 | Разбор конкретных ошибок и warning-ов из W3C-валидатора (несколько раз, по разным страницам) | Понять причину каждой ошибки и как её исправить |
-| 6 | Можно ли убрать blockquote-заглушку, куда перенести цитату | Планирование, какие теги на какой странице разместить |
-| 7 | Что такое якорные ссылки (id + href="#...") и зачем они нужны | Не понимал назначение id без ссылок на них |
-| 8 | Проверка instructors.html, contacts.html, fleet.html, price.html, schedule.html, colophon.html на ошибки и соответствие требованиям (по мере готовности) | Итеративная проверка каждой готовой страницы |
-| 9 | Почему путь к изображению (img src) не открывается локально | Использовался абсолютный путь Windows вместо относительного |
-| 10 | Объяснение требования «3 картинки с alt» — распределение по страницам | Не понимал, что требование считается в сумме на паре страниц, а не на каждой |
-| 11 | Что такое mark, abbr, cite — примеры использования | Не хватало этих тегов по чек-листу |
-| 12 | Сводный чек-лист по всем страницам сайта — что ещё нужно доделать | Итоговая проверка перед сдачей |
-| 13 | Объяснение пунктов сдачи: tag checklist, hand-drawn sketch, AI log, README | Не понимал, что это за документы и как их оформить |
-| 14 | Помощь в поиске реальных сайтов автошкол Астаны для анализа в Task A (по одному на каждого студента) | Нужны были кандидаты для сравнения, не знали, какие сайты реально существуют |
-| 15 | Просьба внести конкретные правки в разметку (единый footer с контактами в 6 файлах, комментарий в index.html, исправление лишнего пробела в title colophon.html) — точный старый/новый текст указан студентом | Ускорить механическое повторение одной и той же правки в нескольких файлах |
-| 16 | Проверка tag-checklist.md, ai-log.md и README.md на соответствие требованиям задания | Понять, что не хватает перед сдачей |
+## Questions Asked
+
+1. What are the basic semantic HTML tags and when should they be used?
+2. How does the Bootstrap grid system work?
+3. What is the difference between `container` and `container-fluid` in Bootstrap?
+4. How do Bootstrap responsive breakpoints work?
+5. How can Bootstrap classes be used to make a page responsive?
+6. How do `row`, `col` and `row-cols-*` work?
+7. How can Bootstrap utility classes be used for spacing and alignment?
+8. How can cards and tables be styled using Bootstrap?
+9. How can images be made responsive with Bootstrap?
+10. How does a responsive navigation menu work?
+11. How can CSS be used together with Bootstrap without replacing Bootstrap layout?
+12. How does CSS specificity work?
+13. How can flexbox be used for alignment and spacing?
+14. How can forms be made responsive using Bootstrap?
+15. How can common colours and styles be kept consistent across multiple pages?
+16. How can horizontal overflow on mobile screens be avoided?
+17. How can HTML links such as `tel:` and `mailto:` be used?
+18. How can the active page be visually indicated in the navigation?
+19. How can HTML and CSS be checked for common errors?
+20. What should be checked when testing a website on desktop and mobile screen sizes?
+
+## Use of AI
+
+AI was used as a learning and explanation tool for basic HTML, CSS and Bootstrap concepts. The team reviewed and applied the suggestions to the project code themselves.
