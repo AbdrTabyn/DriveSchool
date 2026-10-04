@@ -47,6 +47,34 @@ body {
     z-index: 1000;
 }
 
+/* ==========================================================================
+   PURE CSS HAMBURGER MENU (CSS / Checkbox Toggle without JS)
+   ========================================================================== */
+
+/* Скрываем сам чекбокс */
+.menu-toggle {
+    display: none;
+}
+
+/* На мобильных экранах (меньше 992px / Bootstrap lg) */
+@media (max-width: 991.98px) {
+    .mobile-nav {
+        display: none;
+        width: 100%;
+    }
+
+    /* Когда чекбокс отмечен — раскрываем навигацию */
+    .menu-toggle:checked ~ .mobile-nav {
+        display: block;
+    }
+}
+
+/* На десктопных экранах (от 992px) навигация отображается всегда */
+@media (min-width: 992px) {
+    .mobile-nav {
+        display: flex !important;
+    }
+}
 /* Единственное разрешенное использование !important согласно заданию */
 .override-demo {
     color: #0f1f3d !important; /* Разрешено 1 раз с обоснованием в комментарии */
