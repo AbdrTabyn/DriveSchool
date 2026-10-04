@@ -6,120 +6,233 @@
     <meta name="description" content="Инструкторы автошколы Drive School и их опыт работы.">
     <meta name="author" content="Zharkynbek Orynbasar">
     <title>Инструкторы — Drive School</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <!-- Свои стили ПОСЛЕ Bootstrap — чтобы наши правила перебивали его -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/zharkynbek.css">
 </head>
 <body>
 <!-- Zharkynbek Orynbasar -->
 
-<header>
-    <h1>Автошкола Drive School</h1>
-</header>
+<!-- Навигация Bootstrap: сворачивается в бургер на телефоне -->
+<nav class="navbar navbar-expand-md navbar-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Drive School</a>
 
-<nav>
-    <ul>
-        <li><a href="index.html">Главная</a></li>
-        <li><a href="price.html">Категории и цены</a></li>
-        <li><a href="schedule.html">Расписание занятий</a></li>
-        <li><a href="about.html">Об автошколе</a></li>
-        <li><a href="instructors.html">Инструкторы</a></li>
-        <li><a href="fleet.html">Автопарк</a></li>
-        <li><a href="contacts.html">Контакты</a></li>
-        <li><a href="colophon.html">Как сделан сайт</a></li>
-    </ul>
+        <!-- Бургер-кнопка: видна только на маленьких экранах -->
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false"
+                aria-label="Открыть меню">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Список ссылок: на телефоне скрыт, открывается бургером -->
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="price.html">Категории и цены</a></li>
+                <li class="nav-item"><a class="nav-link" href="schedule.html">Расписание</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">Об автошколе</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="instructors.html">Инструкторы</a></li>
+                <li class="nav-item"><a class="nav-link" href="fleet.html">Автопарк</a></li>
+                <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+                <li class="nav-item"><a class="nav-link" href="colophon.html">Как сделан сайт</a></li>
+            </ul>
+        </div>
+    </div>
 </nav>
 
-<main>
-    <h2>Наши инструкторы</h2>
+<!-- container: фиксированная ширина с отступами по бокам.
+     Выбрал container (не container-fluid), потому что текст длинный —
+     на широком экране строки не должны растягиваться на всю ширину. -->
+<main class="container my-4 bg-white rounded shadow-sm p-4">
 
-    <details class="toggle">
+    <h1 class="display-5 mb-4">Наши инструкторы</h1>
+
+    <!-- Сворачиваемый блок: команда. open — открыт по умолчанию -->
+    <details class="toggle mb-4" open>
         <summary>Наша команда</summary>
-        <ul class="instructors-list">
-            <li>
-                <article class="instructors-card">
-                    <h3 class="instructor-name">Артықбаев Аман</h3>
-                    <!-- Временное значение: позже рейтинг будет приходить из базы данных -->
-                    <span class="instructor-rating" title="Рейтинг инструктора" aria-label="Рейтинг 4,9">★ 4.9</span>
-                    <figure class="instructor-photo">
-                        <img src="images/ava.jpg" alt="Артықбаев Аман, инструктор автошколы Drive School" width="80" height="80">
-                        <figcaption>Стаж 10 лет</figcaption>
-                    </figure>
-                    <p class="instructor-categories"><strong>Категории:</strong> <abbr title="Категория B — легковой автомобиль">B</abbr>, <abbr title="Категория A — мотоцикл">A</abbr></p>
-                    <p class="instructor-since"><small>Работает в школе с 2016.</small></p>
-                    <p class="instructor-bio"><em>Стаж вождения — 10 лет. За это время помог обрести уверенность за рулём сотням учеников — от новичков до тех, кто давно не садился за руль. Знает город как свои пять пальцев и умеет находить подход к каждому.</em></p>
-                </article>
-            </li>
 
-            <li>
-                <article class="instructors-card">
-                    <h3 class="instructor-name">Жақсыбай Бекзат</h3>
-                    <!-- Временное значение: позже рейтинг будет приходить из базы данных -->
-                    <span class="instructor-rating" title="Рейтинг инструктора" aria-label="Рейтинг 4,7">★ 4.7</span>
-                    <figure class="instructor-photo">
-                        <img src="images/ava.jpg" alt="Жақсыбай Бекзат, инструктор автошколы Drive School" width="80" height="80">
-                        <figcaption>Стаж 7 лет</figcaption>
-                    </figure>
-                    <p class="instructor-categories"><strong>Категории:</strong> <abbr title="Категория B — легковой автомобиль">B</abbr>, <abbr title="Категория A — мотоцикл">A</abbr></p>
-                    <p class="instructor-since"><small>Работает в школе с 2019.</small></p>
-                    <p class="instructor-bio"><em>Стаж работы инструктором — 7 лет. Специализируется на обучении с нуля, помогает быстро справиться с волнением и уверенно подготовиться к сдаче экзамена на права.</em></p>
+        <!-- Bootstrap-компонент: карточки (cards).
+             Взято из документации Bootstrap / Cards.
+             Изменено: добавлен рейтинг поверх карточки, круглое фото,
+             содержимое адаптировано под инструкторов автошколы. -->
+
+        <!-- row + col: карточки адаптируются под ширину экрана.
+             col-12 — на телефоне каждая карточка на всю ширину,
+             col-md-6 — на планшете две карточки в ряд. -->
+        <div class="row g-3 mt-2">
+
+            <div class="col-12 col-md-6">
+                <article class="card h-100 border shadow-sm instructor-card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <img src="images/ava.jpg"
+                                 alt="Артықбаев Аман, инструктор автошколы Drive School"
+                                 class="instructor-photo rounded-circle object-fit-cover">
+                            <div>
+                                <h3 class="card-title mb-0">Артықбаев Аман</h3>
+                                <small class="text-muted">Стаж 10 лет</small>
+                            </div>
+                            <!-- Bootstrap badge: используем вместо своего .instructor-rating -->
+                            <span class="instructor-rating badge rounded-pill bg-primary ms-auto"
+                                  title="Рейтинг инструктора"
+                                  aria-label="Рейтинг 4,9">★ 4.9</span>
+                        </div>
+                        <p class="card-text mb-1">
+                            <strong>Категории:</strong>
+                            <abbr title="Категория B — легковой автомобиль">B</abbr>,
+                            <abbr title="Категория A — мотоцикл">A</abbr>
+                        </p>
+                        <p class="card-text"><small class="text-muted">Работает в школе с 2016.</small></p>
+                        <p class="card-text"><em>Стаж вождения — 10 лет. За это время помог обрести уверенность за рулём сотням учеников — от новичков до тех, кто давно не садился за руль. Знает город как свои пять пальцев и умеет находить подход к каждому.</em></p>
+                        <!-- btn-primary: основная кнопка записи -->
+                        <!-- btn-outline-primary: outline-вариант (обязателен по заданию) -->
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="mailto:info@avtomektep.kz" class="btn btn-primary btn-sm">Записаться</a>
+                            <a href="tel:+77714248225" class="btn btn-outline-primary btn-sm">Позвонить</a>
+                        </div>
+                    </div>
                 </article>
-            </li>
-        </ul>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <article class="card h-100 border shadow-sm instructor-card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <img src="images/ava.jpg"
+                                 alt="Жақсыбай Бекзат, инструктор автошколы Drive School"
+                                 class="instructor-photo rounded-circle object-fit-cover">
+                            <div>
+                                <h3 class="card-title mb-0">Жақсыбай Бекзат</h3>
+                                <small class="text-muted">Стаж 7 лет</small>
+                            </div>
+                            <span class="instructor-rating badge rounded-pill bg-primary ms-auto"
+                                  title="Рейтинг инструктора"
+                                  aria-label="Рейтинг 4,7">★ 4.7</span>
+                        </div>
+                        <p class="card-text mb-1">
+                            <strong>Категории:</strong>
+                            <abbr title="Категория B — легковой автомобиль">B</abbr>,
+                            <abbr title="Категория A — мотоцикл">A</abbr>
+                        </p>
+                        <p class="card-text"><small class="text-muted">Работает в школе с 2019.</small></p>
+                        <p class="card-text"><em>Стаж работы инструктором — 7 лет. Специализируется на обучении с нуля, помогает быстро справиться с волнением и уверенно подготовиться к сдаче экзамена на права.</em></p>
+                        <!-- btn-sm: маленький размер (обязателен по заданию) -->
+                        <!-- disabled: инструктор временно недоступен (обязателен по заданию) -->
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="mailto:info@avtomektep.kz" class="btn btn-primary btn-sm">Записаться</a>
+                            <button class="btn btn-outline-primary btn-sm" disabled>Слоты заняты</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </div>
     </details>
 
-    <details class="toggle" id="training-steps">
+    <!-- Сворачиваемый блок: этапы обучения -->
+    <details class="toggle mb-4" id="training-steps">
         <summary>Как строится обучение</summary>
-        <ol class="steps-list">
-            <li>Знакомство с инструктором и автомобилем
-                <ul>
-                    <li>Проверка документов</li>
-                    <li>Инструктаж по технике безопасности</li>
-                </ul>
-            </li>
-            <li>Отработка базовых манёвров</li>
-            <li>Вождение в сложных условиях</li>
-        </ol>
+        <!-- Вложенный row внутри col — демонстрация nesting (требование задания) -->
+        <div class="row mt-3">
+            <div class="col-12 col-md-8">
+                <!-- Вложенный row внутри col -->
+                <div class="row">
+                    <div class="col-12">
+                        <ol class="steps-list">
+                            <li>Знакомство с инструктором и автомобилем
+                                <ul>
+                                    <li>Проверка документов</li>
+                                    <li>Инструктаж по технике безопасности</li>
+                                </ul>
+                            </li>
+                            <li>Отработка базовых манёвров</li>
+                            <li>Вождение в сложных условиях</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
     </details>
 
-    <table>
-        <caption>Свободные дни инструкторов</caption>
-        <thead>
-        <tr>
-            <th scope="col">Инструктор</th>
-            <th scope="col">Свободные дни</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Артықбаев Аман</td>
-            <td>Пн, Ср, Пт</td>
-        </tr>
-        <tr>
-            <td>Жақсыбай Бекзат</td>
-            <td>Вт, Чт, Сб</td>
-        </tr>
-        </tbody>
-    </table>
+    <!-- Bootstrap-компонент: table-striped table-bordered.
+         Взято из документации Bootstrap / Tables.
+         Изменено: добавлен caption, адаптировано содержимое под инструкторов. -->
+    <div class="table-responsive mb-4">
+        <table class="table table-striped table-bordered mb-0">
+            <caption class="fw-bold fs-5 text-dark mb-2">Свободные дни инструкторов</caption>
+            <thead class="table-dark">
+            <tr>
+                <th scope="col">Инструктор</th>
+                <th scope="col">Свободные дни</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Артықбаев Аман</td>
+                <td>Пн, Ср, Пт</td>
+            </tr>
+            <tr>
+                <td>Жақсыбай Бекзат</td>
+                <td>Вт, Чт, Сб</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <blockquote cite="https://2gis.kz/astana/firm/70000001102236034/tab/reviews/review/296665403"><p>«Уроки проходят хорошо и на позитиве. Инструктора добрые и всегда стараются помочь»</p>
+    <blockquote class="mb-1">
+        <p>«Уроки проходят хорошо и на позитиве. Инструкторы добрые и всегда стараются помочь»</p>
     </blockquote>
-    <!-- cite обозначает название источника (здесь — сервис 2GIS), а не имя человека -->
-    <p>— Abdurrakhim Yestaiuly, ученик, отзыв в <cite>2GIS</cite>, 9.09.2026</p>
+    <p class="text-center text-md-end small text-muted">— Abdurrakhim Yestaiuly, ученик, отзыв в <cite>2GIS</cite>, 9.09.2026</p>
 
     <p>Один из учеников отметил, что <q>инструктор объяснял спокойно и подробно</q>.</p>
 
-    <hr>
+    <hr class="my-4">
 
-    <p>Записаться к конкретному инструктору можно по <a href="mailto:info@avtomektep.kz">почте</a> или <a href="tel:+77714248225">телефону</a>.<br>
-        Инструкторы работают &laquo;по предварительной записи&raquo; &mdash; свободные слоты уточняйте заранее.</p>
+    <p>Записаться к конкретному инструктору можно по
+        <a href="mailto:info@avtomektep.kz" class="fw-bold">почте</a> или
+        <a href="tel:+77714248225" class="fw-bold">телефону</a>.<br>
+        Инструкторы работают «по предварительной записи» — свободные слоты уточняйте заранее.
+    </p>
+
 </main>
 
-<footer>
-    <p>Адрес: <a href="https://2gis.kz/astana/geo/70000001102236034" target="_blank" rel="noopener">улица Кажымукан, 8</a> · <a href="tel:+77714248225">+7 771 424 8225</a> · <a href="mailto:info@avtomektep.kz">info@avtomektep.kz</a></p>
-    <p>&copy; 2026 Drive School</p>
+<footer class="bg-dark text-white text-center py-3 mt-4">
+    <p class="mb-1">
+        Адрес: <a href="https://2gis.kz/astana/geo/70000001102236034" target="_blank" rel="noopener" class="text-white">улица Кажымукан, 8</a>
+        · <a href="tel:+77714248225" class="text-white">+7 771 424 8225</a>
+        · <a href="mailto:info@avtomektep.kz" class="text-white">info@avtomektep.kz</a>
+    </p>
+    <p class="mb-0 text-white-50">&copy; 2026 Drive School</p>
 </footer>
 
-<a href="#top" class="back-to-top" aria-label="Наверх">↑</a>
+<a href="#top" class="back-to-top position-fixed bottom-0 end-0 m-4 rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shadow text-decoration-none fs-3" aria-label="Наверх">↑</a>
 
+<!-- Bootstrap JS: нужен для работы бургер-меню -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Кнопка «Наверх» появляется только после прокрутки страницы -->
+<script>
+    (function () {
+        var backToTop = document.querySelector('.back-to-top');
+        if (!backToTop) return;
+
+        function toggleBackToTop() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('is-visible');
+            } else {
+                backToTop.classList.remove('is-visible');
+            }
+        }
+
+        window.addEventListener('scroll', toggleBackToTop);
+        toggleBackToTop();
+    })();
+</script>
 </body>
 </html>

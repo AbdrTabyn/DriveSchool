@@ -6,11 +6,17 @@
     <meta name="description" content="История автошколы Drive School и её принципы работы.">
     <meta name="author" content="Zharkynbek Orynbasar">
     <title>Об автошколе — Drive School</title>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <!-- Свои стили ПОСЛЕ Bootstrap -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/zharkynbek.css">
-    <!-- Единственный внутренний блок <style> на сайте: нужен для демонстрации каскада.
+
+    <!-- Единственный внутренний <style> на сайте: демонстрация каскада.
          Переопределяет цвет линии под заголовком h2: в base.css он #d6e0f0 (селектор h2, специфичность 0,0,1),
-         здесь #2f6fed (селектор .history h2, специфичность 0,1,1, значит, он сильнее). -->
+         здесь #2f6fed (селектор .history h2, специфичность 0,1,1, значит он сильнее). -->
     <style>
         .history h2 {
             border-bottom-color: #2f6fed;
@@ -19,65 +25,121 @@
 </head>
 <body>
 <!-- Zharkynbek Orynbasar -->
-<header>
-    <h1>Автошкола Drive School</h1>
-</header>
-<nav>
-    <ul>
-        <li><a href="index.html">Главная</a></li>
-        <li><a href="price.html">Категории и цены</a></li>
-        <li><a href="schedule.html">Расписание занятий</a></li>
-        <li><a href="about.html">Об автошколе</a></li>
-        <li><a href="instructors.html">Инструкторы</a></li>
-        <li><a href="fleet.html">Автопарк</a></li>
-        <li><a href="contacts.html">Контакты</a></li>
-        <li><a href="colophon.html">Как сделан сайт</a></li>
-    </ul>
+
+<!-- Навигация Bootstrap: сворачивается в бургер на телефоне -->
+<nav class="navbar navbar-expand-md navbar-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Drive School</a>
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false"
+                aria-label="Открыть меню">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="price.html">Категории и цены</a></li>
+                <li class="nav-item"><a class="nav-link" href="schedule.html">Расписание</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="about.html">Об автошколе</a></li>
+                <li class="nav-item"><a class="nav-link" href="instructors.html">Инструкторы</a></li>
+                <li class="nav-item"><a class="nav-link" href="fleet.html">Автопарк</a></li>
+                <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+                <li class="nav-item"><a class="nav-link" href="colophon.html">Как сделан сайт</a></li>
+            </ul>
+        </div>
+    </div>
 </nav>
-<main>
-    <!-- article, а не div, потому что история школы самодостаточна и могла бы существовать отдельно от остальной страницы -->
-    <article class="history">
-        <h2>История автошколы</h2>
 
-        <figure class="classroom-photo">
-            <img src="images/учебный класс.jpg" alt="Учебный класс автошколы Drive School во время теоретического занятия" width="400" height="300">
-            <figcaption>Учебный класс во время теоретического занятия</figcaption>
-        </figure>
+<!-- container-fluid: на этой странице выбрал container-fluid,
+     потому что фото инструктора с float должно иметь больше пространства
+     для обтекания текстом на средних экранах. -->
+<main class="container-fluid px-4 my-4">
+    <div class="container bg-white rounded shadow-sm p-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
 
-        <p>Эта автошкола была создана исключительно для помощи осуществить мечты людей.</p>
+                <!-- article: история школы самодостаточна, могла бы существовать отдельно -->
+                <article class="history mb-4">
+                    <h2 class="display-6 mb-3">История автошколы</h2>
 
-        <p>Наш учебный класс оборудован всем необходимым для теоретических занятий: проектором для показа схем дорожного движения, стендами с разметкой и знаками, удобными местами для каждого ученика. Занятия проходят в небольших группах, чтобы у инструктора была возможность уделить внимание каждому. Атмосфера в классе располагает к сосредоточенному изучению правил — без спешки и лишнего шума с улицы.</p>
+                    <figure class="classroom-photo float-start me-3 mb-2">
+                        <img src="images/учебный класс.jpg"
+                             alt="Учебный класс автошколы Drive School во время теоретического занятия"
+                             class="img-fluid rounded"
+                             width="400" height="300">
+                        <figcaption>Учебный класс во время теоретического занятия</figcaption>
+                    </figure>
 
-        <blockquote>
-            <p>«Великие дела начинаются с мечтаний»</p>
-        </blockquote>
-        <p>— <cite>Ұлан, ученик</cite>, 5.09.2026</p>
+                    <p class="lead">Эта автошкола была создана исключительно для помощи осуществить мечты людей.</p>
 
-        <p>Как говорит наш директор, <q>безопасность важнее скорости обучения</q>.</p>
-    </article>
+                    <p>Наш учебный класс оборудован всем необходимым для теоретических занятий: проектором для показа схем дорожного движения, стендами с разметкой и знаками, удобными местами для каждого ученика. Занятия проходят в небольших группах, чтобы у инструктора была возможность уделить внимание каждому. Атмосфера в классе располагает к сосредоточенному изучению правил — без спешки и лишнего шума с улицы.</p>
 
-    <!-- aside используется здесь, потому что это дополнительный факт о школе, не относящийся напрямую к истории в article выше -->
-    <aside class="school-note">
-        <p><small>Кстати: наша автошкола участвовала в городском конкурсе безопасного вождения в 2023 году<sup>*</sup>.</small></p>
-    </aside>
+                    <blockquote>
+                        <p>«Великие дела начинаются с мечтаний»</p>
+                    </blockquote>
+                    <p class="text-center text-md-end small text-muted">— <cite>Ұлан, ученик</cite>, 5.09.2026</p>
 
-    <section class="glossary">
-        <h3>Термины</h3>
-        <dl>
-            <dt>Категория прав</dt>
-            <dd>Тип транспортного средства, на управление которым выдаётся отдельное разрешение.</dd>
+                    <p>Как говорит наш директор, <q>безопасность важнее скорости обучения</q>.</p>
+                </article>
 
-            <dt>Автодром</dt>
-            <dd>Закрытая площадка для отработки базовых навыков вождения.</dd>
+                <!-- aside: дополнительный факт, не входит в основную историю -->
+                <aside class="school-note d-none d-sm-block p-3 mb-4 bg-light border-start border-4 border-primary">
+                    <p class="mb-0"><small>Кстати: наша автошкола участвовала в городском конкурсе безопасного вождения в 2023 году<sup>*</sup>.</small></p>
+                </aside>
 
-            <dt>Теорвождение</dt>
-            <dd>Разговорный термин для теоретической части курса вождения.</dd>
-        </dl>
-    </section>
+                <section class="glossary mb-4">
+                    <h3>Термины</h3>
+                    <dl>
+                        <dt class="fw-bold mt-3">Категория прав</dt>
+                        <dd class="ms-4">Тип транспортного средства, на управление которым выдаётся отдельное разрешение.</dd>
+
+                        <dt class="fw-bold mt-3">Автодром</dt>
+                        <dd class="ms-4">Закрытая площадка для отработки базовых навыков вождения.</dd>
+
+                        <dt class="fw-bold mt-3">Теорвождение</dt>
+                        <dd class="ms-4">Разговорный термин для теоретической части курса вождения.</dd>
+                    </dl>
+                </section>
+
+            </div>
+        </div>
+    </div>
 </main>
-<footer>
-    <p>Адрес: <a href="https://2gis.kz/astana/geo/70000001102236034" target="_blank" rel="noopener">улица Кажымукан, 8</a> · <a href="tel:+77714248225">+7 771 424 8225</a> · <a href="mailto:info@avtomektep.kz">info@avtomektep.kz</a></p>
-    <p>&copy; 2026 Drive School</p>
+
+<footer class="bg-dark text-white text-center py-3 mt-4">
+    <p class="mb-1">
+        Адрес: <a href="https://2gis.kz/astana/geo/70000001102236034" target="_blank" rel="noopener" class="text-white">улица Кажымукан, 8</a>
+        · <a href="tel:+77714248225" class="text-white">+7 771 424 8225</a>
+        · <a href="mailto:info@avtomektep.kz" class="text-white">info@avtomektep.kz</a>
+    </p>
+    <p class="mb-0 text-white-50">&copy; 2026 Drive School</p>
 </footer>
+
+<a href="#top" class="back-to-top position-fixed bottom-0 end-0 m-4 rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shadow text-decoration-none fs-3" aria-label="Наверх">↑</a>
+
+<!-- Bootstrap JS: нужен для работы бургер-меню -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Кнопка «Наверх» появляется только после прокрутки страницы -->
+<script>
+    (function () {
+        var backToTop = document.querySelector('.back-to-top');
+        if (!backToTop) return;
+
+        function toggleBackToTop() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('is-visible');
+            } else {
+                backToTop.classList.remove('is-visible');
+            }
+        }
+
+        window.addEventListener('scroll', toggleBackToTop);
+        toggleBackToTop();
+    })();
+</script>
 </body>
 </html>
