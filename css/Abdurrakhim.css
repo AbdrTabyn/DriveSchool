@@ -48,26 +48,6 @@ main a:focus {
     --bs-table-bg: var(--border);
     --bs-table-border-color: var(--border);
 }
-.menu-toggle {
-    display: none;
-}
-.mobile-nav {
-    display: none;
-    width: 100%;
-}
-.menu-toggle:checked ~ .mobile-nav {
-    display: block;
-}
-@media (min-width: 992px) {
-    .navbar-toggler {
-        display: none;
-    }
-    .mobile-nav {
-        display: flex;
-        flex-basis: auto;
-        width: auto;
-    }
-}
 .practice-card {
     height: 100%;
     background-color: #f0f4fb;
