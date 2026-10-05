@@ -78,3 +78,39 @@ footer {
 .border-primary {
     border-color: #2f6fed !important;
 }
+
+
+.menu-toggle {
+    display: none;
+}
+
+
+
+@media (max-width: 991.98px) {
+    .navbar > .container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .mobile-nav {
+        display: none;
+        width: 100%;
+    }
+
+    .menu-toggle:checked ~ .mobile-nav {
+        display: block;
+    }
+
+    .mobile-nav .navbar-nav {
+        flex-direction: column;
+        padding-top: 12px;
+    }
+}
+
+@media (min-width: 992px) {
+    .mobile-nav {
+        display: block;
+    }
+}
