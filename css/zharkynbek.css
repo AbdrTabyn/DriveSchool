@@ -76,7 +76,7 @@ blockquote {
    из разметки и ширина 200px работают как раньше. */
 @media (max-width: 575.98px) {
     .classroom-photo {
-        float: none;
+        float: none !important;
         width: 100%;
     }
 }

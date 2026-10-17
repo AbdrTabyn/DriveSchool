@@ -27,27 +27,30 @@
 <!-- Zharkynbek Orynbasar -->
 
 <!-- Навигация Bootstrap: сворачивается в бургер на телефоне -->
-<nav class="navbar navbar-expand-md navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand fw-bold" href="index.html">Drive School</a>
+        <!-- Hidden checkbox controls the mobile menu -->
+        <input type="checkbox"
+               id="menu-toggle"
+               class="menu-toggle">
 
-        <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse" data-bs-target="#mainNav"
-                aria-controls="mainNav" aria-expanded="false"
-                aria-label="Открыть меню">
+        <!-- Burger button -->
+        <label for="menu-toggle"
+               class="navbar-toggler"
+               aria-label="Открыть меню">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </label>
 
-        <div class="collapse navbar-collapse" id="mainNav">
+        <div class="mobile-nav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
                 <li class="nav-item"><a class="nav-link" href="price.html">Категории и цены</a></li>
-                <li class="nav-item"><a class="nav-link" href="schedule.html">Расписание</a></li>
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="about.html">Об автошколе</a></li>
+                <li class="nav-item"><a class="nav-link active" href="schedule.html">Расписание</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">Об автошколе</a></li>
                 <li class="nav-item"><a class="nav-link" href="instructors.html">Инструкторы</a></li>
                 <li class="nav-item"><a class="nav-link" href="fleet.html">Автопарк</a></li>
                 <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
-                <li class="nav-item"><a class="nav-link" href="colophon.html">Как сделан сайт</a></li>
             </ul>
         </div>
     </div>
@@ -120,26 +123,5 @@
 
 <a href="#top" class="back-to-top position-fixed bottom-0 end-0 m-4 rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shadow text-decoration-none fs-3" aria-label="Наверх">↑</a>
 
-<!-- Bootstrap JS: нужен для работы бургер-меню -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Кнопка «Наверх» появляется только после прокрутки страницы -->
-<script>
-    (function () {
-        var backToTop = document.querySelector('.back-to-top');
-        if (!backToTop) return;
-
-        function toggleBackToTop() {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('is-visible');
-            } else {
-                backToTop.classList.remove('is-visible');
-            }
-        }
-
-        window.addEventListener('scroll', toggleBackToTop);
-        toggleBackToTop();
-    })();
-</script>
 </body>
 </html>

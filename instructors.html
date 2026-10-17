@@ -18,26 +18,28 @@
 <!-- Zharkynbek Orynbasar -->
 
 <!-- Навигация Bootstrap: сворачивается в бургер на телефоне -->
-<nav class="navbar navbar-expand-md navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand fw-bold" href="index.html">Drive School</a>
+        <!-- Hidden checkbox controls the mobile menu -->
+        <input type="checkbox"
+               id="menu-toggle"
+               class="menu-toggle">
 
-        <!-- Бургер-кнопка: видна только на маленьких экранах -->
-        <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse" data-bs-target="#mainNav"
-                aria-controls="mainNav" aria-expanded="false"
-                aria-label="Открыть меню">
+        <!-- Burger button -->
+        <label for="menu-toggle"
+               class="navbar-toggler"
+               aria-label="Открыть меню">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </label>
 
-        <!-- Список ссылок: на телефоне скрыт, открывается бургером -->
-        <div class="collapse navbar-collapse" id="mainNav">
+        <div class="mobile-nav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
                 <li class="nav-item"><a class="nav-link" href="price.html">Категории и цены</a></li>
-                <li class="nav-item"><a class="nav-link" href="schedule.html">Расписание</a></li>
+                <li class="nav-item"><a class="nav-link active" href="schedule.html">Расписание</a></li>
                 <li class="nav-item"><a class="nav-link" href="about.html">Об автошколе</a></li>
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="instructors.html">Инструкторы</a></li>
+                <li class="nav-item"><a class="nav-link" href="instructors.html">Инструкторы</a></li>
                 <li class="nav-item"><a class="nav-link" href="fleet.html">Автопарк</a></li>
                 <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
             </ul>
@@ -93,7 +95,7 @@
                         <!-- btn-outline-primary: outline-вариант (обязателен по заданию) -->
                         <div class="d-flex gap-2 mt-3">
                             <a href="mailto:info@avtomektep.kz" class="btn btn-primary btn-sm">Записаться</a>
-                            <a href="tel:+77714248225" class="btn btn-outline-primary btn-sm">Позвонить</a>
+                            <a href="tel:+77714248225" class="btn btn-outline-primary btn-sm navbar">Позвонить</a>
                         </div>
                     </div>
                 </article>
@@ -124,7 +126,7 @@
                         <!-- btn-sm: маленький размер (обязателен по заданию) -->
                         <!-- disabled: инструктор временно недоступен (обязателен по заданию) -->
                         <div class="d-flex gap-2 mt-3">
-                            <a href="mailto:info@avtomektep.kz" class="btn btn-primary btn-sm">Записаться</a>
+                            <a href="mailto:info@avtomektep.kz" class=" btn btn-primary btn-sm ">Записаться</a>
                             <button class="btn btn-outline-primary btn-sm" disabled>Слоты заняты</button>
                         </div>
                     </div>
@@ -165,7 +167,7 @@
     <div class="table-responsive mb-4">
         <table class="table table-striped table-bordered mb-0">
             <caption class="fw-bold fs-5 text-dark mb-2">Свободные дни инструкторов</caption>
-            <thead class="table-primary">
+            <thead class="table-dark">
             <tr>
                 <th scope="col">Инструктор</th>
                 <th scope="col">Свободные дни</th>
@@ -193,7 +195,7 @@
 
     <hr class="my-4">
 
-    <p>Записаться к конкретному инструктору можно по
+    <p class="text-center">Записаться к конкретному инструктору можно по
         <a href="mailto:info@avtomektep.kz" class="fw-bold">почте</a> или
         <a href="tel:+77714248225" class="fw-bold">телефону</a>.<br>
         Инструкторы работают «по предварительной записи» — свободные слоты уточняйте заранее.
@@ -212,26 +214,5 @@
 
 <a href="#top" class="back-to-top position-fixed bottom-0 end-0 m-4 rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shadow text-decoration-none fs-3" aria-label="Наверх">↑</a>
 
-<!-- Bootstrap JS: нужен для работы бургер-меню -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Кнопка «Наверх» появляется только после прокрутки страницы -->
-<script>
-    (function () {
-        var backToTop = document.querySelector('.back-to-top');
-        if (!backToTop) return;
-
-        function toggleBackToTop() {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('is-visible');
-            } else {
-                backToTop.classList.remove('is-visible');
-            }
-        }
-
-        window.addEventListener('scroll', toggleBackToTop);
-        toggleBackToTop();
-    })();
-</script>
 </body>
 </html>
