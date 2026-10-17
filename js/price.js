@@ -90,6 +90,7 @@ function updateCalc() {
     if (extra === null) {
         return;
     }
+
     const base = findProgram(calcCategory.value).price;
     calcResult.append(
         createEl('p', 'mb-1', 'Категория ' + calcCategory.value + ': ' + formatPrice(base)),

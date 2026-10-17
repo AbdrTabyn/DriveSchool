@@ -117,6 +117,7 @@ function renderChecklist(listEl, password) {
     return allOk;
 }
 
+
 function initLoginForm(form) {
     const userInput = form.querySelector('#login-username');
     const passInput = form.querySelector('#login-password');
