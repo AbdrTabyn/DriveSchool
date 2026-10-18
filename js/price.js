@@ -1,6 +1,6 @@
 'use strict';
 
-const EXTRA_PRICE = 5000;   // ЗАМЕНИ на реальную цену доп. занятия
+const EXTRA_PRICE = 9000;
 const MAX_EXTRA = 20;
 const LESSONS = { theory: 'Теория', practice: 'Практика' };
 const FIELDS = ['name', 'email', 'phone', 'date', 'lesson-type', 'consent'];
@@ -75,7 +75,7 @@ calcResult.setAttribute('aria-live', 'polite');
 const calcRow = createEl('div', 'row g-3');
 calcRow.append(
     createField('Категория', calcCategory, 'col-12 col-md-6'),
-    createField('Доп, занятия вождения, шт.', calcExtra, 'col-12 col-md-6')
+    createField('Дополнительные занятия вождения, шт.', calcExtra, 'col-12 col-md-6')
 );
 calcExtra.after(calcError);
 
@@ -148,7 +148,7 @@ function showSummary(d) {
         'Категория: ' + d.category,
         'Тип занятия: ' + LESSONS[d.lesson],
         'Желаемая дата: ' + d.date.split('-').reverse().join('.'),
-        'Предварительная стоимость: ' + formatPrice(findProgram(d.category).price + extra * EXTRA_PRICE)
+        'Стоимость курса категории: ' + d.category + '(предварительно): ' + formatPrice(findProgram(d.category).price + extra * EXTRA_PRICE)
     ]) {
         list.appendChild(createEl('li', '', line));
     }
