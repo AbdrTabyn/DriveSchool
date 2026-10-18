@@ -5,15 +5,26 @@ const MAX_EXTRA = 20;
 const LESSONS = { theory: 'Теория', practice: 'Практика' };
 const FIELDS = ['name', 'email', 'phone', 'date', 'lesson-type', 'consent'];
 
+const SUBCATEGORIES = [
+    { code: 'A1', parent: 'A', vehicle: 'Лёгкие мотоциклы',       price: 40000,  weeks: 4 },
+    { code: 'A',  parent: 'A', vehicle: 'Мотоциклы',              price: 50000,  weeks: 6 },
+    { code: 'B1', parent: 'B', vehicle: 'Трициклы и квадроциклы', price: 60000,  weeks: 5 },
+    { code: 'B',  parent: 'B', vehicle: 'Легковые автомобили',    price: 80000,  weeks: 8 },
+    { code: 'C1', parent: 'C', vehicle: 'Средние грузовики',      price: 90000,  weeks: 8 },
+    { code: 'C',  parent: 'C', vehicle: 'Грузовые автомобили',    price: 100000, weeks: 10 }
+];
+
+let selectedSub = null;   // выбранная строка таблицы
+
 // ---------- Функции ----------
 
-function findProgram(code) {
-    return programs.find(function (item) {
-        return item.category === code;
+function findSub(code) {
+    return SUBCATEGORIES.find(function (item) {
+        return item.code === code;
     });
 }
 
-// Сегодня в формате ГГГГ-ММ-ДД (местное время)
+// Сегодня в формате ГГГГ-ММ-ДД
 function today() {
     return new Date().toLocaleDateString('en-CA');
 }
@@ -52,15 +63,7 @@ function validateForm(d) {
     return errors;
 }
 
-// ---------- Калькулятор ----------
-
-const calcCategory = createEl('select', 'form-select');
-calcCategory.id = 'calc-category';
-for (const code of ['A', 'B', 'C']) {
-    const option = createEl('option', '', 'Категория ' + code);
-    option.value = code;
-    calcCategory.appendChild(option);
-}
+// ---------- Калькулятор (считает по выбранной строке таблицы) ----------
 
 const calcExtra = createEl('input', 'form-control');
 calcExtra.type = 'number';
@@ -73,30 +76,30 @@ const calcError = createEl('div', 'text-danger small mt-1 d-none');
 const calcResult = createEl('div', 'mt-3');
 calcResult.setAttribute('aria-live', 'polite');
 const calcRow = createEl('div', 'row g-3');
-calcRow.append(
-    createField('Категория', calcCategory, 'col-12 col-md-6'),
-    createField('Дополнительные занятия вождения, шт.', calcExtra, 'col-12 col-md-6')
-);
+calcRow.append(createField('Дополнительные занятия вождения, шт.', calcExtra, 'col-12 col-md-6'));
 calcExtra.after(calcError);
 
 const calcSection = createEl('div', 'border rounded-3 p-3 mt-4');
-calcSection.append(createEl('h2', 'h4 mb-3', 'Калькулятор стоимости'), calcRow, calcResult);
-document.querySelector('.table-responsive').after(calcSection);
+calcSection.append(
+    createEl('h2', 'h4 mb-2', 'Калькулятор стоимости'),
+    createEl('p', 'small text-muted', 'Программа выбирается в таблице выше.'),
+    calcRow,
+    calcResult
+);
 
 function updateCalc() {
     const extra = parseExtra(calcExtra.value);
     showError(calcExtra, calcError, extra === null ? 'введите целое число от 0 до ' + MAX_EXTRA + '.' : '');
     calcResult.replaceChildren();
-    if (extra === null) {
+    if (extra === null || selectedSub === null) {
         return;
     }
-
-    const base = findProgram(calcCategory.value).price;
     calcResult.append(
-        createEl('p', 'mb-1', 'Категория ' + calcCategory.value + ': ' + formatPrice(base)),
+        createEl('p', 'mb-1', 'Программа ' + selectedSub.code + ' (' + selectedSub.vehicle + '): ' +
+            formatPrice(selectedSub.price)),
         createEl('p', 'mb-1', 'Доп. занятия: ' + extra + ' × ' + formatPrice(EXTRA_PRICE) +
             ' = ' + formatPrice(extra * EXTRA_PRICE)),
-        createEl('p', 'fw-bold fs-5 text-primary mb-1', 'Итого: ' + formatPrice(base + extra * EXTRA_PRICE)),
+        createEl('p', 'fw-bold fs-5 text-primary mb-1', 'Итого: ' + formatPrice(selectedSub.price + extra * EXTRA_PRICE)),
         createEl('p', 'small text-muted mb-0', 'Предварительный расчёт, не является счётом или договором.')
     );
 }
@@ -107,7 +110,6 @@ const trialForm = document.querySelector('#trial-form');
 trialForm.noValidate = true;
 const categorySelect = trialForm.querySelector('#category');
 
-// Поле по имени, блок ошибки создаём под ним (или под группой)
 const fieldEls = {};
 const errorEls = {};
 for (const key of FIELDS) {
@@ -131,7 +133,6 @@ function readForm() {
         email: (raw.email || '').trim(),
         phone: (raw.phone || '').trim(),
         date: raw.date || '',
-        category: raw.category,
         lesson: raw['lesson-type'] || '',
         consent: 'consent' in raw
     };
@@ -145,10 +146,10 @@ function showSummary(d) {
         'Имя: ' + d.name,
         'Email: ' + d.email,
         'Телефон: ' + (d.phone === '' ? 'не указан' : d.phone),
-        'Категория: ' + d.category,
+        'Программа: ' + selectedSub.code + ' (' + selectedSub.vehicle + ')',
         'Тип занятия: ' + LESSONS[d.lesson],
         'Желаемая дата: ' + d.date.split('-').reverse().join('.'),
-        'Стоимость курса категории: ' + d.category + '(предварительно): ' + formatPrice(findProgram(d.category).price + extra * EXTRA_PRICE)
+        'Стоимость курса (предварительно): ' + formatPrice(selectedSub.price + extra * EXTRA_PRICE)
     ]) {
         list.appendChild(createEl('li', '', line));
     }
@@ -180,9 +181,8 @@ trialForm.addEventListener('submit', function (event) {
         return;
     }
 
+    trialForm.reset();   // сначала сброс: его обработчик прячет сводку
     showSummary(data);
-    trialForm.reset();
-    syncCategory(categorySelect.value);
 });
 
 // Правка поля убирает его устаревшую ошибку и старое сообщение об успехе
@@ -194,49 +194,95 @@ trialForm.addEventListener('input', function (event) {
     resultBox.classList.add('d-none');
 });
 
-// Кнопка «Очистить»: убираем ошибки, после сброса синхронизируем калькулятор
+// reset срабатывает до фактической очистки, поэтому выбор обновляем через setTimeout
 trialForm.addEventListener('reset', function () {
     for (const key of FIELDS) {
         showError(fieldEls[key], errorEls[key], '');
     }
     resultBox.classList.add('d-none');
     setTimeout(function () {
-        syncCategory(categorySelect.value);
+        selectSubcategory(findSub(categorySelect.value));
     }, 0);
 });
 
-// ---------- Связка формы, калькулятора и главной ----------
+// ---------- Таблица подкатегорий (единственное место выбора) ----------
 
-function syncCategory(code) {
-    categorySelect.value = code;
-    calcCategory.value = code;
+const tableWrap = document.querySelector('.table-responsive');
+const subBody = tableWrap.querySelector('tbody');
+const subNote = createEl('p', 'small text-muted mt-2 mb-0');
+subNote.setAttribute('aria-live', 'polite');
+
+// Подсвечивает строку, ставит категорию в форму, обновляет калькулятор
+function selectSubcategory(item) {
+    for (const row of subBody.children) {
+        row.classList.remove('table-active');
+    }
+    subBody.children[SUBCATEGORIES.indexOf(item)].classList.add('table-active');
+    selectedSub = item;
+    categorySelect.value = item.parent;
+    subNote.textContent = 'Выбрана программа ' + item.code + ': ' + item.vehicle +
+        '. Категория в форме записи: ' + item.parent + '.';
     updateCalc();
 }
 
+function createSubRow(item) {
+    const choose = createEl('button', 'btn btn-outline-primary btn-sm', 'Выбрать');
+    choose.type = 'button';
+    choose.addEventListener('click', function () {
+        selectSubcategory(item);
+    });
+
+    const action = createEl('td');
+    action.appendChild(choose);
+    const code = createEl('th', '', item.code);
+    code.scope = 'row';
+
+    const row = createEl('tr');
+    row.append(
+        code,
+        createEl('td', '', item.vehicle),
+        createEl('td', '', formatPrice(item.price)),
+        createEl('td', '', item.weeks + ' нед.'),
+        action
+    );
+    return row;
+}
+
+const headRow = tableWrap.querySelector('thead tr');
+for (const title of ['Срок', 'Действие']) {
+    const th = createEl('th', '', title);
+    th.scope = 'col';
+    headRow.appendChild(th);
+}
+subBody.replaceChildren();
+for (const item of SUBCATEGORIES) {
+    subBody.appendChild(createSubRow(item));
+}
+tableWrap.after(subNote);
+subNote.after(calcSection);
+
+// Смена категории в форме выбирает базовую строку таблицы
 categorySelect.addEventListener('change', function () {
-    syncCategory(categorySelect.value);
-});
-calcCategory.addEventListener('change', function () {
-    syncCategory(calcCategory.value);
+    selectSubcategory(findSub(categorySelect.value));
 });
 calcExtra.addEventListener('input', updateCalc);
 
-// Категория из ссылки с главной
-const urlProgram = findProgram(new URLSearchParams(window.location.search).get('category'));
-if (urlProgram) {
+// Категория из ссылки (с главной или из расписания)
+const urlSub = findSub(new URLSearchParams(window.location.search).get('category'));
+if (urlSub) {
     const closeButton = createEl('button', 'btn-close');
     closeButton.type = 'button';
     closeButton.setAttribute('aria-label', 'Закрыть сообщение');
-    const notice = createEl('div', 'alert alert-info d-flex justify-content-between align-items-start gap-2');
-    notice.setAttribute('role', 'status');
-    notice.append(
-        createEl('span', '', 'Вы выбрали категорию ' + urlProgram.category +
-            ' в подборе на главной. Стоимость: ' + formatPrice(urlProgram.price) + '.'),
-        closeButton
-    );
     closeButton.addEventListener('click', function () {
         notice.remove();
     });
+    const notice = createEl('div', 'alert alert-info d-flex justify-content-between align-items-start gap-2');
+    notice.setAttribute('role', 'status');
+    notice.append(
+        createEl('span', '', 'Вы выбрали категорию ' + urlSub.code +
+            '. Стоимость: ' + formatPrice(urlSub.price) + '.'),
+        closeButton
+    );
     trialForm.before(notice);
 }
-syncCategory(urlProgram ? urlProgram.category : categorySelect.value);
+selectSubcategory(urlSub || findSub(categorySelect.value));
