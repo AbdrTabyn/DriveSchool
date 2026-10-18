@@ -19,81 +19,48 @@ function createCard(program) {
     return col;
 }
 
-function filterPrograms(list, category, query) {
-    const text = query.trim().toLowerCase();
+function filterPrograms(list, category) {
     return list.filter(function (item) {
-        return (category === '' || item.category === category) &&
-            (text === '' || item.title.toLowerCase().includes(text));
+        return category === 'all' || item.category === category;
     });
 }
 
-function getRandomItem(list) {
-    return list[Math.floor(Math.random() * list.length)];
-}
-
-const categorySelect = createEl('select', 'form-select');
-categorySelect.id = 'filter-category';
-const categoryOptions = [
-    ['', 'Все категории'], ['A', 'A — мотоциклы'], ['B', 'B — легковые'], ['C', 'C — грузовые']
-];
-for (const [value, text] of categoryOptions) {
-    const option = createEl('option', '', text);
-    option.value = value;
-    categorySelect.appendChild(option);
-}
-
-const searchInput = createEl('input', 'form-control');
-searchInput.type = 'search';
-searchInput.id = 'filter-search';
-searchInput.placeholder = 'Например, интенсив';
-
-const controlsRow = createEl('div', 'row g-3 mb-3');
-controlsRow.append(
-    createField('Категория', categorySelect, 'col-12 col-md-6'),
-    createField('Поиск по названию', searchInput, 'col-12 col-md-6')
-);
-
-const counter = createEl('p', 'fw-semibold mb-0');
-counter.setAttribute('aria-live', 'polite');
-
-const resetButton = createEl('button', 'btn btn-outline-secondary btn-sm', 'Сбросить фильтры');
-resetButton.type = 'button';
-
-const statusRow = createEl('div', 'd-flex flex-wrap justify-content-between align-items-center gap-2 mb-3');
-statusRow.append(counter, resetButton);
-
 const cardsRow = createEl('div', 'row g-3');
 
-const example = getRandomItem(programs);
-const randomNote = createEl(
-    'p',
-    'small text-muted mb-3',
-    'Для примера: ' + example.title + ' (категория ' + example.category + '), ' +
-    formatPrice(example.price) + '. Это случайный пример из списка, а не акция.'
-);
+const buttonsRow = createEl('div', 'd-flex flex-wrap gap-2 mb-3');
+buttonsRow.setAttribute('role', 'group');
+buttonsRow.setAttribute('aria-label', 'Категория обучения');
+
+// Показывает программы выбранной категории и подсвечивает нажатую кнопку
+function showCategory(category) {
+    renderList(filterPrograms(programs, category), cardsRow, createCard, 'Нет программ в этой категории.');
+    for (const button of buttonsRow.children) {
+        button.setAttribute('aria-pressed', String(active));
+    }
+}
+
+const choices = [
+    ['all', 'Все программы'], ['A', 'A — мотоциклы'], ['B', 'B — легковые'], ['C', 'C — грузовые']
+];
+for (const [value, text] of choices) {
+    const button = createEl('button', 'btn btn-outline-primary', text);
+    button.type = 'button';
+    button.dataset.category = value;
+    button.addEventListener('click', function () {
+        showCategory(value);
+    });
+    buttonsRow.appendChild(button);
+}
 
 const picker = createEl('section', 'bg-white p-4 rounded-3 border shadow-sm mt-4');
 picker.append(
-    createEl('h2', 'h4 mb-2', 'Выбери свою программу обучения'),
-    randomNote, controlsRow, statusRow, cardsRow
+    createEl('h2', 'h4 mb-3', 'Выбери свою программу обучения'),
+    buttonsRow,
+    cardsRow
 );
 document.querySelector('.home-layout').after(picker);
 
-function updateList() {
-    const found = filterPrograms(programs, categorySelect.value, searchInput.value);
-    renderList(found, cardsRow, createCard, 'Нет программ по выбранным условиям.');
-    counter.textContent = 'Найдено программ: ' + found.length + ' из ' + programs.length;
-}
-
-categorySelect.addEventListener('change', updateList);
-searchInput.addEventListener('input', updateList);
-resetButton.addEventListener('click', function () {
-    categorySelect.value = '';
-    searchInput.value = '';
-    updateList();
-    categorySelect.focus();
-});
-updateList();
+showCategory('all');
 
 // ---------- Форма входа (демонстрация, без сервера) ----------
 
