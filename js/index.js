@@ -33,9 +33,10 @@ buttonsRow.setAttribute('aria-label', 'Категория обучения');
 
 // Показывает программы выбранной категории и подсвечивает нажатую кнопку
 function showCategory(category) {
+    const found = filterPrograms(programs, category);
     renderList(filterPrograms(programs, category), cardsRow, createCard, 'Нет программ в этой категории.');
     for (const button of buttonsRow.children) {
-        button.setAttribute('aria-pressed', String(active));
+        button.setAttribute('aria-pressed', String(button.dataset.category === category));
     }
 }
 
