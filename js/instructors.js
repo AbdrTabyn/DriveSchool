@@ -1,51 +1,14 @@
 'use strict';
 
-// Каждый файл подключается только на своей странице.
-(() => {
-    function init() {
-        // Локальные помощники: доступны только этому файлу.
-        const ui = (() => {
-            function element(tag, classes = '', text = '') {
-                const node = document.createElement(tag);
-                node.className = classes;
-                node.textContent = text;
-                return node;
-            }
-            function button(text, classes = 'btn btn-primary btn-sm') {
-                const node = element('button', classes, text);
-                node.type = 'button';
-                return node;
-            }
-            function option(value, text) {
-                const node = element('option', '', text);
-                node.value = value;
-                return node;
-            }
-            function field(form, id, title, type = 'text') {
-                const box = element('div', 'col-12 col-md-6 mb-2');
-                const label = element('label', 'form-label small fw-bold mb-1', title);
-                label.htmlFor = id;
-                const input = element(['select', 'textarea'].includes(type) ? type : 'input',
-                    type === 'select' ? 'form-select form-select-sm' : 'form-control form-control-sm');
-                if (input.tagName === 'INPUT') input.type = type;
-                if (type === 'textarea') input.rows = 2;
-                input.id = id;
-                input.name = id;
-                const error = element('div', 'invalid-feedback');
-                error.id = `${id}-error`;
-                input.setAttribute('aria-describedby', error.id);
-                box.append(label, input, error);
-                form.append(box);
-                return { input, error };
-            }
-            function status() {
-                const node = element('p', 'col-12 small text-break mt-2 mb-0');
-                node.setAttribute('role', 'status');
-                return node;
-            }
-            return { element, button, option, field, status };
-        })();
-        const instructors = [
+// jQuery 3.7.1 full загружается из CDN раньше этого файла; $(function) ждёт готовности DOM.
+$(function () {
+    const $main = $('main');
+    const $training = $main.find('#training-steps');
+    const $team = $main.children('details').first();
+    const $grid = $team.children('.row').first();
+    if (!$training.length || !$grid.length || $('#instructor-search').length) return;
+
+    const instructors = [
             { id: 'aman', name: 'Артықбаев Аман', experience: 10, rating: 4.9, categories: ['A', 'B'], days: [1, 3, 5], description: 'Спокойно объясняет основы управления автомобилем и помогает освоить городские маршруты.' },
             { id: 'bekzat', name: 'Жақсыбай Бекзат', experience: 7, rating: 4.7, categories: ['A', 'B'], days: [2, 4, 6], description: 'Работает с начинающими водителями, уделяет внимание парковке и подготовке к экзамену.' },
             { id: 'aigerim', name: 'Серікқызы Айгерім', experience: 8, rating: 4.8, categories: ['B'], days: [1, 2, 4], description: 'Помогает преодолеть волнение за рулём и постепенно перейти от площадки к городу.' },
@@ -67,79 +30,85 @@
             { id: 'dauren', name: 'Оспанов Дәурен', experience: 6, rating: 4.7, categories: ['A', 'B'], days: [1, 3, 4], description: 'Пошагово разбирает базовые манёвры и помогает закрепить навыки на площадке и в городе.' },
             { id: 'diana', name: 'Кәрімова Диана', experience: 5, rating: 4.8, categories: ['B'], days: [2, 5, 6], description: 'Обучает с нуля, уделяет внимание плавному вождению и спокойной подготовке к самостоятельным поездкам.' }
         ];
-        const main = document.querySelector('main');
-        if (!main || !main.querySelector('#training-steps')) return;
-        const team = main.querySelector('details');
-        if (!team) return;
-        const grid = team.querySelector('.row');
-        if (!grid || document.querySelector('#instructor-search')) return;
-        const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-        const filters = ui.element('form', 'row g-2 border rounded p-3 mb-3 mt-3 mx-0');
-        const search = ui.field(filters, 'instructor-search', 'Поиск по имени', 'search');
-        const category = ui.field(filters, 'filter-category', 'Категория', 'select');
-        category.input.append(ui.option('', 'Все категории'), ...['A', 'B', 'C'].map(value => ui.option(value, value)));
-        const day = ui.field(filters, 'filter-day', 'Удобный день', 'select');
-        day.input.append(ui.option('', 'Любой день'), ...[1, 2, 3, 4, 5, 6].map(value => ui.option(value, days[value])));
-        const resetBox = ui.element('div', 'col-12 col-md-6 d-flex align-items-end mb-2');
-        const reset = ui.button('Сбросить фильтры', 'btn btn-outline-primary btn-sm');
-        resetBox.append(reset);
-        const count = ui.status();
-        filters.append(resetBox, count);
-        grid.before(filters);
+    const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 
-        function renderCards(items) {
-            grid.replaceChildren();
-            count.textContent = `Найдено: ${items.length} из ${instructors.length}.`;
-            if (items.length === 0) grid.append(ui.element('p', 'col-12 text-muted', 'Ничего не найдено. Измените условия или сбросьте фильтры.'));
-            items.forEach(item => {
-                const column = ui.element('div', 'col-12 col-md-6');
-                const card = ui.element('article', 'card h-100 shadow-sm instructor-card');
-                const body = ui.element('div', 'card-body d-flex flex-column');
-                const heading = ui.element('div', 'd-flex flex-wrap align-items-center gap-3 mb-2');
-                heading.append(ui.element('span', 'rounded-circle bg-light border p-3 text-primary fw-bold', item.name.split(' ').map(part => part[0]).join('')),
-                    ui.element('h3', 'h4 card-title mb-0', item.name));
-                const rating = ui.element('span', 'badge bg-primary mb-2 align-self-start', `★ ${item.rating.toFixed(1)}`);
-                rating.setAttribute('aria-label', `Рейтинг: ${item.rating} из 5`);
-                const chosenCategory = category.input.value || item.categories[0];
-                const link = ui.element('a', 'btn btn-primary btn-sm mt-auto align-self-start', 'Записаться на пробный урок');
-                link.href = 'price.html?' + new URLSearchParams({ category: chosenCategory, instructor: item.id, type: 'practice' });
-                link.setAttribute('aria-label', `Записаться на пробный урок: ${item.name}`);
-                body.append(heading, rating,
-                    ui.element('p', 'small mb-1', `Стаж: ${item.experience} лет. Категории: ${item.categories.join(', ')}.`),
-                    ui.element('p', 'small text-muted mb-2', `Дни занятий: ${item.days.map(value => days[value]).join(', ')}.`),
-                    ui.element('p', 'small card-text', item.description), link);
-                card.append(body);
-                column.append(card);
-                grid.append(column);
-            });
-        }
-        function filterCards() {
-            const query = search.input.value.trim().toLocaleLowerCase('ru');
-            renderCards(instructors.filter(item => item.name.toLocaleLowerCase('ru').includes(query)
-                && (category.input.value === '' || item.categories.includes(category.input.value))
-                && (day.input.value === '' || item.days.includes(Number(day.input.value)))));
-        }
-        filters.addEventListener('submit', event => event.preventDefault());
-        search.input.addEventListener('input', filterCards);
-        [category.input, day.input].forEach(input => input.addEventListener('change', filterCards));
-        reset.addEventListener('click', () => { filters.reset(); filterCards(); search.input.focus(); });
-        main.querySelector('.table-responsive')?.remove();
-        const oldContact = Array.from(main.children).find(node => node.tagName === 'P' && node.textContent.includes('Записаться к конкретному'));
-        oldContact?.remove();
-        team.classList.remove('toggle');
-        team.querySelector('summary').classList.add('mb-3');
-        const training = main.querySelector('#training-steps');
-        const trainingSection = ui.element('section', 'mb-4');
-        trainingSection.id = training.id;
-        trainingSection.append(ui.element('h2', 'h4 mb-3', training.querySelector('summary').textContent));
-        Array.from(training.children).forEach(child => {
-            if (child.tagName !== 'SUMMARY') trainingSection.append(child);
-        });
-        training.replaceWith(trainingSection);
-        filterCards();
-
+    function element(tag, classes = '', text = '') {
+        return $('<' + tag + '>').addClass(classes).text(text);
     }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init, { once: true });
-    } else init();
-})();
+    function field($form, id, title, type) {
+        const $box = element('div', 'col-12 col-md-4');
+        const $input = element(type === 'select' ? 'select' : 'input', type === 'select' ? 'form-select' : 'form-control');
+        $input.attr({ id: id, name: id });
+        if (type !== 'select') $input.attr('type', type);
+        $box.append(element('label', 'form-label small fw-bold', title).attr('for', id), $input).appendTo($form);
+        return $input;
+    }
+    function option(value, text) {
+        return element('option', '', text).val(value);
+    }
+
+    const $filters = element('form', 'row g-2 border rounded p-3 mb-3 mt-3 mx-0');
+    const $search = field($filters, 'instructor-search', 'Поиск по имени', 'search');
+    const $category = field($filters, 'filter-category', 'Категория', 'select');
+    $category.append(option('', 'Все категории'), ['A', 'B', 'C'].map(value => option(value, value)));
+    const $day = field($filters, 'filter-day', 'Удобный день', 'select');
+    $day.append(option('', 'Любой день'), [1, 2, 3, 4, 5, 6].map(value => option(value, days[value])));
+    const $reset = element('button', 'btn btn-outline-primary btn-sm', 'Сбросить фильтры').attr('type', 'button');
+    const $count = element('p', 'col-12 small mb-0').attr('role', 'status');
+    $filters.append(element('div', 'col-12').append($reset), $count).insertBefore($grid);
+
+    // Переписано 1: createElement/textContent/appendChild заменены на $(), .text(), .append().
+    // Создание карточек короче; расчёт инициалов и фильтрация массива остались обычной логикой JS.
+    function renderCards(items) {
+        $grid.empty();
+        $count.text('Найдено: ' + items.length + ' из ' + instructors.length + '.');
+        if (!items.length) $grid.append(element('p', 'col-12 text-muted', 'Ничего не найдено. Измените условия или сбросьте фильтры.'));
+        items.forEach(item => {
+            const $card = element('article', 'card h-100 shadow-sm instructor-card');
+            const $body = element('div', 'card-body d-flex flex-column');
+            const $heading = element('div', 'd-flex flex-wrap align-items-center gap-3 mb-2');
+            const initials = item.name.split(' ').map(part => part[0]).join('');
+            $heading.append(element('span', 'rounded-circle bg-light border p-3 text-primary fw-bold', initials),
+                element('h3', 'h4 card-title mb-0', item.name));
+            const $rating = element('span', 'badge bg-primary mb-2 align-self-start', '★ ' + item.rating.toFixed(1));
+            $rating.attr('aria-label', 'Рейтинг: ' + item.rating + ' из 5');
+            const params = new URLSearchParams({ category: $category.val() || item.categories[0], instructor: item.id, type: 'practice' });
+            const $link = element('a', 'btn btn-primary btn-sm mt-auto align-self-start', 'Записаться на пробный урок');
+            $link.attr({ href: 'price.html?' + params, 'aria-label': 'Записаться на пробный урок: ' + item.name });
+            $body.append($heading, $rating,
+                element('p', 'small mb-1', 'Стаж: ' + item.experience + ' лет. Категории: ' + item.categories.join(', ') + '.'),
+                element('p', 'small text-muted mb-2', 'Дни занятий: ' + item.days.map(day => days[day]).join(', ') + '.'),
+                element('p', 'small card-text', item.description), $link);
+            $card.append($body).appendTo(element('div', 'col-12 col-md-6').appendTo($grid));
+        });
+    }
+    function filterCards() {
+        const query = $search.val().trim().toLocaleLowerCase('ru');
+        const category = $category.val();
+        const day = $day.val();
+        renderCards(instructors.filter(item => item.name.toLocaleLowerCase('ru').includes(query)
+            && (!category || item.categories.includes(category)) && (!day || item.days.includes(Number(day)))));
+    }
+    $filters.on('submit', function (event) {
+        // Без preventDefault браузер отправил бы форму фильтра и перезагрузил страницу.
+        event.preventDefault();
+    });
+    $search.on('input', filterCards);
+    $category.add($day).on('change', filterCards);
+    $reset.on('click', function () {
+        // $(this) — нажатая кнопка; closest находит только её форму, а не чужие поля.
+        $(this).closest('form').find('input, select').val('');
+        filterCards();
+        $search.trigger('focus');
+    });
+
+    $main.find('.table-responsive').remove();
+    $main.children('p').filter(function () {
+        return $(this).text().includes('Записаться к конкретному');
+    }).remove();
+    $team.removeClass('toggle').children('summary').addClass('mb-3');
+    const $trainingSection = element('section', 'mb-4').attr('id', 'training-steps');
+    $trainingSection.append(element('h2', 'h4 mb-3', $training.children('summary').text()), $training.children(':not(summary)'));
+    $training.replaceWith($trainingSection);
+    filterCards();
+});
