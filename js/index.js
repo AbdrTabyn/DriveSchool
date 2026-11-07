@@ -128,6 +128,35 @@ $(function () {
     $heroRow.append($heroText, $heroPhoto);
     $home.append($heroRow);
 
+    const $hero = $('main').find('h1').first().closest('.row').parent();
+    $hero.css({
+        padding: '32px',
+        marginBottom: '32px'
+    });
+
+    $hero.find('h1').css({
+        fontSize: 'clamp(30px, 3vw, 44px)',
+        lineHeight: '1.15',
+        marginBottom: '16px'
+    });
+
+    $hero.find('img').css({
+        height: '300px',
+        width: '100%',
+        objectFit: 'cover'
+    });
+
+    $hero.find('p').css({
+        fontSize: '17px',
+        lineHeight: '1.7',
+        marginBottom: '24px'
+    });
+
+    $hero.find('.btn').css({
+        fontSize: '16px',
+        padding: '10px 20px'
+    });
+
     // ---------- ADVANTAGES ----------
     const $advantages = el('section', 'mt-5 mb-5');
     $advantages.append(
