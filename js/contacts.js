@@ -50,16 +50,14 @@ $(function() {
         $accordion.append($faqItem);
     });
 
-    // Делегированный обработчик клика с использованием методов траверса (.closest(), .find()) и эффекта .slideToggle()
+    // Делегированный обработчик клика с использованием методов траверса (.closest(), .find()) и эффекта .slideToggle()[cite: 17]
     $faqSection.on('click', '.faq-question-btn', function() {
         const $btn = $(this);
-        // Траверс: поднимаемся к родителю карточки и находим блок с ответом
         const $answerBody = $btn.closest('.faq-wrapper').find('.faq-answer-body');
         const $icon = $btn.find('.faq-icon');
 
         // Эффект плавного открытия/закрытия
         $answerBody.slideToggle(300, function() {
-            // Коллбэк после завершения анимации (меняем иконку стрелки)
             if ($answerBody.is(':visible')) {
                 $icon.text('▲');
             } else {
@@ -102,7 +100,7 @@ $(function() {
 
     // Обработка отправки формы
     $contactForm.on('submit', function(event) {
-        event.preventDefault(); // Предотвращаем перезагрузку страницы
+        event.preventDefault();
 
         let isValid = true;
         const $name = $('#visitor-name');
@@ -130,7 +128,6 @@ $(function() {
             return;
         }
 
-        // Генерация демонстрационного номера заявки через Math.random()
         const refNumber = 'FAQ-' + (Math.floor(Math.random() * 900000) + 100000);
         $('#success-alert').remove();
 
@@ -145,7 +142,7 @@ $(function() {
         `).hide();
 
         $contactForm.after($successAlert);
-        $successAlert.fadeIn(400); // Эффект плавного появления сообщения
+        $successAlert.fadeIn(400);
 
         this.reset();
     });
