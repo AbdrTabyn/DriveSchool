@@ -2,10 +2,9 @@
 
 $(function () {
     const $home = $('.home-layout');
-    if (!$home.length || $('#program-picker').length) return;
+    if (!$home.length) return;
 
-    // ---------- DATA ----------
-
+    // Data
     const programs = [
         { category: 'A1', parent: 'A', title: 'Лёгкие мотоциклы', price: 40000, weeks: 4 },
         { category: 'A', parent: 'A', title: 'Мотоциклы', price: 50000, weeks: 6 },
@@ -66,7 +65,7 @@ $(function () {
         { text: 'Спецсимвол', regex: /[^A-Za-zА-Яа-яЁё0-9\s]/ }
     ];
 
-    // ---------- HELPERS ----------
+    // Helpers
     function el(tag, classes, content) {
         return $('<' + tag + '>')
             .addClass(classes || '')
@@ -83,10 +82,14 @@ $(function () {
             .addClass('img-fluid rounded-3 shadow-sm w-100');
     }
 
-    // ---------- NAVBAR ----------
+    function formatPrice(price) {
+        return new Intl.NumberFormat('ru-RU').format(price) + ' ₸';
+    }
+
+    // Navbar
     $('.navbar-brand').text('Drive School');
 
-    // ---------- HERO ----------
+    // Layout
     const $main = $home.closest('main');
     const $layout = $main.closest('.row');
     const $aside = $layout.find('aside');
@@ -98,13 +101,13 @@ $(function () {
         .removeClass('bg-white border shadow-sm')
         .addClass('bg-dark text-white p-4 p-lg-5 rounded-4');
 
+    // Hero
     const $heroRow = el('div', 'row align-items-center g-4');
     const $heroText = el('div', 'col-12 col-lg-6');
 
     $heroText.append(
         el('h1', 'display-5 fw-bold mb-4',
             'Уверенность за рулём начинается здесь.'),
-
         el('p', 'lead text-white-50 mb-4',
             'От первого занятия до подготовки к экзамену. ' +
             'Выберите подходящую программу и начните обучение.')
@@ -116,48 +119,46 @@ $(function () {
         .appendTo($heroActions);
 
     $heroText.append($heroActions);
-
-    const $heroPhoto = el('div', 'col-12 col-lg-6')
-        .append(
-            createImage(
-                'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85',
-                'Автомобиль — иллюстрация'
-            )
-        );
+    const $heroPhoto = el('div', 'col-12 col-lg-6').append(
+        createImage(
+            'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85',
+            'Автомобиль — иллюстрация'
+        )
+    );
 
     $heroRow.append($heroText, $heroPhoto);
     $home.append($heroRow);
 
-    const $hero = $('main').find('h1').first().closest('.row').parent();
-    $hero.css({
+    $home.css({
+        background: '#10203e',
         padding: '32px',
         marginBottom: '32px'
     });
 
-    $hero.find('h1').css({
+    $home.find('h1').css({
         fontSize: 'clamp(30px, 3vw, 44px)',
         lineHeight: '1.15',
         marginBottom: '16px'
     });
 
-    $hero.find('img').css({
+    $home.find('img').css({
         height: '300px',
         width: '100%',
         objectFit: 'cover'
     });
 
-    $hero.find('p').css({
+    $home.find('p').css({
         fontSize: '17px',
         lineHeight: '1.7',
         marginBottom: '24px'
     });
 
-    $hero.find('.btn').css({
+    $home.find('.btn').css({
         fontSize: '16px',
         padding: '10px 20px'
     });
 
-    // ---------- ADVANTAGES ----------
+    // Advantages
     const $advantages = el('section', 'mt-5 mb-5');
     $advantages.append(
         el('h2', 'h3 fw-bold text-center mb-4',
@@ -170,40 +171,41 @@ $(function () {
             'div',
             'bg-white border rounded-4 shadow-sm p-4 h-100'
         );
+
         $card.append(
             el('div', 'fs-1 mb-3', item.icon),
             el('h3', 'h5 fw-bold', item.title),
             el('p', 'text-muted mb-0', item.description)
         );
+
         el('div', 'col-12 col-md-4')
             .append($card)
             .appendTo($advantagesRow);
     });
-
     $advantages.append($advantagesRow);
     $main.append($advantages);
 
-    // ---------- LEARNING STEPS ----------
+    // Learning Steps
     const $learning = el('section', 'mb-5');
 
     $learning.append(
         el('h2', 'h3 fw-bold text-center mb-4',
             'Как проходит обучение?')
     );
+
     const $stepsRow = el('div', 'row g-4');
     $.each(steps, function (index, step) {
-
         const $card = el('div', 'card h-100 shadow-sm');
         const $image = createImage(step.image, step.title)
             .addClass('card-img-top');
-
         const $body = el('div', 'card-body');
+
         $body.append(
             el('h3', 'h5 fw-bold', step.title),
             el('p', 'card-text text-muted', step.description)
         );
-        $card.append($image, $body);
 
+        $card.append($image, $body);
         el('div', 'col-12 col-md-4')
             .append($card)
             .appendTo($stepsRow);
@@ -212,7 +214,9 @@ $(function () {
     $learning.append($stepsRow);
     $main.append($learning);
 
-    // ---------- PROGRAM FILTER ----------
+    // Program Filter
+    $('#program-picker').remove();
+
     const $programSection = el(
         'section',
         'bg-white p-4 rounded-4 border shadow-sm mb-5'
@@ -238,12 +242,9 @@ $(function () {
         $content.append(
             el('span', 'badge bg-primary mb-3',
                 'Категория ' + program.category),
-
             el('h3', 'h5 fw-bold', program.title),
-
             el('p', 'text-muted mb-2',
                 'Продолжительность: ' + program.weeks + ' нед.'),
-
             el('p', 'h4 fw-bold text-primary',
                 formatPrice(program.price))
         );
@@ -257,30 +258,27 @@ $(function () {
     }
 
     function renderPrograms(category) {
-        const filtered = $.grep(programs, function (program) {
+        const filtered = programs.filter(function (program) {
             return category === 'all' || program.parent === category;
         });
 
-        $cards.stop(true, true).fadeOut(120, function () {
-            $cards.empty();
-            if (!filtered.length) {
-                $cards.append(
-                    el('p', 'text-muted',
-                        'Программы в этой категории не найдены.')
-                );
-            }
+        $cards.stop(true, true).show().empty();
 
-            $.each(filtered, function (index, program) {
-                createProgramCard(program).appendTo($cards);
-            });
+        if (!filtered.length) {
+            $cards.append(
+                el('p', 'text-muted',
+                    'Программы в этой категории не найдены.')
+            );
+        }
 
-            $cards.fadeIn(180);
+        filtered.forEach(function (program) {
+            createProgramCard(program).appendTo($cards);
         });
 
         $count.text('Найдено программ: ' + filtered.length);
         $buttons.find('button').each(function () {
-
             const active = $(this).attr('data-category') === category;
+
             $(this)
                 .toggleClass('btn-primary', active)
                 .toggleClass('btn-outline-primary', !active)
@@ -298,7 +296,8 @@ $(function () {
     });
 
     $buttons.on('click', 'button', function () {
-        renderPrograms($(this).attr('data-category'));
+        const category = $(this).attr('data-category');
+        renderPrograms(category);
     });
 
     $cards.on('mouseenter mouseleave', '.program-card', function () {
@@ -314,14 +313,12 @@ $(function () {
         $cards,
         $count
     );
-
     $main.append($programSection);
     renderPrograms('all');
 
-    // ---------- LOGIN FORM ----------
+    // Login Form
     const $form = $aside.find('form');
     if (!$form.length) return;
-
     $aside.find('h2').addClass('fw-bold');
 
     const $user = $form.find('#login-username');
@@ -343,7 +340,6 @@ $(function () {
     ).attr('role', 'status');
 
     $form.prop('noValidate', true);
-
     $user.after($userError);
     $pass.after($toggle, $list, $passError);
     $form.append($result);
@@ -373,7 +369,6 @@ $(function () {
             .attr('aria-invalid', String(invalid));
 
         $error.stop(true, true);
-
         if (invalid) {
             $error
                 .text(message)
@@ -384,8 +379,8 @@ $(function () {
             $error.addClass('d-none').text('');
         }
     }
-    renderChecklist('');
 
+    renderChecklist('');
     $user.on('input', function () {
         showError($user, $userError, '');
         $result.addClass('d-none');
@@ -398,9 +393,9 @@ $(function () {
     });
 
     $toggle.on('click', function () {
-
         const hidden = $pass.prop('type') === 'password';
         $pass.prop('type', hidden ? 'text' : 'password');
+
         $(this).text(
             hidden ? 'Скрыть пароль' : 'Показать пароль'
         );
@@ -441,5 +436,4 @@ $(function () {
         $pass.val('');
         renderChecklist('');
     });
-
 });

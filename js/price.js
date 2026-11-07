@@ -65,27 +65,33 @@ $(function () {
     $('body').css('background', '#f4f7fb');
     $('footer').css('background', '#10203e');
 
-    // Layout
-    $main.css('maxWidth', '1320px').find('.row.g-4').first().removeClass('row g-4');
-    $section.removeClass('col-12 col-lg-8').empty();
-    $aside.removeClass('col-12 col-lg-4').find('> div').removeClass('rounded-3')
-        .addClass('rounded-4 p-lg-5').css({ border: '1px solid #e5eaf2', boxShadow: '0 12px 35px rgba(16,32,62,.08)' });
 
-    // Hero
-    $section.append(`
-        <div class="rounded-4 p-4 p-lg-5 mb-5 text-white" style="background:#10203e;overflow:hidden">
-            <div class="row align-items-center g-4">
-                <div class="col-12 col-lg-6">
-                    <h1 class="fw-bold mb-3" style="font-size:clamp(30px,3vw,44px);line-height:1.15">Выбери свою категорию прав</h1>
-                    <p class="mb-4" style="color:#cbd5e1;font-size:17px;line-height:1.7">Прозрачные цены, удобное обучение и уверенность за рулём с первого занятия.</p>
-                    <a href="#price-programs" class="btn btn-primary btn-lg">Смотреть программы</a>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=85"
-                         alt="Автомобиль" class="img-fluid w-100 rounded-3" style="height:300px;object-fit:cover">
-                </div>
-            </div>
-        </div>`);
+    // Layout
+    $main.css('maxWidth', '1320px');
+    $section.parent()
+        .addClass('row g-4 align-items-start');
+
+    $section
+        .removeClass('col-lg-12')
+        .addClass('col-12 col-lg-8')
+        .empty()
+        .css('paddingTop', '10px');
+
+    $aside
+        .removeClass('col-lg-12')
+        .addClass('col-12 col-lg-4')
+        .css('paddingTop', '112px');
+
+    $aside.find('> div')
+        .removeClass('rounded-3')
+        .addClass('rounded-4')
+        .css({
+            border: '1px solid #e5eaf2',
+            boxShadow: '0 12px 35px rgba(16,32,62,.08)'
+        });
+
+    $aside.find('> div').css('paddingBottom', '65px');
+    $aside.find('> div').css('minHeight', '1125px');
 
     // Programs
     $section.append(`<div id="price-programs" class="mb-5">
@@ -94,13 +100,13 @@ $(function () {
         <div id="program-cards" class="row g-4"></div></div>`);
 
     $('#program-cards').html(programs.map(p => `
-        <div class="col-12 col-md-6 col-lg-4"><div class="bg-white border rounded-4 p-4 h-100" data-card="${p.code}" style="transition:transform .2s">
+        <div class="col-12 col-md-6 col-lg-4"><div class="bg-white border rounded-4 p-4 h-100 d-flex flex-column align-items-start" data-card="${p.code}" style="transition:transform .2s">
             <div class="fs-1 mb-3">${p.icon}</div>
-            <span class="badge bg-primary mb-3">Категория ${p.code}</span>
-            <h3 class="h5 fw-bold mb-2">${p.title}</h3>
+            <span class="badge bg-primary mb-3 align-self-start">Категория ${p.code}</span>
+            <h3 class="h5 fw-bold mb-2 style="min-height:52px">${p.title}</h3>
             <p class="text-secondary mb-3">Срок: ${p.weeks} недель</p>
             <div class="h3 fw-bold mb-4" style="color:#10203e">${money(p.price)}</div>
-            <button type="button" class="btn btn-outline-primary w-100" data-select="${p.code}">Выбрать программу</button>
+            <button type="button" class="btn btn-outline-primary w-100 mt-auto align-self-stretch" data-select="${p.code}">Выбрать программу</button>
         </div></div>`).join(''));
 
     // Calculator
@@ -126,8 +132,12 @@ $(function () {
             </div></div>
         </div></div>`);
 
+    // Full-width steps
+    const $stepsSection = $('<section class="col-12 mt-4"></section>');
+    $section.parent().append($stepsSection);
+
     // Steps
-    $section.append(`<div class="mb-5">
+    $stepsSection.append(`<div class="mb-5">
         <h2 class="h3 fw-bold text-center mb-4">Как проходит обучение?</h2>
         <div id="learning-steps" class="row g-3"></div></div>`);
 
