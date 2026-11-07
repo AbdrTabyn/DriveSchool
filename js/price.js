@@ -103,7 +103,7 @@ $(function () {
         <div class="col-12 col-md-6 col-lg-4"><div class="bg-white border rounded-4 p-4 h-100 d-flex flex-column align-items-start" data-card="${p.code}" style="transition:transform .2s">
             <div class="fs-1 mb-3">${p.icon}</div>
             <span class="badge bg-primary mb-3 align-self-start">Категория ${p.code}</span>
-            <h3 class="h5 fw-bold mb-2 style="min-height:52px">${p.title}</h3>
+            <h3 class="h5 fw-bold mb-2" style="min-height:52px">${p.title}</h3>
             <p class="text-secondary mb-3">Срок: ${p.weeks} недель</p>
             <div class="h3 fw-bold mb-4" style="color:#10203e">${money(p.price)}</div>
             <button type="button" class="btn btn-outline-primary w-100 mt-auto align-self-stretch" data-select="${p.code}">Выбрать программу</button>
@@ -207,6 +207,7 @@ $(function () {
         selected = programs.find(p => p.code === code) || programs[3];
         update();
         updateInstructors();
+        $notice.addClass('d-none');
         $feedback.empty();
     }
 
@@ -362,4 +363,14 @@ $(function () {
     const type = params.get('type');
     if (Object.hasOwn(LESSONS, type)) $form.find(`[name="lesson-type"][value="${type}"]`).prop('checked', true);
     updateInstructorHint();
+
+    if (location.hash === '#trial-form') {
+        const formTitle = $aside.find('h2').first().attr('tabindex', '-1').get(0);
+        if (formTitle) {
+            requestAnimationFrame(() => {
+                formTitle.scrollIntoView({ block: 'start' });
+                formTitle.focus({ preventScroll: true });
+            });
+        }
+    }
 });
