@@ -30,6 +30,14 @@ $(function() {
             fontWeight: '700'
         });
 
+    $('.navbar-nav a').each(function () {
+        const href = $(this).attr('href');
+
+        if (href && href.includes('instructor')) {
+            $(this).attr('href', 'instructors.html');
+        }
+    });
+
     // ==========================================
     // 1. ИТЕРАТИВНЫЙ БЛОК FAQ (ВОПРОСЫ И ОТВЕТЫ)
     // ==========================================
