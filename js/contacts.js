@@ -2,6 +2,34 @@
 $(function() {
     'use strict';
 
+    const $nav = $('.navbar');
+    $nav.removeClass('bg-dark py-3').css({
+        backgroundColor: '#10203e',
+        minHeight: '0',
+        paddingTop: '8px',
+        paddingBottom: '8px'
+    });
+    $('.navbar-brand')
+        .removeClass('fs-4')
+        .addClass('fw-bold text-white');
+
+    $('.mobile-nav')
+        .removeClass('justify-content-end w-100');
+
+    $('.navbar-nav .nav-link')
+        .removeClass('text-white text-white-50 fw-bold active')
+        .css({
+            color: 'rgba(255, 255, 255, 0.55)',
+            fontWeight: '400'
+        });
+
+    $('.navbar-nav .nav-link[href="contacts.html"]')
+        .addClass('active')
+        .css({
+            color: '#ffffff',
+            fontWeight: '700'
+        });
+
     // ==========================================
     // 1. ИТЕРАТИВНЫЙ БЛОК FAQ (ВОПРОСЫ И ОТВЕТЫ)
     // ==========================================
