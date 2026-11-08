@@ -6,7 +6,7 @@ const fleetData = [
     { id: 3, brand: 'Honda CR-V', category: 'B', year: 2021, pricePerLesson: 5500, available: true, image: 'images/honda.jpg' },
     { id: 4, brand: 'Hyundai Accent', category: 'B', year: 2022, pricePerLesson: 4500, available: true, image: 'images/тойота.jpg' },
     { id: 5, brand: 'Rockot Alpha Tourist', category: 'A', year: 2019, pricePerLesson: 4000, available: false, image: 'images/Rockot.jpg' },
-    { id: 6, brand: 'Alpha', category: 'A', year: 2020, pricePerLesson: 4300, available: true, image: 'images/Rockot.jpg' },
+    { id: 6, brand: 'Alpha', category: 'A', year: 2020, pricePerLesson: 4300, available: true, image: 'images/alpha.webp' },
 ];
 
 $(function () {
@@ -41,4 +41,14 @@ $(function () {
 
     $('.navbar-nav a[href="instructor.html"]')
         .attr('href', 'instructors.html');
+
+    // Align fleet photos
+    $('<style>').text(`
+    .card-img-top, #fleet-list img, .fleet-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        display: block;
+    }
+`).appendTo('head');
 });
