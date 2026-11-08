@@ -223,10 +223,18 @@ $(function () {
             $.each(items.slice(0, 6), function (_, car) {
                 const $col = $('<div>', { class: 'col-md-6' });
                 const $card = $('<div>', { class: 'card h-100 border-0 bg-light shadow-sm' });
+
                 const $image = $('<img>', {
                     src: car.image,
                     class: 'card-img-top img-fluid rounded',
                     alt: car.brand
+                });
+
+                // Все картинки приводятся к единому размеру
+                $image.css({
+                    'height': '220px',
+                    'object-fit': 'cover',
+                    'width': '100%'
                 });
 
                 // attr() is correct for HTML attributes such as src/alt.
@@ -269,7 +277,7 @@ $(function () {
         }
 
         function updateFleetView() {
-            const query = String($search.val() || '').trim(); // val() reads form values.
+            const query = String($search.val() || '').trim();
             const category = $category.val();
             const sortBy = $sort.val();
             const filtered = filterFleet(fleetData, category, query);
@@ -294,7 +302,6 @@ $(function () {
         });
 
         // Delegation: rows/buttons are created later by renderFleet/renderGallery.
-        // Direct binding would miss elements that did not exist at binding time.
         $main.on('click', '.book-car-btn', function (event) {
             event.preventDefault();
             const carId = Number($(this).attr('data-car-id'));
@@ -345,7 +352,6 @@ $(function () {
         const $booking = $('<form>', {
             id: 'fleet-booking-form',
             class: 'border rounded p-4 mt-5 bg-light d-none',
-            // required stays on every field; novalidate lets our jQuery messages run first.
             novalidate: true
         });
 
@@ -424,7 +430,6 @@ $(function () {
             return true;
         }
 
-        // Delegated validation handler clears an error immediately after fixing a field.
         $booking.on('input change', 'input:not(#booking-consent)', function () {
             validateBookingField($(this));
         });
@@ -436,7 +441,6 @@ $(function () {
 
         $booking.on('submit', function (event) {
             event.preventDefault();
-            // Without preventDefault(), the browser would submit/reload the page.
 
             let isValid = true;
             const $fields = $booking.find('#booking-name, #booking-phone, #booking-email, #booking-date');
@@ -459,8 +463,6 @@ $(function () {
             const selectedCarName = $('#booking-car-name').text();
             const userName = $('#booking-name').val().trim();
 
-            // text() writes plain text and prevents HTML parsing; html() parses markup.
-        // Here html() is intentional because the success message contains <strong>.
             let $success = $('#booking-success');
             if (!$success.length) {
                 $success = $('<div>', {
@@ -477,7 +479,6 @@ $(function () {
             $booking[0].reset();
             $booking.find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
 
-            // Callback after the effect finishes.
             $success.delay(4000).fadeOut(500, function () {
                 $(this).remove();
             });
@@ -520,7 +521,6 @@ $(function () {
     // ============================================================
     $('#menu-toggle').on('change', function () {
         const isOpen = $(this).prop('checked');
-        // prop() reads the current boolean property; attr() reads the HTML attribute value.
         $(this).closest('nav').attr('aria-expanded-state', String(isOpen));
     });
 });
