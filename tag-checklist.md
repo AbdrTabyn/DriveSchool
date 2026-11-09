@@ -1,132 +1,241 @@
-# Drive School — Bootstrap / CSS Checklist
+# Drive School — JavaScript / jQuery Checklist
 
-This checklist describes the main Bootstrap classes and custom CSS used in the final Drive School website.
+This checklist describes the main JavaScript and jQuery features, methods, and improvements implemented in the final Drive School website.
 
-## Bootstrap Layout
+## JavaScript Data and Logic
 
-Used across the website:
+JavaScript is used to store and process website information.
 
-- `container` — main content width
-- `container-fluid` — full-width responsive content where needed
-- `row` — Bootstrap grid row
-- `col-*` — responsive columns
-- `row-cols-*` — responsive groups of cards
-- `g-*` — grid gaps
+Main concepts include:
 
-## Responsive Design
+- `const` and `let` — variables and application state
+- `arrays` — lists of programs, instructors, lessons, and vehicles
+- `objects` — structured information about each item
+- `functions` — reusable application logic
+- `if / else` — conditional statements
+- `map()` — generating content from arrays
+- `filter()` — filtering programs and other data
+- `find()` — finding selected items
+- `forEach()` — processing collections
 
-Bootstrap responsive classes are used to adapt the website to different screen sizes:
+These methods help generate dynamic content instead of keeping all information directly in HTML.
 
-- `navbar-expand-lg`
-- `col-md-*`
-- `col-lg-*`
-- `row-cols-sm-*`
-- `row-cols-lg-*`
-- `d-flex`
-- `flex-wrap`
-- `d-none`
-- `img-fluid`
+## Dynamic Content
 
-The layout was checked at desktop and phone widths.
+JavaScript and jQuery are used to create and update website elements.
 
-## Navigation
+Main methods include:
 
-The same navigation structure is used across the main pages.
+- `.append()` — adding new elements
+- `.empty()` — clearing existing content
+- `.html()` — inserting predefined HTML
+- `.text()` — updating text content
+- `.val()` — reading and changing form values
+- `.attr()` — managing element attributes
+- `.prop()` — working with element properties
 
-Bootstrap classes include:
+Dynamic content is used for training programs, instructor profiles, schedules, and vehicle information.
 
-- `navbar`
-- `navbar-dark`
-- `navbar-expand-lg`
-- `navbar-brand`
-- `navbar-nav`
-- `nav-item`
-- `nav-link`
-- `active`
+## Events and User Interaction
 
-The current page is highlighted using the `active` state.
+The website responds to user actions through JavaScript and jQuery event handlers.
 
-## Tables
+Main events include:
 
-Bootstrap table classes are used for pricing, schedule, instructors and fleet information:
+- `click` — selecting programs and pressing buttons
+- `input` — live search and input validation
+- `change` — changing categories and filters
+- `submit` — processing forms
+- `reset` — resetting form values
+- `mouseenter` and `mouseleave` — interactive card effects
 
-- `table`
-- `table-striped`
-- `table-bordered`
-- `table-dark`
-- `table-responsive`
+Event delegation is used to handle interactions with dynamically generated elements.
 
-Table styles were reviewed to keep their appearance consistent across pages.
+## jQuery Selectors and Traversal
 
-## Forms
+jQuery simplifies selecting and working with HTML elements.
 
-Bootstrap form classes are used for the trial lesson and other forms:
+Main methods include:
 
-- `form-control`
-- `form-select`
-- `form-check`
-- `form-check-input`
-- `form-check-label`
-- `btn`
-- `btn-primary`
-- `btn-outline-primary`
+- `$()` — selecting elements
+- `.find()` — finding child elements
+- `.closest()` — finding the nearest matching parent
+- `.parent()` — accessing parent elements
+- `.siblings()` — accessing elements at the same level
+- `.filter()` — selecting matching elements
+- `.each()` — processing selected elements
+- `$(this)` — accessing the current element inside an event handler
 
-Forms use responsive Bootstrap grid classes where necessary.
+Method chaining is used to perform several operations on selected elements.
 
-## Cards and Content
+## jQuery Effects
 
-Bootstrap cards and utility classes are used for instructors, training stages, schedule and other content:
+jQuery effects improve the interaction between visitors and website elements.
 
-- `card`
-- `card-body`
-- `card-title`
-- `border`
-- `rounded`
-- `shadow-sm`
-- `p-*`
-- `m-*`
-- `gap-*`
+Methods used include:
 
-## Images
+- `.fadeIn()` — displaying content smoothly
+- `.fadeOut()` — hiding content smoothly
+- `.slideDown()` — expanding hidden sections
+- `.slideUp()` — collapsing sections
+- `.slideToggle()` — switching section visibility
+- `.animate()` — animating selected elements
 
-Images use responsive Bootstrap classes such as:
+Effects are used for feedback messages, interactive sections, and visual transitions where applicable.
 
-- `img-fluid`
-- `w-100`
+## Form Validation
 
-Custom CSS is used only where an exact image height or crop is needed.
+JavaScript and jQuery validate user input before displaying confirmation messages.
 
-## Custom CSS
+Validation includes:
 
-Bootstrap provides the main layout and components.
+- Required fields
+- Name length and format
+- Email format
+- Phone number format
+- Date selection
+- Instructor availability
+- Lesson type
+- User consent
+- Error messages next to invalid fields
 
-The project's own CSS is used as a small correction layer for:
+Main methods and concepts:
 
-- Drive School brand colours;
-- heading fonts;
-- navigation appearance;
-- exact image sizes where necessary;
-- mobile navigation behaviour;
-- small visual corrections.
+- `preventDefault()` — preventing default form submission
+- `.trim()` — removing unnecessary spaces
+- Regular expressions — checking input formats
+- `.addClass()` — displaying invalid states
+- `.removeClass()` — removing invalid states
+- `.toggleClass()` — switching validation states
 
-The main project colours are:
+Forms display confirmation messages after successful validation.
 
-- `#0f1f3d` — dark navy
-- `#2f6fed` — primary blue
-- `#f0f4fb` — light background
-- `#d6e0f0` — borders
-- `#ffffff` — white
+## Interactive Features by Page
+
+### Home — `index.js`
+
+- Dynamic training program cards
+- Category filtering (A, B, C)
+- Interactive login form
+- Password validation and visibility control
+- User feedback messages
+
+### Categories and Prices — `price.js`
+
+- Selection of six driving categories
+- Dynamic price calculator
+- Additional driving lessons calculation
+- Instructor selection
+- Trial lesson registration
+- Form validation and confirmation
+- URL parameter handling
+
+### Schedule — `schedule.js`
+
+- Four-week theoretical training schedule
+- Dynamic lesson cards
+- Lesson search and filtering
+- Category and lesson-type selection
+- First aid lesson
+- Links to trial lesson registration
+
+### About the School — `about.js`
+
+- Interactive reviews
+- Review submission
+- Review filtering
+- Input validation
+- Browser-based review storage
+
+### Instructors — `instructors.js`
+
+- Dynamic instructor cards
+- Instructor name search
+- Category filtering
+- Availability filtering
+- Gearbox filtering
+- Booking links with selected parameters
+
+### Fleet — `fleet.js`
+
+- Dynamic vehicle information
+- Vehicle search
+- Category filtering
+- Sorting by price and year
+- Vehicle selection and booking interaction
+
+### Contacts
+
+- Interactive FAQ
+- Expandable information sections
+- Contact form validation
+- User feedback
+
+## Price Calculation
+
+The price calculator updates the total cost based on the selected training program and additional lessons.
+
+Formula:
+
+**Total Price = Program Price + (Additional Lessons × 9,000 KZT)**
+
+For example:
+
+- Category B: 80,000 KZT
+- Additional lessons: 2
+- Additional cost: 18,000 KZT
+- Total: 98,000 KZT
+
+The calculator allows 0–20 additional lessons.
+
+## Browser Features
+
+The project uses browser functionality to improve the user experience.
+
+- `URLSearchParams` — reading selected category and instructor information from the URL
+- `localStorage` — saving user reviews locally
+- Form input values — managing user selections
+- Dynamic DOM updates — displaying results without reloading the page
+
+## Improvements Since Midterm
+
+The midterm project focused on HTML, CSS, Bootstrap, responsive design, and static website content.
+
+The endterm project extended the website with:
+
+- Working interactive buttons and controls
+- Dynamic content generated from JavaScript arrays
+- Program, instructor, lesson, and vehicle filtering
+- Automatic price calculations
+- Form validation and error messages
+- Confirmation messages
+- jQuery event handling and delegation
+- Interactive effects
+- Connected booking workflows
+- Improved card alignment and page layout
+
+These improvements transformed the website from a mainly informational project into an interactive front-end application.
 
 ## Final Review
 
-Before submission we checked:
+Before submission, the following should be checked:
 
-- consistent navigation;
-- responsive Bootstrap layout;
-- consistent tables and cards;
-- responsive images;
-- forms;
-- contact information;
-- mobile layout;
-- links between pages;
-- custom CSS usage.
+- [ ] All buttons and links work correctly
+- [ ] JavaScript and jQuery features are separated appropriately
+- [ ] Dynamic content is displayed correctly
+- [ ] Filters return the expected results
+- [ ] Empty search results are handled
+- [ ] Price calculations are correct
+- [ ] Invalid forms display field-specific errors
+- [ ] Valid forms display confirmation messages
+- [ ] No JavaScript errors appear in the browser console
+- [ ] Responsive layouts work on mobile devices
+- [ ] README and AI Usage Log are updated
+- [ ] All changes are committed to GitHub
+- [ ] The `endterm` Git tag is created
+
+## Conclusion
+
+The Drive School endterm project demonstrates practical JavaScript and jQuery functionality through dynamic content, interactive filtering, calculations, form validation, and event handling.
+
+The website maintains its Bootstrap-based responsive design while providing more useful interactions for visitors.
