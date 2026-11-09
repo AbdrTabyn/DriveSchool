@@ -34,13 +34,6 @@ $(function () {
         { id: 'diana', name: 'Кәрімова Диана', experience: 5, rating: 4.8, categories: ['B'], days: [2, 5, 6], description: 'Обучает с нуля, уделяет внимание плавному вождению и спокойной подготовке к самостоятельным поездкам.' }
     ];
 
-    const steps = [
-        ['01', 'Теория', 'Изучаем правила дорожного движения.'],
-        ['02', 'Автодром', 'Отрабатываем основные навыки управления.'],
-        ['03', 'Город', 'Практикуемся в реальных дорожных условиях.'],
-        ['04', 'Экзамен', 'Закрепляем знания и готовимся к сдаче.']
-    ];
-
     const DAYS = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
     const LESSONS = { theory: 'Теория', practice: 'Практика' };
     const $main = $('main'), $section = $main.find('section').first();
@@ -131,22 +124,6 @@ $(function () {
                 <p class="small mb-0 text-white-50">Предварительный расчёт</p>
             </div></div>
         </div></div>`);
-
-    // Full-width steps
-    const $stepsSection = $('<section class="col-12 mt-4"></section>');
-    $section.parent().append($stepsSection);
-
-    // Steps
-    $stepsSection.append(`<div class="mb-5">
-        <h2 class="h3 fw-bold text-center mb-4">Как проходит обучение?</h2>
-        <div id="learning-steps" class="row g-3"></div></div>`);
-
-    $('#learning-steps').html(steps.map(s => `
-        <div class="col-12 col-sm-6 col-lg-3"><div class="bg-white border rounded-4 p-4 h-100">
-            <div class="h2 fw-bold text-primary mb-3">${s[0]}</div>
-            <h3 class="h5 fw-bold">${s[1]}</h3>
-            <p class="text-secondary small mb-0">${s[2]}</p>
-        </div></div>`).join(''));
 
     // Form
     $aside.find('h2').first().addClass('fw-bold').css('fontSize', '27px');
