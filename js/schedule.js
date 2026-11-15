@@ -4,7 +4,7 @@
 $(function () {
 
     // Data
-    const lessons = [
+    const rawLessons = [
         { id: 1, title: 'Основы ПДД', category: 'B', type: 'Теория', day: 'Понедельник', time: '18:00', duration: 90 },
         { id: 2, title: 'Дорожные знаки', category: 'B', type: 'Теория', day: 'Среда', time: '18:00', duration: 90 },
         { id: 3, title: 'Практика на автодроме', category: 'B', type: 'Практика', day: 'Вторник', time: '10:00', duration: 60 },
@@ -15,7 +15,20 @@ $(function () {
         { id: 8, title: 'Требования КАП', category: 'B', type: 'Теория', day: 'Суббота', time: '18:00', duration: 90 },
         { id: 9, title: 'Первая помощь при ДТП', category: 'B', type: 'Теория', day: 'Воскресенье', time: '14:00', duration: 90 }
     ];
-    const HINT = 'Выбери занятие, чтобы посмотреть детали.';
+
+    const weekdays = ['', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+    const typeNames = { theory: 'Теория', practice: 'Практика' };
+    const dayNumbers = Object.fromEntries(weekdays.map((day, index) => [day, index]));
+
+    const fallbackLessons = rawLessons.map(item => ({
+        ...item,
+        id: String(item.id),
+        type: item.type === 'Теория' ? 'theory' : 'practice',
+        day: dayNumbers[item.day]
+    }));
+
+    const lessons = typeof scheduleLessons !== 'undefined' ? scheduleLessons : fallbackLessons;
+    let selectedLesson = null;
     const $main = $('main');
     if (!$main.length) return;
 
@@ -117,8 +130,8 @@ $(function () {
                         <label for="lesson-type-filter" class="form-label fw-semibold">Тип занятия</label>
                         <select id="lesson-type-filter" class="form-select">
                             <option value="all">Все типы</option>
-                            <option value="Теория">Теория</option>
-                            <option value="Практика">Практика</option>
+                            <option value="theory">Теория</option>
+                            <option value="practice">Практика</option>
                         </select>
                     </div>
                 </div>
@@ -135,7 +148,7 @@ $(function () {
     function filterLessons(list, query, category, type) {
         const text = query.trim().toLocaleLowerCase('ru');
         return list.filter(lesson => {
-            const content = `${lesson.title} ${lesson.day}`.toLocaleLowerCase('ru');
+            const content = `${lesson.title} ${weekdays[lesson.day]}`.toLocaleLowerCase('ru');
             return content.includes(text)
                 && (category === 'all' || lesson.category === category)
                 && (type === 'all' || lesson.type === type);
@@ -158,9 +171,9 @@ $(function () {
                 </article>
             </div>`);
         $card.find('.badge').text('Категория ' + lesson.category);
-        $card.find('.lesson-type').text(lesson.type);
+        $card.find('.lesson-type').text(typeNames[lesson.type]);
         $card.find('.lesson-title').text(lesson.title);
-        $card.find('.lesson-day').text(`${lesson.day}, ${lesson.time}`);
+        $card.find('.lesson-day').text(`${weekdays[lesson.day]}, ${lesson.time}`);
         $card.find('.lesson-duration').text(`Продолжительность: ${lesson.duration} минут`);
         $card.find('button').on('click', () => showSelection(lesson));
         return $card;
@@ -168,27 +181,29 @@ $(function () {
 
     // Selection
     function showSelection(lesson) {
+        selectedLesson = lesson;
         const reference = 'SCH-' + (1000 + Math.floor(Math.random() * 9000));
         const $box = $('<div class="bg-white border rounded-4 p-4"></div>');
         $box.append(
             $('<h3 class="h5 fw-bold mb-3"></h3>').text('Выбранное занятие'),
             $('<p class="fw-semibold mb-2"></p>').text(lesson.title),
             $('<p class="text-secondary mb-2"></p>').text(
-                `Категория ${lesson.category} · ${lesson.type} · ${lesson.day}, ${lesson.time} · ${lesson.duration} мин`
+                `Категория ${lesson.category} · ${typeNames[lesson.type]} · ${weekdays[lesson.day]}, ${lesson.time} · ${lesson.duration} мин`
             ),
             $('<p class="small text-secondary mb-4"></p>').text(
                 `Это предварительный выбор, а не подтверждённая запись. Временный номер: ${reference}.`
             ),
             $('<a class="btn btn-primary me-2 mb-2"></a>')
-                .attr('href',
-                    `price.html?category=${encodeURIComponent(lesson.category)}` +
-                    `&type=${lesson.type === 'Теория' ? 'theory' : 'practice'}` +
-                    `&locked=1#trial-form`
-                )
-                .text('Записаться на пробный урок'),
+                .attr('href', `price.html?${new URLSearchParams({
+                    category: lesson.category,
+                    type: lesson.type,
+                    lesson: lesson.id,
+                    locked: '1'
+                })}#trial-form`)
+                .text('Записаться на это занятие'),
             $('<button type="button" class="btn btn-outline-secondary mb-2"></button>')
                 .text('Отменить выбор')
-                .on('click', () => $('#lesson-selection').empty())
+                .on('click', () => { selectedLesson = null; $('#lesson-selection').empty(); })
         );
         $('#lesson-selection').empty().append($box);
         document.getElementById('lesson-selection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -202,6 +217,10 @@ $(function () {
             $('#lesson-category').val(),
             $('#lesson-type-filter').val()
         );
+        if (selectedLesson && !found.includes(selectedLesson)) {
+            selectedLesson = null;
+            $('#lesson-selection').empty();
+        }
         const $results = $('#lesson-results').empty();
         found.forEach(lesson => $results.append(createLessonCard(lesson)));
         if (!found.length) {
@@ -217,16 +236,18 @@ $(function () {
     $('#reset-filters').on('click', function () {
         $('#lesson-search').val('');
         $('#lesson-category, #lesson-type-filter').val('all');
+        selectedLesson = null;
         $('#lesson-selection').empty();
         renderLessons();
         $('#lesson-search').trigger('focus');
     });
 
     // Back to Top
-    const $top = $('<button type="button" class="btn btn-primary"></button>')
-        .text('↑ Наверх')
-        .css({ position: 'fixed', bottom: '24px', right: '24px', zIndex: 1000, display: 'none' })
-        .appendTo('body');
+    const $top = $('.btn.position-fixed[aria-label="Прокрутить страницу наверх"]').length
+        ? $() : $('<button type="button" class="btn btn-primary"></button>')
+            .text('↑ Наверх')
+            .css({ position: 'fixed', bottom: '24px', right: '24px', zIndex: 1000, display: 'none' })
+            .appendTo('body');
     $top.on('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     $(window).on('scroll', () => $top.toggle($(window).scrollTop() > 400));
 
