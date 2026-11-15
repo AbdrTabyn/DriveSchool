@@ -1,9 +1,8 @@
-
 # Drive School
 
-**Introduction to Web Technologies — Endterm Project**
+**Introduction to Web Technologies — Final Project**
 
-Drive School is an interactive, responsive driving school website developed as a team project. It helps visitors explore driving courses, compare prices, view schedules, find instructors, browse training vehicles, and submit booking requests.
+Drive School is an interactive, responsive driving school website developed as a team project. It allows users to explore driving courses, compare prices, view schedules, find instructors, browse vehicles, and submit booking requests.
 
 ## GitHub Repository
 
@@ -23,148 +22,88 @@ https://github.com/AbdrTabyn/DriveSchool
 
 - HTML5 — page structure
 - CSS3 — styling and responsive design
-- Bootstrap 5.3.3 — layout and UI components
-- JavaScript (ES6+) — application logic and dynamic content
-- jQuery 3.7.1 — DOM manipulation, events, effects, and validation
+- Bootstrap 5.3.3 — responsive layout
+- JavaScript (ES6+) — dynamic functionality
+- jQuery 3.7.1 — DOM manipulation and events
 - Browser APIs — URL parameters and localStorage
 
 ## Website Pages
 
 ### 1. Home
-- Driving school introduction
-- Training program cards
-- Category filtering (A, B, C)
-- Interactive login form with password validation
+- Training programs
+- Category filtering
+- Login form validation
 
 ### 2. Categories and Prices
 - Six driving license categories
-- Dynamic program selection
-- Price calculator for additional lessons
-- Instructor selection
-- Trial lesson registration form
-- Input validation and confirmation message
+- Dynamic price calculator
+- Additional lessons and promo code `DRIVE10`
+- Gift certificate
+- Instructor and date selection
+- Registration form validation
 
 ### 3. Schedule
-- Four-week theoretical training schedule
-- Lesson information and filtering
-- Search by category and lesson type
-- First aid lesson
-- Links to lesson registration
+- Four-week training schedule
+- Lesson search and filtering
+- Theory and practice lessons
+- Links to registration
 
 ### 4. About the School
 - School information
 - Interactive reviews
-- Review filtering
-- Local storage of submitted reviews
+- Review filtering and localStorage
 
 ### 5. Instructors
 - Instructor profiles
-- Search by instructor name
-- Category and availability filters
-- Booking links with preselected information
+- Search and category filters
+- Booking links
 
 ### 6. Fleet
-- Training vehicle cards
-- Vehicle search and category filtering
-- Sorting by price and year
-- Vehicle booking interaction
+- Vehicle cards
+- Search, filtering, and sorting
+- Vehicle booking
 
 ### 7. Contacts
 - Contact information
 - Interactive FAQ
 - Contact form validation
 
-## JavaScript Implementation
+## JavaScript and jQuery
 
-The project uses arrays and objects to store information about programs, lessons, instructors, and vehicles.
+The website uses arrays, objects, functions, loops, conditions, and event handlers.
 
-JavaScript functionality includes:
+Main functionality includes:
 
-- Functions with parameters and return values
-- Loops for generating dynamic content
-- Conditional statements
+- Dynamic content generation
+- DOM manipulation
 - Price calculations
-- DOM updates
-- Event listeners
-- Event delegation
+- Search and filtering
 - Form validation
+- URL parameter processing
+- jQuery events and effects
 
-## jQuery Implementation
+## Improvements Since Endterm
 
-jQuery is used for interactive page functionality.
+The final version focuses on improving the existing website:
 
-Main techniques:
-
-- Selectors and DOM traversal
-- `.find()`, `.closest()`, `.parent()`, `.siblings()`
-- `.append()`, `.empty()`, `.text()`, `.html()`
-- `.val()`, `.attr()`, `.prop()`
-- `.addClass()`, `.removeClass()`, `.toggleClass()`
-- `.on()` for event handling and delegation
-- `.fadeIn()`, `.slideToggle()`, `.animate()`
-
-jQuery is loaded from a CDN before scripts that depend on it.
-
-## Form Validation
-
-The trial lesson registration form checks:
-
-- Student name
-- Email format
-- Phone number when required
-- Driving category
-- Selected instructor
-- Lesson type
-- Selected date
-- User consent
-
-Invalid fields display error messages. Successful validation displays a confirmation summary.
-
-Forms are implemented as front-end demonstrations and do not submit information to a backend server.
-
-## Improvements Since Midterm
-
-The midterm version focused on HTML, CSS, Bootstrap, page structure, and responsive layout.
-
-The endterm version extends the existing website with:
-
-- Interactive category and lesson filters
-- Dynamic price calculations
-- Instructor and vehicle search
-- Improved registration forms
-- Input validation and feedback
-- Dynamic content generated from JavaScript data
-- jQuery event handling and visual effects
-- Connected navigation between selection and booking
-
-These improvements allow visitors to complete meaningful interactions instead of only viewing static information.
+- Fixed navigation issues
+- Improved registration form layout
+- Improved connections between pages
+- Cleaned up JavaScript code
+- Added short English comments
+- Improved usability and consistency
 
 ## User Scenarios
 
-### Scenario 1: Choose a Training Program
+**Training Program:** Select a category, calculate the price, choose an instructor and date, and submit the form.
 
-1. Open the Categories and Prices page.
-2. Compare available programs.
-3. Select a driving category.
-4. Calculate the total training cost.
-5. Choose an instructor and lesson date.
-6. Submit the form and receive confirmation.
+**Instructor Booking:** Find an instructor and continue to registration.
 
-### Scenario 2: Find an Instructor
+**Schedule Booking:** Select a lesson and complete the booking form.
 
-1. Open the Instructors page.
-2. Search or filter instructors.
-3. Select a suitable instructor.
-4. Continue to the registration page.
-5. Complete the booking form.
+**Vehicle Booking:** Filter vehicles, select one, and complete the booking interaction.
 
-### Scenario 3: Select a Training Vehicle
-
-1. Open the Fleet page.
-2. Browse available vehicles.
-3. Filter or sort the vehicles.
-4. Select a vehicle.
-5. Complete the booking interaction.
+**Gift Certificate:** Enter names, preview the certificate, and copy the congratulation message.
 
 ## Project Structure
 
@@ -180,13 +119,6 @@ DriveSchool/
 │   └── contacts.html
 ├── css/
 ├── js/
-│   ├── index.js
-│   ├── price.js
-│   ├── schedule.js
-│   ├── about.js
-│   ├── instructors.js
-│   ├── fleet.js
-│   └── jquery-assignment.js
 ├── images/
 └── README.md
 ```
@@ -197,21 +129,18 @@ DriveSchool/
 
    `git clone https://github.com/AbdrTabyn/DriveSchool.git`
 
-2. Open the project in WebStorm or another code editor.
+2. Open the project in a code editor.
 3. Open `html/index.html` in a browser.
-4. Navigate through the website and test its interactive features.
-
-An internet connection is required to load Bootstrap and jQuery from their CDNs.
 
 ## Limitations
 
-- No backend server or database
-- Booking requests are demonstrated in the browser
-- Locally stored reviews are not shared between users
-- No online payment integration
+- No backend or database
+- Booking forms are front-end demonstrations
+- Reviews are stored locally
+- No online payments
 
 ## Conclusion
 
-Drive School demonstrates how JavaScript and jQuery can transform a static website into an interactive web application.
+Drive School demonstrates the use of HTML, CSS, Bootstrap, JavaScript, and jQuery to create an interactive and responsive website.
 
-The project combines responsive design, dynamic content, filtering, calculations, form validation, and event-driven interactions to provide a practical user experience.
+The final version focuses on functionality, code quality, usability, and improvements to the existing project.
