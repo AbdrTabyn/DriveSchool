@@ -1,26 +1,16 @@
 'use strict';
 
-/*
- * Assignment 6: jQuery 3.7.1
- * jQuery is loaded before this file on every page that uses it.
- * jQuery is needed here to simplify DOM selection, events, traversal,
- * effects, dynamic content creation and form validation.
- */
 $(function () {
     console.log('Drive School jQuery assignment initialized.');
 
-    // ============================================================
-    // 1. NAVIGATION: selectors, filter, traversal, .each(), chaining
-    // ============================================================
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    const $navLinks = $('nav .navbar-nav .nav-link'); // class + element selectors
+    const $navLinks = $('nav .navbar-nav .nav-link');
 
     $navLinks.each(function () {
-        const $link = $(this); // $(this) inside a handler/each callback
-        const href = $link.attr('href'); // attr() reads an HTML attribute
+        const $link = $(this);
+        const href = $link.attr('href');
 
         if (href === currentPath) {
-            // 3-method chain: addClass -> removeClass -> attr.
             $link.addClass('active fw-bold')
                 .removeClass('text-white-50')
                 .attr('aria-current', 'page');
@@ -29,18 +19,13 @@ $(function () {
         }
     });
 
-    // Filter selector :not() selects links that are not already active.
     $('nav').find('.nav-link').filter(':not(.active)').each(function () {
         $(this).attr('data-jquery-checked', 'true');
     });
 
-    // ============================================================
-    // 2. BACK-TO-TOP: event + preventDefault + animate
-    // ============================================================
     if ($('.back-to-top').length) {
         $('.back-to-top').on('click', function (event) {
             event.preventDefault();
-            // Without preventDefault(), the browser would follow the link's href.
             $('html, body').animate({ scrollTop: 0 }, 500);
         });
     } else {
@@ -62,9 +47,6 @@ $(function () {
         });
     }
 
-    // ============================================================
-    // 3. FLEET: keep the existing array and build the UI with jQuery
-    // ============================================================
     if (typeof fleetData !== 'undefined') {
         initFleetWithJQuery();
     }
@@ -98,7 +80,6 @@ $(function () {
 
         if (!$main.length || !$tableBody.length) return;
 
-        // The controls are created in JavaScript, not hand-written in HTML.
         if (!$('#jquery-fleet-controls').length) {
             const $controls = $('<div>', {
                 id: 'jquery-fleet-controls',
@@ -137,7 +118,6 @@ $(function () {
             $main.find('h2').first().before($controls);
         }
 
-        // Add an action column to the existing table through jQuery.
         if (!$table.find('thead th[data-action-column]').length) {
             $table.find('thead tr').append(
                 $('<th>', { scope: 'col', 'data-action-column': 'true', text: 'Бронирование' })
@@ -166,7 +146,6 @@ $(function () {
                 return;
             }
 
-            // The existing fleetData array remains the source of the rows/cards.
             $.each(items, function (_, car) {
                 const badgeClass = car.category === 'A'
                     ? 'badge bg-success'
@@ -191,6 +170,7 @@ $(function () {
                             type: 'button',
                             class: 'btn btn-primary btn-sm book-car-btn',
                             'data-car-id': car.id,
+                            'data-car-category': car.category,
                             text: 'Забронировать'
                         })
                     );
@@ -230,14 +210,12 @@ $(function () {
                     alt: car.brand
                 });
 
-                // Все картинки приводятся к единому размеру
                 $image.css({
                     'height': '220px',
                     'object-fit': 'cover',
                     'width': '100%'
                 });
 
-                // attr() is correct for HTML attributes such as src/alt.
                 $image.attr('data-car-id', car.id);
                 $image.on('error', function () {
                     $(this).attr('alt', 'Фото недоступно: ' + car.brand);
@@ -256,6 +234,7 @@ $(function () {
                             type: 'button',
                             class: 'btn btn-primary btn-sm book-car-btn',
                             'data-car-id': car.id,
+                            'data-car-category': car.category,
                             text: 'Забронировать этот автомобиль'
                         })
                     );
@@ -301,7 +280,7 @@ $(function () {
             updateFleetView();
         });
 
-        // Delegation: rows/buttons are created later by renderFleet/renderGallery.
+        // Клик по кнопке бронирования: передаем категорию машины для фильтрации инструкторов
         $main.on('click', '.book-car-btn', function (event) {
             event.preventDefault();
             const carId = Number($(this).attr('data-car-id'));
@@ -312,19 +291,20 @@ $(function () {
             $('#booking-car-name').text(selectedCar.brand);
             $('#booking-price').text(`${selectedCar.pricePerLesson} ₸/ч`);
 
+            // Обновляем список инструкторов в зависимости от категории автомобиля (A, B, C)
+            updateInstructorsDropdown(selectedCar.category);
+
             const $booking = $('#fleet-booking-form');
             $booking.removeClass('d-none').hide().fadeIn(400);
             $('html, body').animate({ scrollTop: $booking.offset().top - 30 }, 500);
         });
 
-        // Delegated row click + $(this), .parent(), .siblings(), .closest().
         $tableBody.on('click', '.fleet-item', function (event) {
             if ($(event.target).closest('.book-car-btn').length) return;
 
             const $row = $(this);
             const carId = Number($row.attr('data-car-id'));
 
-            // Chain: closest -> find -> not -> removeClass.
             $row.closest('tbody').find('.fleet-item').not($row).removeClass('table-primary');
             $row.toggleClass('table-primary');
 
@@ -342,9 +322,40 @@ $(function () {
         updateFleetView();
     }
 
-    // ============================================================
-    // 4. BOOKING FORM: fully created/validated with jQuery
-    // ============================================================
+    // Список инструкторов со стажем и рейтингом (синхронизирован с instructor.js)
+    const instructorsList = [
+        { id: 'aman', name: 'Артықбаев Аман', experience: 10, rating: 4.9, categories: ['A', 'B'] },
+        { id: 'bekzat', name: 'Жақсыбай Бекзат', experience: 7, rating: 4.7, categories: ['A', 'B'] },
+        { id: 'aigerim', name: 'Серікқызы Айгерім', experience: 8, rating: 4.8, categories: ['B'] },
+        { id: 'daniyar', name: 'Омаров Данияр', experience: 12, rating: 4.9, categories: ['B', 'C'] },
+        { id: 'madina', name: 'Төлегенова Мадина', experience: 6, rating: 4.8, categories: ['B'] },
+        { id: 'ruslan', name: 'Әлиев Руслан', experience: 9, rating: 4.6, categories: ['A', 'B'] },
+        { id: 'erzhan', name: 'Нұрланов Ержан', experience: 11, rating: 4.9, categories: ['B', 'C'] },
+        { id: 'asel', name: 'Сапарова Әсел', experience: 5, rating: 4.8, categories: ['B'] },
+        { id: 'timur', name: 'Қасымов Тимур', experience: 14, rating: 4.9, categories: ['A', 'B'] },
+        { id: 'dana', name: 'Мұратова Дана', experience: 6, rating: 4.7, categories: ['B'] },
+        { id: 'marat', name: 'Ахметов Марат', experience: 16, rating: 4.9, categories: ['B', 'C'] }
+    ];
+
+    function updateInstructorsDropdown(carCategory) {
+        const $select = $('#booking-instructor');
+        $select.empty();
+        $select.append('<option value="" selected disabled>-- Выберите инструктора --</option>');
+
+        // Фильтруем инструкторов по категории выбранного автомобиля
+        const availableInstructors = instructorsList.filter(function (inst) {
+            return inst.categories.includes(carCategory);
+        });
+
+        availableInstructors.forEach(function (inst) {
+            const optionText = `${inst.name} — ★ ${inst.rating.toFixed(1)} (стаж ${inst.experience} лет)`;
+            $select.append($('<option>', {
+                value: inst.name,
+                text: optionText
+            }));
+        });
+    }
+
     function createBookingForm() {
         if ($('#fleet-booking-form').length) return;
         if (!$('#jquery-fleet-controls').length) return;
@@ -373,6 +384,13 @@ $(function () {
                 <label for="booking-email" class="form-label">Email</label>
                 <input type="email" id="booking-email" name="email" class="form-control" placeholder="example@mail.com" required>
                 <div class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3">
+                <label for="booking-instructor" class="form-label">Инструктор</label>
+                <select id="booking-instructor" name="instructor" class="form-select" required>
+                    <option value="" selected disabled>-- Сначала выберите автомобиль --</option>
+                </select>
+                <div class="invalid-feedback">Пожалуйста, выберите инструктора.</div>
             </div>
             <div class="mb-3">
                 <label for="booking-date" class="form-label">Дата занятия</label>
@@ -421,6 +439,12 @@ $(function () {
                 return valid;
             }
 
+            if (id === 'booking-instructor') {
+                const valid = value !== '';
+                setFieldState($field, valid, 'Выберите инструктора.');
+                return valid;
+            }
+
             if (id === 'booking-date') {
                 const valid = value !== '';
                 setFieldState($field, valid, 'Выберите дату занятия.');
@@ -430,7 +454,7 @@ $(function () {
             return true;
         }
 
-        $booking.on('input change', 'input:not(#booking-consent)', function () {
+        $booking.on('input change', 'input:not(#booking-consent), select', function () {
             validateBookingField($(this));
         });
 
@@ -443,7 +467,7 @@ $(function () {
             event.preventDefault();
 
             let isValid = true;
-            const $fields = $booking.find('#booking-name, #booking-phone, #booking-email, #booking-date');
+            const $fields = $booking.find('#booking-name, #booking-phone, #booking-email, #booking-instructor, #booking-date');
 
             $fields.each(function () {
                 if (!validateBookingField($(this))) isValid = false;
@@ -462,6 +486,7 @@ $(function () {
 
             const selectedCarName = $('#booking-car-name').text();
             const userName = $('#booking-name').val().trim();
+            const selectedInstructor = $('#booking-instructor').val();
 
             let $success = $('#booking-success');
             if (!$success.length) {
@@ -472,14 +497,14 @@ $(function () {
                 $booking.append($success);
             }
 
-            $success.html(`<strong>Заявка создана!</strong> ${userName}, автомобиль ${selectedCarName} добавлен в вашу заявку на бронирование.`)
+            $success.html(`<strong>Заявка создана!</strong> ${userName}, автомобиль ${selectedCarName} успешно забронирован с инструктором <strong>${selectedInstructor}</strong>.`)
                 .hide()
                 .fadeIn(400);
 
             $booking[0].reset();
             $booking.find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
 
-            $success.delay(4000).fadeOut(500, function () {
+            $success.delay(5000).fadeOut(500, function () {
                 $(this).remove();
             });
         });
@@ -489,9 +514,6 @@ $(function () {
         });
     }
 
-    // ============================================================
-    // 5. ABOUT PAGE: slideToggle effect
-    // ============================================================
     if ($('.school-note').length) {
         const $note = $('.school-note');
         const $toggleButton = $('<button>', {
@@ -506,9 +528,6 @@ $(function () {
         });
     }
 
-    // ============================================================
-    // 6. INSTRUCTOR PAGE: prop() + find() + fadeIn
-    // ============================================================
     $('#training-steps').on('toggle', function () {
         const $details = $(this);
         if ($details.prop('open')) {
@@ -516,9 +535,6 @@ $(function () {
         }
     });
 
-    // ============================================================
-    // 7. COMMON MENU CHECKBOX: prop() vs attr()
-    // ============================================================
     $('#menu-toggle').on('change', function () {
         const isOpen = $(this).prop('checked');
         $(this).closest('nav').attr('aria-expanded-state', String(isOpen));
