@@ -61,12 +61,17 @@ $(function () {
     const types = { theory: 'Теория', practice: 'Практика', full: 'Теория + практика' };
     const category = (params.get('category') || '').toUpperCase();
     const type = params.get('type');
-    const initial = programs.find(p => p[0] === category) || programs[3];
     const locked = params.get('locked') === '1' && ['theory', 'practice'].includes(type) && programs.some(p => p[0] === category);
     const source = typeof scheduleLessons !== 'undefined' ? scheduleLessons : fallback;
     const lesson = locked ? source.find(x => String(x.id) === params.get('lesson') && x.category === category && x.type === type) : null;
     const group = lesson?.group === true;
-    const fromIndex = !locked && !!category && !params.has('type') && programs.some(p => p[0] === category);
+    const requestedInstructor = params.get('instructor');
+    const linkedTeacher = locked ? undefined : teachers.find(t => t[0] === requestedInstructor);
+    const availablePrograms = linkedTeacher ? programs.filter(p => linkedTeacher[2].includes(p[0])) : programs;
+    const initial = availablePrograms.find(p => p[0] === category)
+        || availablePrograms.find(p => p[0] === 'B') || availablePrograms[0];
+    const linkedType = types[type] ? type : linkedTeacher && 'practice';
+    const fromIndex = !locked && !linkedTeacher && !!category && !params.has('type') && programs.some(p => p[0] === category);
     const fixed = locked || fromIndex, fixedType = locked ? type : 'full';
     const money = n => n.toLocaleString('ru-RU') + ' ₸';
     const dateText = d => [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-');
@@ -171,7 +176,7 @@ $(function () {
     });
 
     // Form fields
-    const options = programs.map(p => `<option value="${p[0]}">Категория ${p[0]}</option>`).join('');
+    const options = availablePrograms.map(p => `<option value="${p[0]}">Категория ${p[0]}</option>`).join('');
     $('#category, #package-category').html(options);
 
     const $contact = $(`<div class="mb-3"><label for="contact" class="form-label">Email или телефон</label><input id="contact" name="contact" class="form-control" placeholder="Email или +7 700 000 00 00" required></div>`);
@@ -179,7 +184,8 @@ $(function () {
     $('#email, #phone').each(function () { $(this).closest('.mb-3').remove(); });
 
     $('#instructor').closest('.mb-3').remove();
-    const $instructor = $('<select id="instructor" name="instructor" class="form-select">').prop('required', !group).prop('disabled', group);
+    const $instructor = $('<select id="instructor" name="instructor" class="form-select">')
+        .prop('required', !group && !linkedTeacher).prop('disabled', group || Boolean(linkedTeacher));
     const $hint = $('<div class="form-text">');
     $('#category').closest('.mb-3').after(
         $('<div class="mb-3">').toggleClass('d-none', group).append('<label for="instructor" class="form-label">Инструктор</label>', $instructor, $hint)
@@ -195,8 +201,8 @@ $(function () {
     } else if (locked) {
         $types.filter(`[value="${fixedType}"]`).prop('checked', true);
         $types.prop('disabled', true);
-    } else if (types[type]) {
-        $types.filter(`[value="${type}"]`).prop('checked', true);
+    } else if (linkedType) {
+        $types.filter(`[value="${linkedType}"]`).prop('checked', true);
     }
     if (fixed) $('#category, #package-category').prop('disabled', true);
 
@@ -243,6 +249,12 @@ $(function () {
     }
     function updateTeachers() {
         if (group) return;
+        if (linkedTeacher) {
+            const [id, name] = linkedTeacher;
+            $instructor.empty().append(new Option(name, id, true, true));
+            hint();
+            return;
+        }
         const old = $instructor.val(), available = teachers.filter(canTeach);
         $instructor.html('<option value="">Выберите инструктора</option>');
         available.forEach(t => $('<option>').val(t[0]).text(t[1]).appendTo($instructor));
@@ -281,7 +293,7 @@ $(function () {
     // Calculator events
     $('#category, #package-category').on('change', function () {
         if (fixed) return;
-        selected = programs.find(p => p[0] === $(this).val()) || selected;
+        selected = availablePrograms.find(p => p[0] === $(this).val()) || selected;
         updateTeachers();
         update();
         $feedback.empty();
@@ -314,7 +326,7 @@ $(function () {
             name: ($('#name').val() || '').trim(),
             contact: ($('#contact').val() || '').trim(),
             date: $date.val(),
-            instructor: $instructor.val(),
+            instructor: linkedTeacher?.[0] ?? $instructor.val(),
             type: fixed ? fixedType : $types.filter(':checked').val(),
             comment: ($('#comment').val() || '').trim()
         };
@@ -387,14 +399,16 @@ $(function () {
             $feedback.empty();
             updateTeachers();
             update();
-            if (locked) $types.filter(`[value="${fixedType}"]`).prop('checked', true);
+            if (locked || linkedTeacher) {
+                $types.filter(`[value="${locked ? fixedType : linkedType}"]`).prop('checked', true);
+            }
         }, 0);
     });
 
     // Initialize
     updateTeachers();
     update();
-    const teacher = teachers.find(t => t[0] === params.get('instructor') && canTeach(t));
+    const teacher = !linkedTeacher && teachers.find(t => t[0] === requestedInstructor && canTeach(t));
     if (teacher) { $instructor.val(teacher[0]); hint(); }
     if (location.hash === '#trial-form') {
         requestAnimationFrame(() => $form[0].scrollIntoView({ behavior: 'smooth' }));
