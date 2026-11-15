@@ -180,7 +180,11 @@ $(function () {
                 `Это предварительный выбор, а не подтверждённая запись. Временный номер: ${reference}.`
             ),
             $('<a class="btn btn-primary me-2 mb-2"></a>')
-                .attr('href', `price.html?category=${lesson.category}`)
+                .attr('href',
+                    `price.html?category=${encodeURIComponent(lesson.category)}` +
+                    `&type=${lesson.type === 'Теория' ? 'theory' : 'practice'}` +
+                    `&locked=1#trial-form`
+                )
                 .text('Записаться на пробный урок'),
             $('<button type="button" class="btn btn-outline-secondary mb-2"></button>')
                 .text('Отменить выбор')

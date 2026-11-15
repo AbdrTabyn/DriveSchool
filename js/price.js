@@ -1,238 +1,421 @@
+
+'use strict';
+
 $(function () {
-    'use strict';
-
-    // Data
     const programs = [
-        { code: 'A1', parent: 'A', title: 'Лёгкие мотоциклы', price: 40000, weeks: 4, icon: '🏍️' },
-        { code: 'A', parent: 'A', title: 'Мотоциклы', price: 50000, weeks: 6, icon: '🏍️' },
-        { code: 'B1', parent: 'B', title: 'Трициклы и квадрициклы', price: 60000, weeks: 5, icon: '🛺' },
-        { code: 'B', parent: 'B', title: 'Легковые автомобили', price: 80000, weeks: 8, icon: '🚗' },
-        { code: 'C1', parent: 'C', title: 'Средние грузовики', price: 90000, weeks: 8, icon: '🚚' },
-        { code: 'C', parent: 'C', title: 'Грузовые автомобили', price: 100000, weeks: 10, icon: '🚛' }
+        ['A1','A','Лёгкие мотоциклы',40000,4,'🏍️'],
+        ['A','A','Мотоциклы',50000,6,'🏍️'],
+        ['B1','B','Трициклы и квадрициклы',60000,5,'🛺'],
+        ['B','B','Легковые автомобили',80000,8,'🚗'],
+        ['C1','C','Средние грузовики',90000,8,'🚚'],
+        ['C','C','Грузовые автомобили',100000,10,'🚛']
     ];
 
-    const instructors = [
-        { id: 'aman', name: 'Артықбаев Аман', experience: 10, rating: 4.9, categories: ['A', 'B'], days: [1, 3, 5], description: 'Спокойно объясняет основы управления автомобилем и помогает освоить городские маршруты.' },
-        { id: 'bekzat', name: 'Жақсыбай Бекзат', experience: 7, rating: 4.7, categories: ['A', 'B'], days: [2, 4, 6], description: 'Работает с начинающими водителями, уделяет внимание парковке и подготовке к экзамену.' },
-        { id: 'aigerim', name: 'Серікқызы Айгерім', experience: 8, rating: 4.8, categories: ['B'], days: [1, 2, 4], description: 'Помогает преодолеть волнение за рулём и постепенно перейти от площадки к городу.' },
-        { id: 'daniyar', name: 'Омаров Данияр', experience: 12, rating: 4.9, categories: ['B', 'C'], days: [2, 3, 6], description: 'Обучает вождению легковых и грузовых автомобилей, подробно разбирает работу с габаритами.' },
-        { id: 'madina', name: 'Төлегенова Мадина', experience: 6, rating: 4.8, categories: ['B'], days: [3, 5, 6], description: 'Помогает восстановить навыки после перерыва и увереннее проезжать сложные перекрёстки.' },
-        { id: 'ruslan', name: 'Әлиев Руслан', experience: 9, rating: 4.6, categories: ['A', 'B'], days: [1, 4, 5], description: 'Объясняет управление мотоциклом и автомобилем, делает акцент на безопасных манёврах.' },
-        { id: 'erzhan', name: 'Нұрланов Ержан', experience: 11, rating: 4.9, categories: ['B', 'C'], days: [1, 3, 6], description: 'Отрабатывает с учениками движение в потоке, развороты и маневрирование на ограниченной площадке.' },
-        { id: 'asel', name: 'Сапарова Әсел', experience: 5, rating: 4.8, categories: ['B'], days: [2, 4, 5], description: 'Понятно объясняет действия водителя и помогает освоить парковку без спешки.' },
-        { id: 'timur', name: 'Қасымов Тимур', experience: 14, rating: 4.9, categories: ['A', 'B'], days: [1, 2, 5], description: 'Уделяет внимание наблюдению за дорогой, выбору дистанции и предупреждению опасных ситуаций.' },
-        { id: 'dana', name: 'Мұратова Дана', experience: 6, rating: 4.7, categories: ['B'], days: [3, 4, 6], description: 'Помогает начинающим водителям освоить базовые навыки и последовательность действий на дороге.' },
-        { id: 'alibek', name: 'Ибраев Әлібек', experience: 9, rating: 4.8, categories: ['B', 'C'], days: [1, 4, 6], description: 'Подробно объясняет повороты, перестроения и особенности управления крупным автомобилем.' },
-        { id: 'nursultan', name: 'Сейітов Нұрсұлтан', experience: 8, rating: 4.8, categories: ['A', 'B'], days: [2, 3, 5], description: 'Обучает плавному управлению, правильной посадке и уверенной работе с органами управления.' },
-        { id: 'aruzhan', name: 'Қуанышова Аружан', experience: 4, rating: 4.6, categories: ['B'], days: [1, 3, 5], description: 'Поддерживает спокойный темп занятий и помогает закрепить навыки парковки и движения в городе.' },
-        { id: 'marat', name: 'Ахметов Марат', experience: 16, rating: 4.9, categories: ['B', 'C'], days: [2, 4, 6], description: 'Готовит учеников к управлению легковыми и грузовыми автомобилями, уделяя внимание безопасности.' },
-        { id: 'aliya', name: 'Бекенова Алия', experience: 7, rating: 4.8, categories: ['B'], days: [1, 2, 4], description: 'Разбирает типичные ошибки новичков и помогает увереннее действовать на перекрёстках.' },
-        { id: 'arman', name: 'Тұрсынов Арман', experience: 10, rating: 4.7, categories: ['A', 'B'], days: [3, 5, 6], description: 'Помогает освоить мотоцикл и автомобиль, отрабатывает повороты и безопасное торможение.' },
-        { id: 'zhanar', name: 'Рахимова Жанар', experience: 8, rating: 4.9, categories: ['B'], days: [1, 4, 5], description: 'Работает над уверенностью за рулём, парковкой и самостоятельным планированием маршрута.' },
-        { id: 'erlan', name: 'Смағұлов Ерлан', experience: 13, rating: 4.8, categories: ['B', 'C'], days: [2, 3, 6], description: 'Объясняет работу с габаритами, выбор траектории и безопасное движение в городском потоке.' },
-        { id: 'dauren', name: 'Оспанов Дәурен', experience: 6, rating: 4.7, categories: ['A', 'B'], days: [1, 3, 4], description: 'Пошагово разбирает базовые манёвры и помогает закрепить навыки на площадке и в городе.' },
-        { id: 'diana', name: 'Кәрімова Диана', experience: 5, rating: 4.8, categories: ['B'], days: [2, 5, 6], description: 'Обучает с нуля, уделяет внимание плавному вождению и спокойной подготовке к самостоятельным поездкам.' }
+    const teachers = [
+        ['aman','Артықбаев Аман','AB',[1,3,5]],
+        ['bekzat','Жақсыбай Бекзат','AB',[2,4,6]],
+        ['aigerim','Серікқызы Айгерім','B',[1,2,4]],
+        ['daniyar','Омаров Данияр','BC',[2,3,6]],
+        ['madina','Төлегенова Мадина','B',[3,5,6]],
+        ['ruslan','Әлиев Руслан','AB',[1,4,5]],
+        ['erzhan','Нұрланов Ержан','BC',[1,3,6]],
+        ['asel','Сапарова Әсел','B',[2,4,5]],
+        ['timur','Қасымов Тимур','AB',[1,2,5]],
+        ['dana','Мұратова Дана','B',[3,4,6]],
+        ['alibek','Ибраев Әлібек','BC',[1,4,6]],
+        ['nursultan','Сейітов Нұрсұлтан','AB',[2,3,5]],
+        ['aruzhan','Қуанышова Аружан','B',[1,3,5]],
+        ['marat','Ахметов Марат','BC',[2,4,6]],
+        ['aliya','Бекенова Алия','B',[1,2,4]],
+        ['arman','Тұрсынов Арман','AB',[3,5,6]],
+        ['zhanar','Рахимова Жанар','B',[1,4,5]],
+        ['erlan','Смағұлов Ерлан','BC',[2,3,6]],
+        ['dauren','Оспанов Дәурен','AB',[1,3,4]],
+        ['diana','Кәрімова Диана','B',[2,5,6]]
     ];
 
-    const DAYS = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-    const LESSONS = { theory: 'Теория', practice: 'Практика' };
-    const $main = $('main'), $section = $main.find('section').first();
-    const $aside = $main.find('aside').first(), $form = $('#trial-form');
+    const $main = $('main');
+    const $section = $main.find('section').first();
+    const $aside = $main.find('aside').first();
+    const $form = $('#trial-form');
     if (!$section.length || !$form.length) return;
 
     const params = new URLSearchParams(location.search);
+    const types = { theory:'Теория', practice:'Практика', full:'Теория + практика' };
+    const requested = (params.get('category') || '').toUpperCase();
+    const initial = programs.find(p => p[0] === requested) || programs[3];
+
+    const schedule = params.get('locked') === '1' &&
+        ['theory','practice'].includes(params.get('type')) &&
+        programs.some(p => p[0] === requested);
+
+    const fromIndex = !schedule && !!requested &&
+        programs.some(p => p[0] === requested) && !params.has('type');
+
+    const fixed = schedule || fromIndex;
+    const fixedType = schedule ? params.get('type') : 'full';
     const money = n => n.toLocaleString('ru-RU') + ' ₸';
-    const localDate = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    const today = localDate(new Date()), max = new Date();
+
+    const dateText = d => [
+        d.getFullYear(),
+        String(d.getMonth() + 1).padStart(2,'0'),
+        String(d.getDate()).padStart(2,'0')
+    ].join('-');
+
+    const max = new Date();
     max.setDate(max.getDate() + 90);
 
-    const lastDate = localDate(max);
-    const findInstructor = id => instructors.find(i => i.id === id);
-    let selected = programs.find(p => p.code === (params.get('category') || 'B').toUpperCase()) || programs[3];
-    let extra = 0, extraValid = true;
+    const today = dateText(new Date());
+    const lastDate = dateText(max);
+    const days = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
 
-    // Navbar
-    $('.navbar').css({ background: '#10203e', padding: '8px 0', minHeight: 0 });
-    $('.navbar .nav-link').css('color', 'rgba(255,255,255,.7)');
-    $('.navbar .nav-link.active').css({ color: '#fff', fontWeight: 700 });
-    $('body').css('background', '#f4f7fb');
-    $('footer').css('background', '#10203e');
+    let selected = initial;
+    let extra = 0;
+    let validExtra = true;
+    let promo = false;
 
+    // Design
+    $('body').css('background','#f4f7fb');
+    $('.navbar, footer').css('background','#10203e');
+    $('.navbar .nav-link').css('color','#d4dbea');
+    $('.navbar .nav-link.active').css('color','#fff');
 
-    // Layout
-    $main.css('maxWidth', '1320px');
-    $section.parent()
-        .addClass('row g-4 align-items-start');
+    $main.css('maxWidth','1320px');
+    $section.parent().removeClass('align-items-start')
+        .addClass('row g-4 align-items-stretch');
 
-    $section
-        .removeClass('col-lg-12')
-        .addClass('col-12 col-lg-8')
-        .empty()
-        .css('paddingTop', '10px');
+    $section.removeClass('col-lg-12')
+        .addClass('col-12 col-lg-8 d-flex flex-column').empty();
 
-    $aside
-        .removeClass('col-lg-12')
-        .addClass('col-12 col-lg-4')
-        .css('paddingTop', '112px');
+    $aside.removeClass('col-lg-12')
+        .addClass('col-12 col-lg-4 d-flex flex-column');
 
-    $aside.find('> div')
-        .removeClass('rounded-3')
-        .addClass('rounded-4')
-        .css({
-            border: '1px solid #e5eaf2',
-            boxShadow: '0 12px 35px rgba(16,32,62,.08)'
-        });
-
-    $aside.find('> div').css('paddingBottom', '65px');
-    $aside.find('> div').css('minHeight', '1125px');
-
-    // Programs
-    $section.append(`<div id="price-programs" class="mb-5">
-        <h2 class="h3 fw-bold text-center mb-2">Программы обучения</h2>
-        <p class="text-secondary text-center mb-4">Выберите категорию, которая подходит именно вам.</p>
-        <div id="program-cards" class="row g-4"></div></div>`);
-
-    $('#program-cards').html(programs.map(p => `
-        <div class="col-12 col-md-6 col-lg-4"><div class="bg-white border rounded-4 p-4 h-100 d-flex flex-column align-items-start" data-card="${p.code}" style="transition:transform .2s">
-            <div class="fs-1 mb-3">${p.icon}</div>
-            <span class="badge bg-primary mb-3 align-self-start">Категория ${p.code}</span>
-            <h3 class="h5 fw-bold mb-2" style="min-height:52px">${p.title}</h3>
-            <p class="text-secondary mb-3">Срок: ${p.weeks} недель</p>
-            <div class="h3 fw-bold mb-4" style="color:#10203e">${money(p.price)}</div>
-            <button type="button" class="btn btn-outline-primary w-100 mt-auto align-self-stretch" data-select="${p.code}">Выбрать программу</button>
-        </div></div>`).join(''));
+    $aside.find('> div').addClass('rounded-4 h-100').css({
+        border:'1px solid #e3e9f2',
+        boxShadow:'0 12px 35px #10203e12'
+    });
 
     // Calculator
-    $section.append(`<div class="bg-white border rounded-4 p-4 p-lg-5 mb-5">
-        <h2 class="h3 fw-bold mb-2">Калькулятор стоимости</h2>
-        <p class="text-secondary mb-4">Добавьте практические занятия и рассчитайте итоговую стоимость.</p>
-        <div class="row g-4 align-items-center">
-            <div class="col-12 col-md-6">
-                <h3 id="selected-name" class="h5 fw-bold mb-3"></h3>
-                <label for="extra-lessons" class="form-label fw-semibold">Дополнительные занятия</label>
-                <div class="d-flex gap-2 align-items-center">
-                    <button id="minus-lesson" type="button" class="btn btn-outline-secondary">−</button>
-                    <input id="extra-lessons" type="number" min="0" max="20" value="0" class="form-control text-center" style="max-width:90px">
-                    <button id="plus-lesson" type="button" class="btn btn-outline-secondary">+</button>
+    $section.html(`
+        <div class="rounded-4 p-4 p-lg-5 text-white flex-grow-1 d-flex flex-column"
+             style="background:#10203e">
+            <div class="d-flex justify-content-between align-items-start mb-4">
+                <div>
+                    <span class="small text-white-50">ВАШ ПАКЕТ ОБУЧЕНИЯ</span>
+                    <div class="mt-2 mb-2">
+                        <h2 id="package-name"
+                            class="fs-5 fw-semibold d-inline-block rounded-3 px-3 py-2 mb-0"
+                            style="background:#263956;color:#fff;font-family:Arial,sans-serif;text-decoration:none;line-height:1.5">
+                        </h2>
+                    </div>
+                    <p id="package-details" class="text-white-50 mb-0"></p>
                 </div>
-                <p class="small text-secondary mt-2 mb-0">9 000 ₸ за занятие</p>
-                <p id="calc-error" class="small text-danger mt-2 d-none">Введите число от 0 до 20.</p>
+                <span id="package-icon" class="display-4"></span>
             </div>
-            <div class="col-12 col-md-6"><div class="rounded-4 p-4 text-white" style="background:#10203e">
-                <p class="mb-2 text-white-50">Итоговая стоимость</p>
-                <div id="total-price" class="display-6 fw-bold"></div>
-                <p class="small mb-0 text-white-50">Предварительный расчёт</p>
-            </div></div>
-        </div></div>`);
+
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <label for="package-category" class="form-label">Категория</label>
+                    <select id="package-category" class="form-select"></select>
+                </div>
+                <div class="col-sm-6">
+                    <label for="extra-lessons" class="form-label">Доп. занятия · 9 000 ₸</label>
+                    <div class="input-group">
+                        <button id="minus" class="btn btn-outline-light" type="button">−</button>
+                        <input id="extra-lessons" type="number" min="0" max="20"
+                               value="0" class="form-control text-center">
+                        <button id="plus" class="btn btn-outline-light" type="button">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <p id="calc-error" class="small text-warning mt-2 d-none">
+                Введите от 0 до 20 занятий.
+            </p>
+
+            <div class="mt-4">
+                <h3 class="h6 fw-semibold mb-3">📊 Структура стоимости</h3>
+                <div class="d-flex justify-content-between small mb-2">
+                    <span>Базовая программа</span><span id="base-price"></span>
+                </div>
+                <div class="progress mb-3" style="height:10px">
+                    <div id="base-bar" class="progress-bar" style="background:#5c91ee"></div>
+                </div>
+                <div class="d-flex justify-content-between small mb-2">
+                    <span>Дополнительные занятия</span><span id="extra-price"></span>
+                </div>
+                <div class="progress mb-3" style="height:10px">
+                    <div id="extra-bar" class="progress-bar" style="background:#65d5ca"></div>
+                </div>
+                <div id="discount-row" class="d-none">
+                    <div class="d-flex justify-content-between small mb-2">
+                        <span>Скидка 10%</span><span id="discount-price"></span>
+                    </div>
+                    <div class="progress mb-3" style="height:10px">
+                        <div id="discount-bar" class="progress-bar bg-success"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label for="promo-code" class="form-label">🎁 Промокод</label>
+                <div class="input-group">
+                    <input id="promo-code" class="form-control" placeholder="Введите промокод">
+                    <button id="apply-promo" class="btn btn-outline-light" type="button">
+                        Применить
+                    </button>
+                </div>
+                <p id="promo-message" class="small mt-2 mb-0 text-white-50">
+                    Промокод DRIVE10 — скидка 10% (демо).
+                </p>
+            </div>
+
+            <div class="mt-auto pt-4">
+                <hr class="border-secondary my-4">
+                <div class="d-flex justify-content-between align-items-center gap-2">
+                    <strong>Итоговая стоимость</strong>
+                    <strong id="total-price" class="display-6 text-end"></strong>
+                </div>
+                <a href="#trial-form" class="btn btn-light fw-semibold w-100 mt-4 py-3">
+                    Записаться на обучение →
+                </a>
+            </div>
+        </div>
+    `);
 
     // Form
-    $aside.find('h2').first().addClass('fw-bold').css('fontSize', '27px');
-    $form.prop('noValidate', true).find('input, select, textarea').addClass('rounded-3');
+    const options = programs.map(p =>
+        `<option value="${p[0]}">Категория ${p[0]}</option>`
+    ).join('');
 
-    const $category = $('#category').html(programs.map(p => `<option value="${p.code}">Категория ${p.code}</option>`).join(''));
-    const $instructor = $('<select id="instructor" name="instructor" class="form-select rounded-3" required></select>');
-    const $hint = $('<p class="small text-muted mt-2 mb-0" aria-live="polite"></p>');
-    $category.closest('.mb-3').after($('<div class="mb-3"></div>').append(
-        '<label for="instructor" class="form-label">Инструктор:</label>', $instructor, $hint
-    ));
-    const $summary = $('<div class="rounded-3 p-3 mb-3"></div>').css('background', '#edf2fa');
-    const $submit = $form.find('button[type="submit"]').first();
-    $submit.parent().before($summary);
-    $submit.addClass('fw-semibold').css({ background: '#10203e', borderColor: '#10203e' });
+    $('#package-category, #category').html(options);
 
-    const $feedback = $('<div class="mt-3" role="status"></div>').insertAfter($form);
-    const $notice = $('<div class="alert alert-info d-none mb-3" role="status"></div>').insertBefore($form);
-    $('#date').attr({ min: today, max: lastDate });
-    $('#name').attr('maxlength', 60);
-    $('#email').attr('maxlength', 100);
-    $('#comment').attr('maxlength', 600);
+    const $email = $('#email');
+    const $phone = $('#phone');
+    const $contact = $(`
+        <div class="mb-3">
+            <label for="contact" class="form-label">Email или телефон</label>
+            <input id="contact" name="contact" class="form-control"
+                   placeholder="example@mail.com или +7 700 000 00 00" required>
+            <div class="form-text">Укажите один удобный способ связи.</div>
+        </div>
+    `);
+
+    if ($email.length) $email.closest('.mb-3').before($contact);
+    else if ($phone.length) $phone.closest('.mb-3').before($contact);
+    else $('#name').closest('.mb-3').after($contact);
+
+    $email.closest('.mb-3').remove();
+    $phone.closest('.mb-3').remove();
+
+    $('#instructor').closest('.mb-3').remove();
+    const $instructor = $('<select id="instructor" name="instructor" class="form-select" required>');
+    const $hint = $('<div class="form-text"></div>');
+
+    $('#category').closest('.mb-3').after(
+        $('<div class="mb-3">').append(
+            '<label for="instructor" class="form-label">Инструктор</label>',
+            $instructor, $hint
+        )
+    );
+
+    const $lessonTypes = $form.find('[name="lesson-type"]');
+    const $lessonBlock = $lessonTypes.first().closest('fieldset').length
+        ? $lessonTypes.first().closest('fieldset')
+        : $lessonTypes.first().closest('.mb-3');
+
+    if (fromIndex) {
+        $lessonBlock.hide();
+        $lessonTypes.prop('checked',false);
+        $lessonBlock.after(
+            $('<div class="alert alert-light border py-2 mb-3"></div>')
+                .text('✓ Полный курс: теория + практика')
+        );
+    } else if (schedule) {
+        $lessonTypes.filter(`[value="${fixedType}"]`).prop('checked',true);
+        $lessonTypes.prop('disabled',true);
+        $lessonBlock.after(
+            $('<div class="form-text mb-3"></div>')
+                .text('Тип занятия выбран в расписании.')
+        );
+    } else if (types[params.get('type')]) {
+        $lessonTypes.filter(`[value="${params.get('type')}"]`).prop('checked',true);
+    }
+
+    if (fixed) {
+        $('#category, #package-category').prop('disabled',true);
+        $('#category').closest('.mb-3').append(
+            $('<div class="form-text"></div>')
+                .text('Категория выбрана ранее и не изменяется.')
+        );
+    }
+
+    const $summary = $('<div class="rounded-3 p-3 mb-3">')
+        .css('background','#edf2fa');
+
+    $form.find('button[type="submit"]').first().parent().before($summary);
+    const $feedback = $('<div class="mt-3" role="status">').insertAfter($form);
+
+    $form.prop('noValidate',true);
+    $('#date').attr({min:today,max:lastDate});
+    $('#name').attr('maxlength',60);
+    $('#comment').prop('required',false).attr({
+        maxlength:600,
+        placeholder:'Укажите пожелания по обучению, если они есть'
+    });
+    $('label[for="comment"]').text('Комментарий (необязательно)');
 
     // Instructors
-    function updateInstructorHint() {
-        const teacher = findInstructor($instructor.val());
-        $hint.text(teacher ? `Дни занятий: ${teacher.days.map(d => DAYS[d]).join(', ')}. ${teacher.description}`
-            : 'Выберите инструктора для выбранной категории.');
-    }
-
     function updateInstructors() {
         const previous = $instructor.val();
-        const matches = instructors.filter(i => i.categories.includes(selected.parent));
+        const available = teachers.filter(t => t[2].includes(selected[1]));
 
-        $instructor.empty().append($('<option>').val('').text('Выберите инструктора'));
-        matches.forEach(i => $instructor.append($('<option>').val(i.id).text(`${i.name} · ⭐ ${i.rating} · ${i.experience} лет`)));
-        if (matches.some(i => i.id === previous)) $instructor.val(previous);
-        updateInstructorHint();
+        $instructor.empty().append('<option value="">Выберите инструктора</option>');
+        available.forEach(t =>
+            $instructor.append($('<option>').val(t[0]).text(t[1]))
+        );
+
+        if (available.some(t => t[0] === previous)) $instructor.val(previous);
+        updateHint();
     }
 
-    // Update UI
+    function updateHint() {
+        const teacher = teachers.find(t => t[0] === $instructor.val());
+        $hint.text(teacher
+            ? 'Дни занятий: ' + teacher[3].map(d => days[d]).join(', ')
+            : '');
+    }
+
+    // Price calculation
+    function totalPrice() {
+        const sum = selected[3] + extra * 9000;
+        return promo ? sum * .9 : sum;
+    }
+
     function update() {
-        $('#selected-name').text(`Категория ${selected.code} — ${selected.title}`);
-        $('#total-price').text(extraValid ? money(selected.price + extra * 9000) : '—');
+        const base = selected[3];
+        const additional = extra * 9000;
+        const sum = base + additional;
 
-        $summary.text(`Категория ${selected.code} · ${money(selected.price + extra * 9000)} · ${selected.weeks} недель`);
-        $category.val(selected.code);
+        $('#package-name').text(`Категория ${selected[0]} — ${selected[2]}`);
+        $('#package-details').text(`${selected[4]} недель обучения`);
+        $('#package-icon').text(selected[5]);
+        $('#package-category, #category').val(selected[0]);
+        $('#base-price').text(money(base));
+        $('#extra-price').text(validExtra ? money(additional) : '—');
+        $('#discount-price').text('-' + money(sum * .1));
+        $('#discount-row').toggleClass('d-none',!promo);
+        $('#base-bar').css('width',validExtra ? `${base/sum*100}%` : '0%');
+        $('#extra-bar').css('width',validExtra ? `${additional/sum*100}%` : '0%');
+        $('#discount-bar').css('width',validExtra ? '10%' : '0%');
+        $('#total-price').text(validExtra ? money(totalPrice()) : '—');
 
-        $('[data-card]').each(function () {
-            const active = $(this).data('card') === selected.code;
-            $(this).css({ borderColor: active ? '#2563eb' : '#dee2e6',
-                boxShadow: active ? '0 10px 30px rgba(37,99,235,.15)' : '0 5px 20px rgba(16,32,62,.05)' });
-            $(this).find('button').removeClass('btn-primary').addClass('btn-outline-primary').text('Выбрать программу');
-        });
+        $summary.text(validExtra
+            ? `Категория ${selected[0]} · ${money(totalPrice())} · ${selected[4]} недель`
+            : 'Исправьте количество дополнительных занятий.');
     }
 
     function selectProgram(code) {
-        selected = programs.find(p => p.code === code) || programs[3];
-        update();
+        if (fixed) return;
+        const program = programs.find(p => p[0] === code);
+        if (!program || program === selected) return;
+
+        selected = program;
         updateInstructors();
-        $notice.addClass('d-none');
+        update();
         $feedback.empty();
     }
 
-    // Calculator Events
     function setExtra(value) {
-        const number = Number(value);
-        extraValid = value !== '' && Number.isInteger(number) && number >= 0 && number <= 20;
-
-        $('#extra-lessons').toggleClass('is-invalid', !extraValid);
-        $('#calc-error').toggleClass('d-none', extraValid);
-        if (extraValid) { extra = number; $('#extra-lessons').val(number); }
+        const n = Number(value);
+        validExtra = value !== '' && Number.isInteger(n) && n >= 0 && n <= 20;
+        $('#extra-lessons').toggleClass('is-invalid',!validExtra);
+        $('#calc-error').toggleClass('d-none',validExtra);
+        if (validExtra) extra = n;
         update();
     }
 
-    // Validation
+    // Events
+    $('#package-category, #category').on('change',function () {
+        selectProgram($(this).val());
+    });
+    $instructor.on('change',updateHint);
+
+    $('#minus').on('click',() => {
+        $('#extra-lessons').val(Math.max(0,extra-1));
+        setExtra($('#extra-lessons').val());
+    });
+    $('#plus').on('click',() => {
+        $('#extra-lessons').val(Math.min(20,extra+1));
+        setExtra($('#extra-lessons').val());
+    });
+    $('#extra-lessons').on('input',function () {
+        setExtra($(this).val());
+    }).on('blur',function () {
+        if (!validExtra) {
+            $(this).val(extra);
+            setExtra(extra);
+        }
+    });
+
+    $('#apply-promo').on('click',function () {
+        promo = $('#promo-code').val().trim().toUpperCase() === 'DRIVE10';
+        $('#promo-message')
+            .text(promo ? '✓ Промокод применён. Скидка 10%!' : 'Неверный промокод.')
+            .toggleClass('text-success',promo)
+            .toggleClass('text-warning',!promo)
+            .removeClass('text-white-50');
+        update();
+    });
+
+    $('#promo-code').on('input',function () {
+        if (!promo) return;
+        promo = false;
+        $('#promo-message').text('Промокод DRIVE10 — скидка 10% (демо).')
+            .removeClass('text-success text-warning').addClass('text-white-50');
+        update();
+    });
+
+    // Form validation
+    function lessonType() {
+        return fixed ? fixedType : $lessonTypes.filter(':checked').val();
+    }
+
     function readForm() {
         return {
-            name: $('#name').val().trim(), email: $('#email').val().trim(),
-            phone: $('#phone').val().trim(), date: $('#date').val(),
-            instructor: $instructor.val(), lesson: $form.find('[name="lesson-type"]:checked').val() || '',
-            consent: $('#consent').is(':checked'), comment: ($('#comment').val() || '').trim()
+            name: ($('#name').val() || '').trim(),
+            contact: ($('#contact').val() || '').trim(),
+            date: $('#date').val(),
+            instructor: $instructor.val(),
+            lesson: lessonType(),
+            consent: $('#consent').is(':checked'),
+            comment: ($('#comment').val() || '').trim()
         };
     }
 
     function validate(d) {
-        const errors = {}, teacher = findInstructor(d.instructor);
-        const date = new Date(d.date + 'T12:00:00');
+        const errors = {};
+        const teacher = teachers.find(t => t[0] === d.instructor);
+        const date = new Date((d.date || '') + 'T12:00:00');
+        const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.contact);
+        const phone = /^(\+7|8)\d{10}$/.test(d.contact.replace(/[\s()-]/g,''));
 
-        if (!/^[\p{L}\s'-]{2,60}$/u.test(d.name) || d.name.replace(/[^\p{L}]/gu, '').length < 2)
-            errors.name = 'Введите имя от 2 до 60 символов.';
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email) || d.email.length > 100)
-            errors.email = 'Введите корректный email.';
-        if (d.phone && !/^(\+7|8)\d{10}$/.test(d.phone.replace(/[\s()-]/g, '')))
-            errors.phone = 'Формат телефона: +7 700 000 00 00.';
+        if (!/^[\p{L}\s'-]{2,60}$/u.test(d.name))
+            errors.name = 'Введите корректное имя.';
+        if (!email && !phone)
+            errors.contact = 'Введите корректный email или телефон.';
+        if (!teacher || !teacher[2].includes(selected[1]))
+            errors.instructor = 'Выберите инструктора.';
+        if (!d.date || isNaN(date.getTime()) || dateText(date) !== d.date ||
+            d.date < today || d.date > lastDate)
+            errors.date = 'Выберите дату в ближайшие 90 дней.';
+        else if (teacher && !teacher[3].includes(date.getDay()))
+            errors.date = 'Инструктор не работает в этот день.';
+        if (!types[d.lesson])
+            errors['lesson-type'] = 'Выберите тип занятия.';
+        if (!d.consent)
+            errors.consent = 'Подтвердите согласие.';
 
-        if (!d.phone && d.lesson === 'practice') errors.phone = 'Для практики укажите телефон.';
-        if (!teacher) errors.instructor = 'Выберите инструктора.';
-        else if (!teacher.categories.includes(selected.parent)) errors.instructor = 'Инструктор не подходит категории.';
-
-        if (!d.date || Number.isNaN(date.getTime()) || localDate(date) !== d.date)
-            errors.date = 'Выберите корректную дату.';
-        else if (d.date < today || d.date > lastDate) errors.date = 'Выберите дату в ближайшие 90 дней.';
-        else if (teacher && !teacher.days.includes(date.getDay()))
-            errors.date = `Дни работы инструктора: ${teacher.days.map(x => DAYS[x]).join(', ')}.`;
-
-        if (!Object.hasOwn(LESSONS, d.lesson)) errors['lesson-type'] = 'Выберите тип занятия.';
-        if (!d.consent) errors.consent = 'Необходимо согласие на обработку данных.';
-        if (d.comment.length > 600) errors.comment = 'Максимум 600 символов.';
         return errors;
     }
 
@@ -240,114 +423,100 @@ $(function () {
         $form.find('.is-invalid').removeClass('is-invalid');
         $form.find('[data-error]').remove();
 
-        Object.entries(errors).forEach(([key, message]) => {
+        Object.entries(errors).forEach(([key,message]) => {
             const $field = $form.find(`[name="${key}"]`).first();
-            const $anchor = key === 'lesson-type' ? $field.closest('fieldset')
+            const $anchor = key === 'lesson-type' ? $lessonBlock
                 : key === 'consent' ? $field.closest('.form-check') : $field;
-            $form.find(`[name="${key}"]`).addClass('is-invalid');
-            $anchor.after($('<div class="text-danger small mt-1" data-error></div>')
-                .attr('data-error', key).text(message));
+
+            $field.addClass('is-invalid');
+            $('<div class="small text-danger mt-1" data-error>')
+                .text(message).insertAfter($anchor);
         });
     }
 
-    // Events
-    $('#program-cards').on('click', '[data-select]', function () {
-        selectProgram($(this).data('select'));
-    });
-    $('#program-cards').on('mouseenter mouseleave', '[data-card]', function (e) {
-        $(this).css('transform', e.type === 'mouseenter' ? 'translateY(-5px)' : '');
-    });
-
-    $category.on('change', function () { selectProgram($(this).val()); });
-    $instructor.on('change', function () { updateInstructorHint(); $notice.addClass('d-none'); });
-    $('#minus-lesson').on('click', () => setExtra(Math.max(0, extra - 1)));
-    $('#plus-lesson').on('click', () => setExtra(Math.min(20, extra + 1)));
-    $('#extra-lessons').on('input', function () { setExtra($(this).val()); });
-    $('#extra-lessons').on('blur', function () {
-        if (!extraValid) setExtra(extra);
-    });
-
-    $form.on('input change', 'input, select, textarea', function () {
-        const key = $(this).attr('name');
+    $form.on('input change','input, select, textarea',function () {
         $(this).removeClass('is-invalid');
-        if (key) $form.find('[data-error]').filter(function () {
-            return $(this).attr('data-error') === key;
-        }).remove();
+        $form.find('[data-error]').remove();
     });
 
-    // Submit
-    $form.on('submit', function (event) {
-        event.preventDefault();
+    // Form submission
+    $form.on('submit',function (e) {
+        e.preventDefault();
         $feedback.empty();
 
-        const data = readForm(), errors = validate(data);
+        const d = readForm();
+        const errors = validate(d);
         showErrors(errors);
+
+        if (!validExtra) return $('#extra-lessons').trigger('focus');
         if (Object.keys(errors).length) {
-            $form.find('.is-invalid').first().trigger('focus');
-            return;
+            return $form.find('.is-invalid').first().trigger('focus');
         }
-        if (!extraValid) { $('#extra-lessons').trigger('focus'); return; }
-        const teacher = findInstructor(data.instructor);
 
-        const lines = [
-            `Имя: ${data.name}`, `Email: ${data.email}`, `Телефон: ${data.phone || 'не указан'}`,
-            `Инструктор: ${teacher.name}`, `Программа: ${selected.code} (${selected.title})`,
-            `Тип занятия: ${LESSONS[data.lesson]}`, `Дата: ${data.date.split('-').reverse().join('.')}`,
-            `Дополнительные занятия: ${extra}`, `Стоимость: ${money(selected.price + extra * 9000)}`
+        const teacher = teachers.find(t => t[0] === d.instructor);
+        const details = [
+            ['Имя',d.name],['Контакт',d.contact],
+            ['Категория',selected[0]],['Инструктор',teacher[1]],
+            ['Тип обучения',types[d.lesson]],['Дата',d.date],
+            ['Доп. занятия',extra],
+            ['Промокод',promo ? 'DRIVE10 (−10%)' : 'Нет'],
+            ['Стоимость',money(totalPrice())]
         ];
-        if (data.comment) lines.push(`Комментарий: ${data.comment}`);
-        const $list = $('<ul class="mb-2"></ul>');
-        lines.forEach(line => $list.append($('<li>').text(line)));
 
-        const reference = `REQ-${1000 + Math.floor(Math.random() * 9000)}`;
-        $feedback.append($('<div class="alert alert-success"></div>').append(
-            '<p class="fw-bold mb-2">Заявка на пробный урок сформирована</p>', $list,
-            $('<p class="small mb-0"></p>').text(`Данные не отправляются на сервер. Временный номер: ${reference}.`)
-        )).hide().fadeIn(220);
+        if (d.comment) details.push(['Комментарий',d.comment]);
+
+        const $list = $('<ul class="mb-2">');
+        details.forEach(([key,value]) =>
+            $('<li>').text(`${key}: ${value}`).appendTo($list)
+        );
+
+        $feedback.append(
+            $('<div class="alert alert-success">').append(
+                '<strong>Заявка сформирована!</strong>',
+                $list,
+                '<small>Демонстрация: данные не отправлены на сервер.</small>'
+            )
+        );
     });
 
-    // Reset
-    $form.on('reset', function () {
-        setTimeout(function () {
-            selected = programs[3];
+    // Form reset
+    $form.on('reset',function () {
+        setTimeout(() => {
+            selected = initial;
             extra = 0;
-            extraValid = true;
+            validExtra = true;
+            promo = false;
+
             $('#extra-lessons').val(0).removeClass('is-invalid');
+            $('#promo-code').val('');
             $('#calc-error').addClass('d-none');
+            $('#promo-message').text('Промокод DRIVE10 — скидка 10% (демо).')
+                .removeClass('text-success text-warning').addClass('text-white-50');
+
             $feedback.empty();
-            $notice.addClass('d-none');
             showErrors({});
-            update();
             updateInstructors();
-        }, 0);
+            update();
+
+            if (schedule) {
+                $lessonTypes.filter(`[value="${fixedType}"]`).prop('checked',true);
+            }
+        },0);
     });
 
-    // Init
-    update();
+    // Initial state
     updateInstructors();
-    const teacher = findInstructor(params.get('instructor'));
+    update();
 
-    if (params.has('instructor')) {
-        $notice.removeClass('d-none');
-        if (teacher && teacher.categories.includes(selected.parent)) {
-            $instructor.val(teacher.id);
-            $notice.text(`Выбран инструктор ${teacher.name}, категория ${selected.code}.`);
-        } else $notice.text('Указанный инструктор не подходит выбранной категории.');
-    } else if (params.has('category')) {
-        $notice.removeClass('d-none').text(`Вы выбрали категорию ${selected.code}. Стоимость: ${money(selected.price)}.`);
+    const teacher = teachers.find(t => t[0] === params.get('instructor'));
+    if (teacher && teacher[2].includes(selected[1])) {
+        $instructor.val(teacher[0]);
+        updateHint();
     }
 
-    const type = params.get('type');
-    if (Object.hasOwn(LESSONS, type)) $form.find(`[name="lesson-type"][value="${type}"]`).prop('checked', true);
-    updateInstructorHint();
-
     if (location.hash === '#trial-form') {
-        const formTitle = $aside.find('h2').first().attr('tabindex', '-1').get(0);
-        if (formTitle) {
-            requestAnimationFrame(() => {
-                formTitle.scrollIntoView({ block: 'start' });
-                formTitle.focus({ preventScroll: true });
-            });
-        }
+        requestAnimationFrame(() =>
+            $form[0].scrollIntoView({behavior:'smooth'})
+        );
     }
 });
