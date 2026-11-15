@@ -1,14 +1,14 @@
-# Drive School
+# 🚗 Drive School
 
 **Introduction to Web Technologies — Final Project**
 
-Drive School is an interactive, responsive driving school website developed as a team project. It allows users to explore driving courses, compare prices, view schedules, find instructors, browse vehicles, and submit booking requests.
+Drive School is a responsive and interactive driving school website developed as a team project. It allows users to explore driving courses, compare prices, view schedules, find instructors, browse training vehicles, and submit booking requests.
 
-## GitHub Repository
+## 🔗 GitHub Repository
 
 https://github.com/AbdrTabyn/DriveSchool
 
-## Team Members
+## 👥 Team Members
 
 **Group: SE-2532**
 
@@ -18,35 +18,34 @@ https://github.com/AbdrTabyn/DriveSchool
 | Zharkynbek Orynbasar | About the School, Instructors |
 | Adilbek Nurasyl | Fleet, Contacts |
 
-## Technologies Used
+## 🛠 Technologies Used
 
-- HTML5 — page structure
-- CSS3 — styling and responsive design
-- Bootstrap 5.3.3 — responsive layout
-- JavaScript (ES6+) — dynamic functionality
-- jQuery 3.7.1 — DOM manipulation and events
-- Browser APIs — URL parameters and localStorage
+- **HTML5** — website structure
+- **CSS3** — styling
+- **Bootstrap 5.3.3** — responsive design
+- **JavaScript (ES6+)** — interactive functionality
+- **jQuery 3.7.1** — DOM manipulation and events
+- **Browser APIs** — URL parameters and localStorage
 
-## Website Pages
+## 📄 Website Pages
 
 ### 1. Home
-- Training programs
+- Training program information
 - Category filtering
 - Login form validation
 
 ### 2. Categories and Prices
 - Six driving license categories
-- Dynamic price calculator
-- Additional lessons and promo code `DRIVE10`
+- Interactive price calculator
+- Additional lessons and promotional discounts
 - Gift certificate
-- Instructor and date selection
-- Registration form validation
+- Instructor selection and booking form
 
 ### 3. Schedule
 - Four-week training schedule
-- Lesson search and filtering
-- Theory and practice lessons
-- Links to registration
+- Theory and practical lessons
+- Search and filtering
+- Lesson registration
 
 ### 4. About the School
 - School information
@@ -55,11 +54,11 @@ https://github.com/AbdrTabyn/DriveSchool
 
 ### 5. Instructors
 - Instructor profiles
-- Search and category filters
+- Search and filtering
 - Booking links
 
 ### 6. Fleet
-- Vehicle cards
+- Training vehicle information
 - Search, filtering, and sorting
 - Vehicle booking
 
@@ -68,44 +67,17 @@ https://github.com/AbdrTabyn/DriveSchool
 - Interactive FAQ
 - Contact form validation
 
-## JavaScript and jQuery
+## ⚙️ Main Features
 
-The website uses arrays, objects, functions, loops, conditions, and event handlers.
+- Responsive layout with Bootstrap
+- Dynamic content using JavaScript and jQuery
+- Interactive search and filtering
+- Price calculations and discounts
+- Form validation and confirmation messages
+- Connected booking workflows
+- Local storage for reviews
 
-Main functionality includes:
-
-- Dynamic content generation
-- DOM manipulation
-- Price calculations
-- Search and filtering
-- Form validation
-- URL parameter processing
-- jQuery events and effects
-
-## Improvements Since Endterm
-
-The final version focuses on improving the existing website:
-
-- Fixed navigation issues
-- Improved registration form layout
-- Improved connections between pages
-- Cleaned up JavaScript code
-- Added short English comments
-- Improved usability and consistency
-
-## User Scenarios
-
-**Training Program:** Select a category, calculate the price, choose an instructor and date, and submit the form.
-
-**Instructor Booking:** Find an instructor and continue to registration.
-
-**Schedule Booking:** Select a lesson and complete the booking form.
-
-**Vehicle Booking:** Filter vehicles, select one, and complete the booking interaction.
-
-**Gift Certificate:** Enter names, preview the certificate, and copy the congratulation message.
-
-## Project Structure
+## 📁 Project Structure
 
 ```text
 DriveSchool/
@@ -123,7 +95,7 @@ DriveSchool/
 └── README.md
 ```
 
-## How to Run
+## 🚀 How to Run
 
 1. Clone the repository:
 
@@ -132,15 +104,21 @@ DriveSchool/
 2. Open the project in a code editor.
 3. Open `html/index.html` in a browser.
 
-## Limitations
+An internet connection is required for Bootstrap and jQuery CDN resources.
 
-- No backend or database
-- Booking forms are front-end demonstrations
+## 🔧 Final Improvements
+
+The final version focuses on fixing existing issues, improving navigation and form functionality, cleaning up the code, and maintaining a consistent responsive design.
+
+## 📝 Limitations
+
+- Front-end project without a backend or database
+- Booking requests are demonstrated in the browser
 - Reviews are stored locally
-- No online payments
+- No online payment integration
 
 ## Conclusion
 
-Drive School demonstrates the use of HTML, CSS, Bootstrap, JavaScript, and jQuery to create an interactive and responsive website.
+Drive School demonstrates the practical application of HTML, CSS, Bootstrap, JavaScript, and jQuery to create a responsive and interactive website.
 
-The final version focuses on functionality, code quality, usability, and improvements to the existing project.
+The final project focuses on functionality, usability, and code quality.
