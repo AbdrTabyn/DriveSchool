@@ -1,4 +1,3 @@
-
 'use strict';
 
 $(function () {
@@ -67,7 +66,7 @@ $(function () {
     const group = lesson?.group === true;
     const requestedInstructor = params.get('instructor');
     const linkedTeacher = locked ? undefined : teachers.find(t => t[0] === requestedInstructor);
-    const availablePrograms = linkedTeacher ? programs.filter(p => linkedTeacher[2].includes(p[0])) : programs;
+    const availablePrograms = linkedTeacher ? programs.filter(p => linkedTeacher[2].includes(p[1])) : programs;
     const initial = availablePrograms.find(p => p[0] === category)
         || availablePrograms.find(p => p[0] === 'B') || availablePrograms[0];
     const linkedType = types[type] ? type : linkedTeacher && 'practice';
@@ -179,9 +178,30 @@ $(function () {
     const options = availablePrograms.map(p => `<option value="${p[0]}">Категория ${p[0]}</option>`).join('');
     $('#category, #package-category').html(options);
 
-    const $contact = $(`<div class="mb-3"><label for="contact" class="form-label">Email или телефон</label><input id="contact" name="contact" class="form-control" placeholder="Email или +7 700 000 00 00" required></div>`);
+    const $contact = $(`<div class="mb-3">
+        <label for="contact" class="form-label">Телефон</label>
+        <div class="input-group">
+            <span class="input-group-text">+77</span>
+            <input id="contact" name="contact" type="tel" class="form-control"
+                   inputmode="numeric" maxlength="9" placeholder="123456789">
+        </div>
+    </div>`);
     $('#name').closest('.mb-3').after($contact);
-    $('#email, #phone').each(function () { $(this).closest('.mb-3').remove(); });
+    $('#phone').closest('.mb-3').remove();
+    $('#email').prop('required', false);
+    $('#name').closest('.mb-3').after(`
+    <div id="contact-heading" class="mb-3">
+        <label class="form-label fw-semibold">
+            Предпочтительный способ связи
+        </label>
+        <p class="text-muted small mb-2">
+            Укажите телефон, Email или оба варианта.
+        </p>
+    </div>
+`);
+    $('#contact').on('input', function () {
+        this.value = this.value.replace(/\D/g, '').slice(0, 9);
+    });
 
     $('#instructor').closest('.mb-3').remove();
     const $instructor = $('<select id="instructor" name="instructor" class="form-select">')
@@ -228,8 +248,8 @@ $(function () {
     } else {
         $date.attr({ min: today, max: lastDate });
     }
-    $contact.after($dateBlock);
-
+    $('#email').closest('.mb-3').after($dateBlock);
+    
     // Form summary
     const $summary = $('<div class="rounded-3 p-3 mb-3" style="background:#edf2fa">');
     $form.find('button[type="submit"]').first().parent().before($summary);
@@ -243,10 +263,12 @@ $(function () {
     function canTeach(t) {
         return t[2].includes(selected[1]) && (!lesson || t[3].includes(lesson.day));
     }
+
     function hint() {
         const t = teachers.find(x => x[0] === $instructor.val());
         $hint.text(t ? 'Дни занятий: ' + t[3].map(d => days[d]).join(', ') : '');
     }
+
     function updateTeachers() {
         if (group) return;
         if (linkedTeacher) {
@@ -266,6 +288,7 @@ $(function () {
     function total() {
         return (selected[3] + extra * 9000) * (promo ? 0.9 : 1);
     }
+
     function update() {
         const base = selected[3], add = extra * 9000, sum = base + add;
         $('#category, #package-category').val(selected[0]);
@@ -281,6 +304,7 @@ $(function () {
         $('#total-price').text(validExtra ? money(total()) : '—');
         $summary.text(validExtra ? `Категория ${selected[0]} · ${selected[4]} недель · ${money(total())}` : 'Исправьте количество занятий.');
     }
+
     function setExtra(v) {
         const n = Number(v);
         validExtra = v !== '' && Number.isInteger(n) && n >= 0 && n <= 20;
@@ -298,22 +322,27 @@ $(function () {
         update();
         $feedback.empty();
     });
+
     $instructor.on('change', hint);
+
     $('#minus, #plus').on('click', function () {
         const n = Math.max(0, Math.min(20, extra + (this.id === 'plus' ? 1 : -1)));
         $('#extra-lessons').val(n);
         setExtra(n);
     });
+
     $('#extra-lessons').on('input', function () {
         setExtra($(this).val());
     }).on('blur', function () {
         if (!validExtra) { $(this).val(extra); setExtra(extra); }
     });
+
     $('#apply-promo').on('click', function () {
         promo = $('#promo-code').val().trim().toUpperCase() === 'DRIVE10';
         $('#promo-message').text(promo ? '✓ Скидка 10% применена!' : 'Неверный промокод.');
         update();
     });
+
     $('#promo-code').on('input', function () {
         promo = false;
         $('#promo-message').text('DRIVE10 — скидка 10% (демо).');
@@ -324,6 +353,7 @@ $(function () {
     function validate() {
         const d = {
             name: ($('#name').val() || '').trim(),
+            email: ($('#email').val() || '').trim(),
             contact: ($('#contact').val() || '').trim(),
             date: $date.val(),
             instructor: linkedTeacher?.[0] ?? $instructor.val(),
@@ -334,7 +364,9 @@ $(function () {
         const day = new Date((d.date || '') + 'T12:00:00');
 
         if (!/^[\p{L}\s'-]{2,60}$/u.test(d.name)) errors.name = 'Введите корректное имя.';
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.contact) && !/^(\+7|8)\d{10}$/.test(d.contact.replace(/[\s()-]/g, ''))) errors.contact = 'Введите email или телефон.';
+        if (!d.email && !d.contact) errors.email = 'Укажите Email или телефон.';
+        if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) errors.email = 'Введите корректный Email.';
+        if (d.contact && !/^\d{9}$/.test(d.contact)) errors.contact = 'Введите 9 цифр после +77.';
         if (!group && (!teacher || !canTeach(teacher))) errors.instructor = 'Выберите инструктора.';
         if (!d.date || isNaN(day.getTime()) || dateText(day) !== d.date || d.date < today || d.date > lastDate) errors.date = 'Выберите дату в ближайшие 90 дней.';
         else if (lesson && !dates.some(x => dateText(x) === d.date)) errors.date = 'Выберите дату из расписания.';
@@ -343,6 +375,7 @@ $(function () {
         if (!$('#consent').is(':checked')) errors.consent = 'Подтвердите согласие.';
         return { d, errors, teacher };
     }
+
     function showErrors(errors) {
         $form.find('[data-error]').remove();
         $form.find('.is-invalid').removeClass('is-invalid');
@@ -353,6 +386,7 @@ $(function () {
             $('<div class="small text-danger mt-1">').attr('data-error', key).text(msg).insertAfter($anchor);
         });
     }
+
     $form.on('input change', 'input, select, textarea', function () {
         $form.find(`[name="${this.name}"]`).removeClass('is-invalid');
         $form.find(`[data-error="${this.name}"]`).remove();
@@ -370,10 +404,13 @@ $(function () {
             else $form.find('.is-invalid').first().trigger('focus');
             return;
         }
+
         const details = [
-            ['Имя', d.name], ['Контакт', d.contact], ['Категория', selected[0]],
+            ['Имя', d.name], ['Категория', selected[0]],
             ['Тип обучения', types[d.type]], ['Дата', d.date]
         ];
+        if (d.email) details.push(['Email', d.email]);
+        if (d.contact) details.push(['Телефон', '+77' + d.contact]);
         if (!group) details.push(['Инструктор', teacher[1]]);
         if (lesson) details.push(['Занятие', lesson.title], ['Время', lesson.time]);
         else details.push(['Доп. занятия', extra], ['Промокод', promo ? 'DRIVE10' : 'Нет'], ['Стоимость', money(total())]);
