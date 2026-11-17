@@ -280,7 +280,7 @@ $(function () {
             updateFleetView();
         });
 
-        // Клик по кнопке бронирования: передаем категорию машины для фильтрации инструкторов
+        // Клик по кнопке бронирования
         $main.on('click', '.book-car-btn', function (event) {
             event.preventDefault();
             const carId = Number($(this).attr('data-car-id'));
@@ -291,7 +291,6 @@ $(function () {
             $('#booking-car-name').text(selectedCar.brand);
             $('#booking-price').text(`${selectedCar.pricePerLesson} ₸/ч`);
 
-            // Обновляем список инструкторов в зависимости от категории автомобиля (A, B, C)
             updateInstructorsDropdown(selectedCar.category);
 
             const $booking = $('#fleet-booking-form');
@@ -322,7 +321,7 @@ $(function () {
         updateFleetView();
     }
 
-    // Список инструкторов со стажем и рейтингом (синхронизирован с instructor.js)
+    // Список инструкторов со стажем и рейтингом
     const instructorsList = [
         { id: 'aman', name: 'Артықбаев Аман', experience: 10, rating: 4.9, categories: ['A', 'B'] },
         { id: 'bekzat', name: 'Жақсыбай Бекзат', experience: 7, rating: 4.7, categories: ['A', 'B'] },
@@ -342,7 +341,6 @@ $(function () {
         $select.empty();
         $select.append('<option value="" selected disabled>-- Выберите инструктора --</option>');
 
-        // Фильтруем инструкторов по категории выбранного автомобиля
         const availableInstructors = instructorsList.filter(function (inst) {
             return inst.categories.includes(carCategory);
         });
@@ -377,7 +375,7 @@ $(function () {
             </div>
             <div class="mb-3">
                 <label for="booking-phone" class="form-label">Телефон</label>
-                <input type="tel" id="booking-phone" name="phone" class="form-control" placeholder="+77011234567" required>
+                <input type="tel" id="booking-phone" name="phone" class="form-control" value="+77" required>
                 <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3">
@@ -409,6 +407,32 @@ $(function () {
 
         $('main').append($booking);
 
+        // ЛОГИКА ТЕЛЕФОНА: фиксированный префикс +77, защита от стирания и лимит 11 цифр
+        $booking.on('keydown', '#booking-phone', function (e) {
+            const cursorPosition = this.selectionStart;
+            if ((e.key === 'Backspace' || e.key === 'Delete') && cursorPosition <= 3) {
+                e.preventDefault();
+            }
+        });
+
+        $booking.on('input', '#booking-phone', function () {
+            let value = this.value;
+            if (!value.startsWith('+77')) {
+                value = '+77' + value.replace(/\D/g, '');
+            }
+            let digits = value.slice(2).replace(/\D/g, '');
+            if (digits.length > 11) {
+                digits = digits.slice(0, 11);
+            }
+            this.value = '+' + digits;
+        });
+
+        $booking.on('click', '#booking-phone', function () {
+            if (this.selectionStart < 3) {
+                this.setSelectionRange(this.value.length, this.value.length);
+            }
+        });
+
         function setFieldState($field, valid, message) {
             const $group = $field.closest('.mb-3, .form-check');
             const $message = $group.find('.invalid-feedback');
@@ -428,8 +452,9 @@ $(function () {
             }
 
             if (id === 'booking-phone') {
-                const valid = /^\+?[0-9\s()\-]{10,18}$/.test(value);
-                setFieldState($field, valid, 'Введите корректный номер телефона.');
+                // Проверка: префикс +77 и ровно 9 цифр после него (всего 11 цифр)
+                const valid = /^\+77[0-9]{9}$/.test(value);
+                setFieldState($field, valid, 'Введите корректный номер телефона (9 цифр после +77).');
                 return valid;
             }
 
@@ -502,6 +527,7 @@ $(function () {
                 .fadeIn(400);
 
             $booking[0].reset();
+            $('#booking-phone').val('+77'); // Возвращаем дефолтный префикс при сбросе
             $booking.find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
 
             $success.delay(5000).fadeOut(500, function () {
@@ -511,6 +537,7 @@ $(function () {
 
         $booking.on('reset', function () {
             $(this).find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
+            setTimeout(() => { $('#booking-phone').val('+77'); }, 0);
         });
     }
 
