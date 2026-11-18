@@ -375,7 +375,7 @@ $(function () {
             </div>
             <div class="mb-3">
                 <label for="booking-phone" class="form-label">Телефон</label>
-                <input type="tel" id="booking-phone" name="phone" class="form-control" value="+77" required>
+                <input type="tel" id="booking-phone" name="phone" class="form-control" value="+7" required>
                 <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3">
@@ -407,20 +407,20 @@ $(function () {
 
         $('main').append($booking);
 
-        // ЛОГИКА ТЕЛЕФОНА: фиксированный префикс +77, защита от стирания и лимит 11 цифр
+        // ЛОГИКА ТЕЛЕФОНА: фиксированный префикс +7, защита от стирания и лимит 11 цифр всего (+7 и 10 цифр номера)
         $booking.on('keydown', '#booking-phone', function (e) {
             const cursorPosition = this.selectionStart;
-            if ((e.key === 'Backspace' || e.key === 'Delete') && cursorPosition <= 3) {
+            if ((e.key === 'Backspace' || e.key === 'Delete') && cursorPosition <= 2) {
                 e.preventDefault();
             }
         });
 
         $booking.on('input', '#booking-phone', function () {
             let value = this.value;
-            if (!value.startsWith('+77')) {
-                value = '+77' + value.replace(/\D/g, '');
+            if (!value.startsWith('+7')) {
+                value = '+7' + value.replace(/\D/g, '');
             }
-            let digits = value.slice(2).replace(/\D/g, '');
+            let digits = value.slice(1).replace(/\D/g, '');
             if (digits.length > 11) {
                 digits = digits.slice(0, 11);
             }
@@ -428,7 +428,7 @@ $(function () {
         });
 
         $booking.on('click', '#booking-phone', function () {
-            if (this.selectionStart < 3) {
+            if (this.selectionStart < 2) {
                 this.setSelectionRange(this.value.length, this.value.length);
             }
         });
@@ -452,9 +452,9 @@ $(function () {
             }
 
             if (id === 'booking-phone') {
-                // Проверка: префикс +77 и ровно 9 цифр после него (всего 11 цифр)
-                const valid = /^\+77[0-9]{9}$/.test(value);
-                setFieldState($field, valid, 'Введите корректный номер телефона (9 цифр после +77).');
+                // Проверка: префикс +7 и ровно 10 цифр после него (всего 11 цифр)
+                const valid = /^\+7[0-9]{10}$/.test(value);
+                setFieldState($field, valid, 'Введите корректный номер телефона (10 цифр после +7).');
                 return valid;
             }
 
@@ -527,7 +527,7 @@ $(function () {
                 .fadeIn(400);
 
             $booking[0].reset();
-            $('#booking-phone').val('+77'); // Возвращаем дефолтный префикс при сбросе
+            $('#booking-phone').val('+7'); // Возвращаем дефолтный префикс при сбросе
             $booking.find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
 
             $success.delay(5000).fadeOut(500, function () {
@@ -537,7 +537,7 @@ $(function () {
 
         $booking.on('reset', function () {
             $(this).find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
-            setTimeout(() => { $('#booking-phone').val('+77'); }, 0);
+            setTimeout(() => { $('#booking-phone').val('+7'); }, 0);
         });
     }
 
